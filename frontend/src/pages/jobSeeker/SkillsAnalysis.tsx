@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useApp } from '../../context/AppContext';
-import { mockSkillAnalysis, simulateApiCall } from '../../services/mockData';
+import { mockSkillGapAnalysis, simulateApiCall } from '../../services/mockData';
 import { SkillGapAnalysis, LearningPath } from '../../types';
 import Loading from '../../components/shared/Loading';
 
@@ -21,7 +21,7 @@ const SkillsAnalysis: React.FC = () => {
     setIsLoading(true);
     try {
       await simulateApiCall(null, 800);
-      setAnalysis(mockSkillAnalysis);
+      setAnalysis(mockSkillGapAnalysis);
     } catch (error) {
       showModal({
         type: 'error',
@@ -41,7 +41,7 @@ const SkillsAnalysis: React.FC = () => {
       await simulateApiCall(null, 2000);
       
       const newAnalysis: SkillGapAnalysis = {
-        ...mockSkillAnalysis,
+        ...mockSkillGapAnalysis,
         targetRole: selectedRole,
         generatedAt: new Date().toISOString()
       };
