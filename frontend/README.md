@@ -1,70 +1,160 @@
-# Getting Started with Create React App
+# AccessJobs - Frontend
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A beautiful, modern job recommendation system frontend built with React, TypeScript, and Tailwind CSS.
 
-## Available Scripts
+## 🚀 Features
 
-In the project directory, you can run:
+- **Beautiful UI/UX** - Modern, responsive design with Tailwind CSS
+- **TypeScript** - Full type safety and better development experience
+- **Authentication System** - Login/register with demo accounts
+- **Job Search & Recommendations** - AI-powered job matching
+- **Application Tracking** - Track your job applications
+- **Profile Management** - Manage your skills, experience, and preferences
+- **Admin Dashboard** - Administrative interface for job and user management
+- **Responsive Design** - Works perfectly on desktop, tablet, and mobile
+- **Accessibility** - Built with accessibility best practices
+- **Linting & Formatting** - ESLint and Prettier for code quality
 
-### `npm start`
+## 🛠 Tech Stack
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- **React 18** - Modern React with hooks and concurrent features
+- **TypeScript** - Type-safe JavaScript
+- **Tailwind CSS** - Utility-first CSS framework
+- **React Router** - Client-side routing
+- **Heroicons** - Beautiful SVG icons
+- **ESLint & Prettier** - Code linting and formatting
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## 📦 Installation
 
-### `npm test`
+1. **Install dependencies:**
+   ```bash
+   npm install
+   ```
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+2. **Start the development server:**
+   ```bash
+   npm start
+   ```
 
-### `npm run build`
+3. **Open your browser:**
+   Navigate to [http://localhost:3000](http://localhost:3000)
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## 🔧 Available Scripts
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- `npm start` - Start the development server
+- `npm run build` - Build for production
+- `npm test` - Run tests
+- `npm run lint` - Run ESLint
+- `npm run lint:fix` - Fix ESLint issues automatically
+- `npm run format` - Format code with Prettier
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## 🎭 Demo Accounts
 
-### `npm run eject`
+### Job Seeker Account
+- **Email:** john.doe@email.com
+- **Password:** password123
+- **Features:** Browse jobs, get recommendations, apply to positions, track applications
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### Admin Account
+- **Email:** admin@accessjobs.com
+- **Password:** password123
+- **Features:** Manage jobs, view users, analytics dashboard, system administration
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## 🎨 Design System
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+The application uses a comprehensive design system with:
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+- **Color Palette:** Primary blue, secondary grays, success green, warning amber, danger red
+- **Typography:** Inter font family for modern, readable text
+- **Components:** Reusable UI components with consistent styling
+- **Animations:** Smooth transitions and micro-interactions
+- **Responsive Breakpoints:** Mobile-first design with Tailwind's breakpoint system
 
-## Learn More
+## 📱 Pages & Features
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### Public Pages
+- **Landing Page** - Hero section, features overview, call-to-action
+- **Login/Register** - Authentication with form validation
+- **Job Listings** - Public job browsing
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### Job Seeker Pages
+- **Dashboard** - Personalized job recommendations
+- **Job Search** - Advanced search with filters
+- **Job Details** - Detailed job information and application
+- **Applications** - Track application status and interviews
+- **Profile** - Manage skills, experience, and preferences
+- **Bookmarks** - Saved jobs and notes
 
-### Code Splitting
+### Admin Pages
+- **Admin Dashboard** - System overview and analytics
+- **Job Management** - Create, edit, and manage job postings
+- **User Management** - View and manage user accounts
+- **Analytics** - Detailed system metrics and reporting
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+## 🔐 Security Features
 
-### Analyzing the Bundle Size
+- **Protected Routes** - Authentication-based route protection
+- **Form Validation** - Client-side and server-side validation
+- **XSS Protection** - Safe rendering of user content
+- **CSRF Protection** - Cross-site request forgery prevention
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+## 🎯 Mock Data
 
-### Making a Progressive Web App
+The application includes comprehensive mock data:
+- **Users:** Job seekers and admin users with detailed profiles
+- **Jobs:** Realistic job postings with company information
+- **Applications:** Sample application tracking data
+- **Recommendations:** AI-powered job matching simulation
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+## 🏗 Project Structure
 
-### Advanced Configuration
+```
+src/
+├── components/          # Reusable UI components
+│   ├── common/         # Generic components (Button, Input, Modal)
+│   ├── layout/         # Layout components (Header, Footer)
+│   ├── auth/           # Authentication components
+│   └── jobs/           # Job-related components
+├── pages/              # Page components
+├── context/            # React context providers
+├── data/               # Mock data and API functions
+├── types/              # TypeScript type definitions
+└── styles/             # Global styles and Tailwind config
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+## 🚀 Deployment
 
-### Deployment
+1. **Build the application:**
+   ```bash
+   npm run build
+   ```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+2. **Deploy the `build` folder** to your preferred hosting service:
+   - Vercel
+   - Netlify
+   - AWS S3 + CloudFront
+   - Firebase Hosting
 
-### `npm run build` fails to minify
+## 🤝 Contributing
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+1. Fork the repository
+2. Create a feature branch: `git checkout -b feature/amazing-feature`
+3. Commit your changes: `git commit -m 'Add amazing feature'`
+4. Push to the branch: `git push origin feature/amazing-feature`
+5. Open a Pull Request
+
+## 📄 License
+
+This project is licensed under the MIT License.
+
+## 🆘 Support
+
+If you encounter any issues or have questions:
+
+1. Check the existing issues on GitHub
+2. Create a new issue with detailed information
+3. Contact the development team
+
+---
+
+**Happy job hunting! 🎯**
