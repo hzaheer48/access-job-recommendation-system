@@ -170,7 +170,7 @@ const AdminDashboard: React.FC = () => {
                       <span className={`inline-flex items-center px-2 py-1 rounded-full text-xs font-medium ${
                         application.status === 'applied' ? 'bg-primary-100 text-primary-800' :
                         application.status === 'under_review' ? 'bg-warning-100 text-warning-800' :
-                        application.status === 'offer_received' ? 'bg-success-100 text-success-800' :
+                        application.status === 'offer_made' ? 'bg-success-100 text-success-800' :
                         'bg-secondary-100 text-secondary-800'
                       }`}>
                         {application.status.replace('_', ' ')}
@@ -218,7 +218,7 @@ const AdminDashboard: React.FC = () => {
                   <CheckCircleIcon className="h-8 w-8 text-success-600" />
                 </div>
                 <p className="text-2xl font-bold text-secondary-900">
-                  {mockApplications.filter(app => app.status === 'offer_received').length}
+                  {mockApplications.filter(app => app.status === 'offer_made').length}
                 </p>
                 <p className="text-sm text-secondary-600">Offers Extended</p>
               </div>
@@ -228,7 +228,7 @@ const AdminDashboard: React.FC = () => {
                   <ChartBarIcon className="h-8 w-8 text-secondary-600" />
                 </div>
                 <p className="text-2xl font-bold text-secondary-900">
-                  {Math.round((mockApplications.filter(app => app.status === 'offer_received').length / totalApplications) * 100)}%
+                  {Math.round((mockApplications.filter(app => app.status === 'offer_made').length / totalApplications) * 100)}%
                 </p>
                 <p className="text-sm text-secondary-600">Success Rate</p>
               </div>

@@ -20,6 +20,7 @@ import Input from '../components/common/Input';
 const Profile: React.FC = () => {
   const { user } = useAuth();
   const [activeTab, setActiveTab] = useState('overview');
+  const [editingSection, setEditingSection] = useState<string | null>(null);
   const [profileData, setProfileData] = useState(() => {
     const fullUser = mockUsers.find(u => u.id === user?.id);
     return fullUser || user;

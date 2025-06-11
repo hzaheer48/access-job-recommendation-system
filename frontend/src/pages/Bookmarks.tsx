@@ -112,7 +112,7 @@ const Bookmarks: React.FC = () => {
                     
                     <div className="flex items-center space-x-2">
                       <div className="text-sm text-secondary-500">
-                        Saved {getTimeAgo(bookmark.savedAt)}
+                        Saved {getTimeAgo(bookmark.savedAt || bookmark.createdDate)}
                       </div>
                       <button className="p-2 text-secondary-400 hover:text-danger-600 transition-colors">
                         <TrashIcon className="h-5 w-5" />

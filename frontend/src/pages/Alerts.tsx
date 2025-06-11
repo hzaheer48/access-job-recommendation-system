@@ -214,7 +214,7 @@ const Alerts: React.FC = () => {
                   <div className="flex items-center justify-between pt-4 border-t border-secondary-200">
                     <div className="flex items-center space-x-4 text-sm text-secondary-500">
                       <span>Frequency: {alert.frequency}</span>
-                      <span>Created: {new Date(alert.createdAt).toLocaleDateString()}</span>
+                      <span>Created: {new Date(alert.createdAt || alert.createdDate).toLocaleDateString()}</span>
                       <span>Last triggered: {alert.lastTriggered ? new Date(alert.lastTriggered).toLocaleDateString() : 'Never'}</span>
                     </div>
                     <div className="text-sm text-secondary-500">

@@ -80,11 +80,17 @@ const Applications: React.FC = () => {
         icon: VideoCameraIcon,
         label: 'Final Interview',
       },
-      offer_received: {
+      offer_made: {
         color: 'text-success-600',
         bgColor: 'bg-success-100',
         icon: CheckCircleIcon,
-        label: 'Offer Received',
+        label: 'Offer Made',
+      },
+      accepted: {
+        color: 'text-success-600',
+        bgColor: 'bg-success-100',
+        icon: CheckCircleIcon,
+        label: 'Accepted',
       },
       rejected: {
         color: 'text-danger-600',
@@ -129,7 +135,7 @@ const Applications: React.FC = () => {
     phone_screening: userApplications.filter(app => app.status === 'phone_screening').length,
     technical_interview: userApplications.filter(app => app.status === 'technical_interview').length,
     final_interview: userApplications.filter(app => app.status === 'final_interview').length,
-    offer_received: userApplications.filter(app => app.status === 'offer_received').length,
+    offer_made: userApplications.filter(app => app.status === 'offer_made').length,
     rejected: userApplications.filter(app => app.status === 'rejected').length,
     withdrawn: userApplications.filter(app => app.status === 'withdrawn').length,
   };
@@ -210,17 +216,17 @@ const Applications: React.FC = () => {
                 }</span>
               </div>
               <div className="flex items-center space-x-2">
-                {['applied', 'under_review', 'phone_screening', 'technical_interview', 'final_interview', 'offer_received'].map((status, index) => (
+                {['applied', 'under_review', 'phone_screening', 'technical_interview', 'final_interview', 'offer_made'].map((status, index) => (
                   <div key={status} className="flex items-center">
                     <div className={`w-3 h-3 rounded-full ${
-                      ['applied', 'under_review', 'phone_screening', 'technical_interview', 'final_interview', 'offer_received']
+                      ['applied', 'under_review', 'phone_screening', 'technical_interview', 'final_interview', 'offer_made']
                         .indexOf(application.status) >= index
                         ? 'bg-primary-500'
                         : 'bg-secondary-200'
                     }`}></div>
                     {index < 5 && (
                       <div className={`w-8 h-0.5 ${
-                        ['applied', 'under_review', 'phone_screening', 'technical_interview', 'final_interview', 'offer_received']
+                        ['applied', 'under_review', 'phone_screening', 'technical_interview', 'final_interview', 'offer_made']
                           .indexOf(application.status) > index
                           ? 'bg-primary-500'
                           : 'bg-secondary-200'
@@ -259,7 +265,7 @@ const Applications: React.FC = () => {
               </Button>
             </div>
             
-            {application.status === 'offer_received' && (
+            {application.status === 'offer_made' && (
               <div className="flex space-x-2">
                 <Button variant="outline" size="sm">
                   Decline
@@ -332,7 +338,7 @@ const Applications: React.FC = () => {
                 <CheckCircleIcon className="h-6 w-6 text-success-600" />
               </div>
               <div className="ml-4">
-                <p className="text-2xl font-bold text-secondary-900">{statusCounts.offer_received}</p>
+                <p className="text-2xl font-bold text-secondary-900">{statusCounts.offer_made}</p>
                 <p className="text-sm text-secondary-600">Offers</p>
               </div>
             </div>
@@ -363,7 +369,7 @@ const Applications: React.FC = () => {
                 <option value="phone_screening">Phone Screening ({statusCounts.phone_screening})</option>
                 <option value="technical_interview">Technical Interview ({statusCounts.technical_interview})</option>
                 <option value="final_interview">Final Interview ({statusCounts.final_interview})</option>
-                <option value="offer_received">Offer Received ({statusCounts.offer_received})</option>
+                <option value="offer_made">Offer Made ({statusCounts.offer_made})</option>
                 <option value="rejected">Rejected ({statusCounts.rejected})</option>
                 <option value="withdrawn">Withdrawn ({statusCounts.withdrawn})</option>
               </select>

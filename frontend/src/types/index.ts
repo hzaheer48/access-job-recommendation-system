@@ -8,6 +8,17 @@ export interface User {
   profile?: JobSeekerProfile;
   createdAt: string;
   isActive: boolean;
+  avatar?: string;
+  title?: string;
+  phone?: string;
+  location?: string;
+  website?: string;
+  bio?: string;
+  experience?: Experience[];
+  education?: Education[];
+  skills?: string[];
+  isDeactivated?: boolean;
+  lastLogin?: string;
 }
 
 export interface JobSeekerProfile {
@@ -93,6 +104,7 @@ export interface Job {
   isActive: boolean;
   applicationCount: number;
   views: number;
+  industry?: string;
 }
 
 export interface Company {
@@ -180,6 +192,13 @@ export interface JobAlert {
   frequency: AlertFrequency;
   lastSent?: string;
   createdDate: string;
+  query?: string;
+  location?: string;
+  salaryMin?: string;
+  jobTypes?: string[];
+  createdAt?: string;
+  lastTriggered?: string;
+  matchCount?: number;
 }
 
 export interface AlertCriteria {
@@ -202,6 +221,7 @@ export interface Bookmark {
   job: Job;
   createdDate: string;
   notes?: string;
+  savedAt?: string;
 }
 
 // Search Types
