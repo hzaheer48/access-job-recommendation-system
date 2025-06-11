@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Hackathon Timeline</title>
+    <!-- Chosen Palette: Slate Gray & Indigo -->
+    <!-- Application Structure Plan: The application uses a top-down dashboard structure. It begins with a high-level overview including key statistics (total time, tasks) and an interactive donut chart for phase time allocation. This gives an immediate, quantifiable summary of the project. Below this, a detailed, interactive phase-by-phase breakdown is presented using an accordion layout. This structure was chosen to cater to two user journeys: a quick overview for stakeholders and a detailed deep-dive for team members, all without leaving the page. Filtering by owner adds a dynamic layer for tracking individual responsibilities, enhancing usability. -->
+    <!-- Visualization & Content Choices: A donut chart (via Chart.js) was chosen for the overview to visually and interactively compare the time commitment of each phase (Goal: Compare). The core project plan is organized into collapsible accordion sections (Goal: Organize) to manage information density and allow users to focus on one phase at a time. Tasks, owners, and deliverables are presented as distinct lists with icons for quick visual parsing (Goal: Inform). An interactive dropdown filter allows users to see task distribution by owner, enabling a relationship-based view of the data (Goal: Relationships). This approach avoids a complex Gantt chart, providing clarity and interactivity within the project's constraints. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc; /* slate-50 */
+        }
+        .chart-container {
+            position: relative;
+            margin: auto;
+            height: 300px;
+            max-height: 350px;
+            width: 100%;
+            max-width: 350px;
+        }
+        .phase-card.highlight {
+            border-color: #4f46e5; /* indigo-600 */
+            box-shadow: 0 0 15px rgba(79, 70, 229, 0.2);
+            transform: scale(1.02);
+        }
+        .task.highlight {
+            background-color: #e0e7ff; /* indigo-100 */
+        }
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-in-out;
+        }
+    </style>
+</head>
+<body class="text-slate-800">
+
+    <div class="container mx-auto p-4 md:p-8 max-w-7xl">
+        
+        <header class="text-center mb-10">
+            <h1 class="text-3xl md:text-4xl font-bold text-slate-900">Access Job Recommendation System</h1>
+            <p class="text-lg text-slate-600 mt-2">Interactive Hackathon Implementation Timeline</p>
+        </header>
+
+        <main>
+            <!-- Overview Section -->
+            <section id="overview" class="mb-12">
+                <div class="text-center mb-8">
+                    <h2 class="text-2xl font-bold text-slate-800">Project Overview</h2>
+                    <p class="mt-2 text-slate-500 max-w-2xl mx-auto">
+                        This dashboard provides a visual breakdown of the hackathon timeline. Use the chart to see time allocation per phase, or filter by team member to see task distribution.
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 items-center">
+                    <div class="md:col-span-1">
+                        <div class="grid grid-cols-2 sm:grid-cols-2 gap-4 text-center">
+                            <div class="bg-white p-4 rounded-lg shadow-md border border-slate-200">
+                                <p class="text-sm text-slate-500">Total Hours</p>
+                                <p id="total-hours" class="text-3xl font-bold text-indigo-600">0</p>
+                            </div>
+                            <div class="bg-white p-4 rounded-lg shadow-md border border-slate-200">
+                                <p class="text-sm text-slate-500">Total Tasks</p>
+                                <p id="total-tasks" class="text-3xl font-bold text-indigo-600">0</p>
+                            </div>
+                            <div class="bg-white p-4 rounded-lg shadow-md border border-slate-200 col-span-2">
+                                <label for="owner-filter" class="block text-sm font-medium text-slate-700 mb-1">Filter by Owner</label>
+                                <select id="owner-filter" class="w-full p-2 border border-slate-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500">
+                                    <option value="all">All Team Members</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="md:col-span-2 bg-white p-6 rounded-lg shadow-md border border-slate-200">
+                        <h3 class="text-lg font-semibold text-center text-slate-700 mb-4">Time Distribution per Phase (Hours)</h3>
+                        <div class="chart-container">
+                            <canvas id="phaseChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Phases Section -->
+            <section id="phases-container">
+                 <div class="text-center mb-8">
+                    <h2 class="text-2xl font-bold text-slate-800">Project Phases</h2>
+                    <p class="mt-2 text-slate-500 max-w-2xl mx-auto">
+                        Click on any phase title to expand its details, including the goal, owners, tasks, and deliverables.
+                    </p>
+                </div>
+                <div id="phases-accordion" class="space-y-4">
+                    <!-- Phase cards will be dynamically inserted here -->
+                </div>
+            </section>
+        </main>
+        
+        <footer class="text-center mt-12 pt-8 border-t border-slate-200">
+            <p class="text-sm text-slate-500">&copy; 2025 Access Job Recommendation System Team. All Rights Reserved.</p>
+        </footer>
+    </div>
+
+    <script>
+        const timelineData = [
+            {
+                phase: "Phase 1: Planning & Setup",
+                time: [2, 4],
+                goal: "Establish project foundation, confirm tech stack, and get basic environments running.",
+                owners: ["@Mirza Abdullah Tariq", "@नेपाली बाबु", "@betty", "@Chon Ming"],
+                tasks: [
+                    "Finalize detailed feature list and prioritize MVP (Minimum Viable Product).",
+                    "Initialize GitHub repository and establish core directory structure.",
+                    "Set up Python virtual environment for backend.",
+                    "Install Django, Django REST Framework.",
+                    "Initialize Django project and basic apps (e.g., `users`, `jobs`).",
+                    "Set up React project in `frontend/` (e.g., `create-react-app`).",
+                    "Install and configure Tailwind CSS.",
+                    "Create initial `README.md` and `.gitignore`.",
+                    "Confirm both frontend (React) and backend (Django conceptual APIs) can run independently."
+                ],
+                deliverables: [
+                    "Project repository with basic structure.",
+                    "Runnable (empty) React frontend.",
+                    "Runnable (empty) Django project.",
+                    "Shared `simulatedBackendData` structure in frontend."
+                ]
+            },
+            {
+                phase: "Phase 2: Core Backend Development & Simulated API Layer",
+                time: [6, 8],
+                goal: "Develop the conceptual backend API endpoints and the `simulatedBackendApi` in the frontend to allow independent frontend development. This is crucial as actual backend might be slower.",
+                owners: ["@नेपाली बाबु", "@~Senorita", "@Chon Ming"],
+                tasks: [
+                    "Define comprehensive API routes for all CRUD operations for Jobs, User Profiles, Alerts, Applications, Bookmarks, and User Management.",
+                    "Implement the `simulatedBackendApi` object in the frontend to mock *all* these backend calls using in-memory data (`simulatedBackendData`).",
+                    "Develop placeholder logic within these simulated APIs for basic data manipulation (add, edit, delete, fetch).",
+                    "Conceptualize backend authentication flow (mocking JWT/session return)."
+                ],
+                deliverables: [
+                    "Complete `simulatedBackendApi` integrated into the frontend.",
+                    "Initial conceptual data in `simulatedBackendData`.",
+                    "Clear API contract (endpoints, request/response formats) defined."
+                ]
+            },
+            {
+                phase: "Phase 3: Core Frontend Development - Job Seeker Module",
+                time: [8, 12],
+                goal: "Implement the essential job seeker functionalities.",
+                owners: ["@betty", "@Chon Ming"],
+                tasks: [
+                    "Develop shared UI components (Modal, Header, Footer).",
+                    "Build Login and Registration forms, integrating with **simulated backend authentication**.",
+                    "Create Job Seeker Dashboard with navigation.",
+                    "Implement Profile Management UI (create/edit), fetching/saving data via **simulated backend API**.",
+                    "Develop Job Search and Filter UI.",
+                    "Display job listings fetched from **simulated backend jobs API**.",
+                    "Implement 'View Job Details' modal.",
+                    "Set up Personalized Recommendations section (displaying conceptual data from **simulated backend**).",
+                    "Implement Job Alerts UI (add/delete conceptual alerts).",
+                    "Implement Application Tracking UI (display, conceptual status update).",
+                    "Implement Job Bookmarking UI (add/delete conceptual bookmarks)."
+                ],
+                deliverables: [
+                    "Functional login/registration.",
+                    "Job seeker dashboard with clickable navigation.",
+                    "Basic profile management.",
+                    "Searchable/filterable job listings.",
+                    "Placeholder sections for AI features (recommendations, skill gap).",
+                    "Functional job alerts, application tracking, and bookmarking (all with simulated data)."
+                ]
+            },
+            {
+                phase: "Phase 4: Frontend Development - Administrator Module & Feature Enhancements",
+                time: [6, 10],
+                goal: "Implement core admin functionalities and integrate selected enhanced features.",
+                owners: ["@Chon Ming", "@betty"],
+                tasks: [
+                    "Create Admin Dashboard with navigation.",
+                    "Implement Dashboard Overview (displaying conceptual metrics from **simulated backend**).",
+                    "Build Job Posting Management UI (add, edit, delete jobs via **simulated backend API**).",
+                    "Develop User Account Management UI (view, suspend/resume, delete users via **simulated backend API**; display full user ID).",
+                    "**Conceptual Resume Parsing UI:** Add upload field, display message that it would pre-populate.",
+                    "**XAI UI:** Add placeholder text for 'why recommended' on job recommendations.",
+                    "**User Feedback Loop UI:** Add simple buttons (Like/Dislike) on recommendations for conceptual feedback.",
+                    "**Conceptual Skill Gap Analysis & Learning Paths:** Add a section showing mock skill gaps and conceptual learning suggestions.",
+                    "**Conceptual Content Moderation UI:** Add a visual indicator (e.g., 'Pending Approval') for new jobs.",
+                    "**Conceptual System Activity Monitoring:** Display static mock logs.",
+                    "**Conceptual Recommendation Review & Fine-tuning:** Add a button/indicator for triggering fine-tuning."
+                ],
+                deliverables: [
+                    "Functional admin dashboard.",
+                    "Job and user management.",
+                    "UI for selected advanced features (Resume Parsing, XAI, Feedback, Skill Gaps, Content Moderation, Analytics, Fine-tuning)."
+                ]
+            },
+            {
+                phase: "Phase 5: Integration, Testing & Polish",
+                time: [2, 4],
+                goal: "Ensure a cohesive, polished, and robust presentation-ready application.",
+                owners: ["@Mirza Abdullah Tariq", "All"],
+                tasks: [
+                    "**Full Functional Testing:** Run through all user flows (job seeker, admin).",
+                    "**Responsiveness Testing:** Verify display across various devices (mobile, tablet, desktop).",
+                    "**Error Handling Testing:** Trigger simulated errors to ensure modals work correctly.",
+                    "**Code Review:** Final pass for cleanliness, comments, and adherence to guidelines.",
+                    "**UI/UX Polish:** Refine styling, transitions, and overall visual appeal using Tailwind CSS.",
+                    "Update `README.md` with final features and instructions for presentation.",
+                    "Prepare presentation/demo script, focusing on key AI features and user benefits."
+                ],
+                deliverables: [
+                    "A fully functional, polished hackathon prototype.",
+                    "Minimal bugs.",
+                    "Compelling demo.",
+                    "Well-documented code and project."
+                ]
+            }
+        ];
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const totalHours = timelineData.reduce((acc, phase) => acc + (phase.time[0] + phase.time[1]) / 2, 0);
+            const totalTasks = timelineData.reduce((acc, phase) => acc + phase.tasks.length, 0);
+            
+            document.getElementById('total-hours').textContent = Math.round(totalHours);
+            document.getElementById('total-tasks').textContent = totalTasks;
+            
+            const uniqueOwners = [...new Set(timelineData.flatMap(p => p.owners))].sort();
+            const ownerFilter = document.getElementById('owner-filter');
+            uniqueOwners.forEach(owner => {
+                const option = document.createElement('option');
+                option.value = owner;
+                option.textContent = owner;
+                ownerFilter.appendChild(option);
+            });
+
+            const phasesAccordion = document.getElementById('phases-accordion');
+            const phaseColors = ['#4f46e5', '#7c3aed', '#db2777', '#f59e0b', '#10b981'];
+
+            timelineData.forEach((phaseData, index) => {
+                const avgTime = (phaseData.time[0] + phaseData.time[1]) / 2;
+                const card = document.createElement('div');
+                card.id = `phase-${index}`;
+                card.className = 'phase-card bg-white p-4 sm:p-6 rounded-lg shadow-md border-l-4 transition-all duration-300';
+                card.style.borderColor = phaseColors[index % phaseColors.length];
+
+                const ownersHtml = phaseData.owners.map(owner => `<span class="inline-block bg-slate-200 text-slate-700 text-xs font-medium mr-2 mb-2 px-2.5 py-0.5 rounded-full">${owner}</span>`).join('');
+                const tasksHtml = phaseData.tasks.map(task => `<li class="task flex items-start space-x-3 p-2 rounded-md transition-colors duration-200"><span class="flex-shrink-0 text-indigo-500 mt-1">&#10148;</span><p>${task}</p></li>`).join('');
+                const deliverablesHtml = phaseData.deliverables.map(d => `<li class="flex items-start space-x-3"><span class="flex-shrink-0 text-emerald-500 font-bold">&#10004;</span><p>${d}</p></li>`).join('');
+
+                card.innerHTML = `
+                    <div class="accordion-header cursor-pointer flex justify-between items-center">
+                        <div>
+                            <h3 class="text-xl font-bold text-slate-900">${phaseData.phase}</h3>
+                            <p class="text-sm text-slate-500 font-medium">Est. Time: ${phaseData.time[0]}-${phaseData.time[1]} hours</p>
+                        </div>
+                        <span class="text-2xl text-slate-400 transition-transform duration-300 transform">&#9662;</span>
+                    </div>
+                    <div class="accordion-content">
+                        <div class="pt-6">
+                            <p class="text-slate-700 mb-4 italic">${phaseData.goal}</p>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div>
+                                    <h4 class="font-semibold text-slate-800 mb-2 border-b pb-1">Tasks</h4>
+                                    <ul class="space-y-2 text-slate-600">${tasksHtml}</ul>
+                                </div>
+                                <div class="space-y-4">
+                                    <div>
+                                        <h4 class="font-semibold text-slate-800 mb-2 border-b pb-1">Primary Owners</h4>
+                                        <div>${ownersHtml}</div>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-semibold text-slate-800 mb-2 border-b pb-1">Deliverables</h4>
+                                        <ul class="space-y-2 text-slate-600">${deliverablesHtml}</ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                phasesAccordion.appendChild(card);
+            });
+            
+            const ctx = document.getElementById('phaseChart').getContext('2d');
+            const phaseChart = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: timelineData.map(p => p.phase.split(':')[0]),
+                    datasets: [{
+                        label: 'Avg. Hours',
+                        data: timelineData.map(p => (p.time[0] + p.time[1]) / 2),
+                        backgroundColor: phaseColors,
+                        borderColor: '#ffffff',
+                        borderWidth: 3,
+                        hoverOffset: 10
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    cutout: '70%',
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                padding: 15,
+                                boxWidth: 12,
+                                font: {
+                                    size: 12
+                                }
+                            }
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    let label = context.dataset.label || '';
+                                    if (label) {
+                                        label += ': ';
+                                    }
+                                    if (context.parsed !== null) {
+                                        label += `${context.parsed} hours`;
+                                    }
+                                    return label;
+                                }
+                            }
+                        }
+                    },
+                    onClick: (evt, elements) => {
+                        if (elements.length > 0) {
+                            const index = elements[0].index;
+                            const targetElement = document.getElementById(`phase-${index}`);
+                            if (targetElement) {
+                                targetElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                                const header = targetElement.querySelector('.accordion-header');
+                                if (header) {
+                                    const content = header.nextElementSibling;
+                                    if(content.style.maxHeight) {
+                                       // Already open
+                                    } else {
+                                        header.click();
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+
+            document.querySelectorAll('.accordion-header').forEach(header => {
+                header.addEventListener('click', () => {
+                    const content = header.nextElementSibling;
+                    const arrow = header.querySelector('span');
+
+                    if (content.style.maxHeight) {
+                        content.style.maxHeight = null;
+                        arrow.classList.remove('rotate-180');
+                    } else {
+                        document.querySelectorAll('.accordion-content').forEach(c => c.style.maxHeight = null);
+                        document.querySelectorAll('.accordion-header span').forEach(a => a.classList.remove('rotate-180'));
+                        content.style.maxHeight = content.scrollHeight + "px";
+                        arrow.classList.add('rotate-180');
+                    }
+                });
+            });
+
+            ownerFilter.addEventListener('change', (e) => {
+                const selectedOwner = e.target.value;
+                document.querySelectorAll('.phase-card').forEach((card, index) => {
+                    const phase = timelineData[index];
+                    const tasks = card.querySelectorAll('.task');
+                    card.classList.remove('highlight');
+                    tasks.forEach(task => task.classList.remove('highlight'));
+                    
+                    if (selectedOwner === 'all' || phase.owners.includes(selectedOwner)) {
+                        card.style.display = 'block';
+                        if(selectedOwner !== 'all') {
+                            card.classList.add('highlight');
+                        }
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
