@@ -11,13 +11,13 @@ import Login from './pages/auth/Login';
 import Register from './pages/auth/Register';
 
 // Job Seeker Pages
-import Dashboard from './pages/jobseeker/Dashboard';
-import Jobs from './pages/jobseeker/Jobs';
-import JobDetail from './pages/jobseeker/JobDetail';
-import Applications from './pages/jobseeker/Applications';
-import Bookmarks from './pages/jobseeker/Bookmarks';
-import Profile from './pages/jobseeker/Profile';
-import SkillsAnalysis from './pages/jobseeker/SkillsAnalysis';
+import Dashboard from './pages/jobSeeker/Dashboard';
+import Jobs from './pages/jobSeeker/Jobs';
+import JobDetail from './pages/jobSeeker/JobDetail';
+import Applications from './pages/jobSeeker/Applications';
+import Bookmarks from './pages/jobSeeker/Bookmarks';
+import Profile from './pages/jobSeeker/Profile';
+import SkillsAnalysis from './pages/jobSeeker/SkillsAnalysis';
 
 // Admin Pages
 import AdminDashboard from './pages/admin/Dashboard';
@@ -156,4 +156,4 @@ function App() {
   );
 }
 
-export default App; 
+export default App;
