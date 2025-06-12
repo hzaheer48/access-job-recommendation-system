@@ -1,70 +1,210 @@
-# Getting Started with Create React App
+# Access Job Recommendation System - Frontend
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A modern React TypeScript application for AI-powered job recommendations with comprehensive job seeker and admin functionality.
+
+## Features
+
+### Job Seeker Features
+- **Authentication**: Secure login/register with role-based access
+- **AI-Powered Recommendations**: Personalized job suggestions with explainable AI
+- **Job Search & Filtering**: Advanced search with multiple filters
+- **Application Tracking**: Track job applications and interview stages
+- **Profile Management**: Complete profile with skills, education, and experience
+- **Skill Gap Analysis**: Identify missing skills and get learning recommendations
+- **Job Alerts**: Create and manage custom job alerts
+- **Bookmarks**: Save interesting job listings
+- **Resume Parsing**: Upload resume and auto-populate profile (simulated)
+
+### Admin Features
+- **Dashboard**: System overview with key metrics and analytics
+- **User Management**: CRUD operations for user accounts
+- **Job Management**: Manage job postings and content moderation
+- **Analytics**: Detailed system performance and user behavior metrics
+- **System Monitoring**: Real-time activity logs and system health
+
+### Technical Features
+- **TypeScript**: Full type safety and better developer experience
+- **Responsive Design**: Mobile-first design with Tailwind CSS
+- **Mock Data**: Comprehensive mock backend simulation
+- **Error Handling**: Robust error handling with user-friendly modals
+- **Loading States**: Smooth loading indicators for better UX
+- **Route Protection**: Role-based route protection
+- **Context Management**: Global state management with React Context
+
+## Tech Stack
+
+- **React 19**: Latest React with hooks
+- **TypeScript**: Type-safe JavaScript
+- **React Router DOM**: Client-side routing
+- **Tailwind CSS**: Utility-first CSS framework
+- **ESLint**: Code linting and formatting
+
+## Getting Started
+
+### Prerequisites
+- Node.js 16 or higher
+- npm or yarn
+
+### Installation
+
+1. **Install dependencies**:
+   ```bash
+   npm install
+   ```
+
+2. **Start the development server**:
+   ```bash
+   npm start
+   ```
+
+3. **Build for production**:
+   ```bash
+   npm run build
+   ```
+
+4. **Run linting**:
+   ```bash
+   npm run lint
+   ```
+
+## Demo Accounts
+
+The application includes demo accounts for testing:
+
+### Job Seeker Account
+- **Email**: john.doe@example.com
+- **Password**: password123
+- **Features**: Full profile, recommendations, applications
+
+### Admin Account
+- **Email**: admin@accessjobs.com
+- **Password**: password123
+- **Features**: Full admin dashboard and user management
+
+## Project Structure
+
+```
+src/
+├── components/          # Reusable components
+│   └── shared/         # Shared components (Header, Modal, Loading, etc.)
+├── context/            # React Context for state management
+├── pages/              # Page components
+│   ├── auth/          # Authentication pages
+│   ├── jobSeeker/     # Job seeker pages
+│   └── admin/         # Admin pages
+├── services/          # API services and mock data
+├── types/             # TypeScript type definitions
+└── App.tsx            # Main app component
+```
+
+## Key Components
+
+### Authentication
+- Login/Register forms with validation
+- Protected routes with role-based access
+- Persistent authentication state
+
+### Job Seeker Dashboard
+- Personalized job recommendations with AI explanations
+- Recent activity overview
+- Quick action buttons
+- Statistics cards
+
+### AI Recommendations
+- Skill-based job matching
+- Explainable AI with match reasons
+- User feedback collection for ML improvement
+- Recommendation scoring system
+
+### Admin Dashboard
+- System metrics and analytics
+- User management with full CRUD
+- Job posting management
+- System activity monitoring
+
+## State Management
+
+The application uses React Context for global state management:
+
+- **AppContext**: Main application state (user, auth, modals, loading)
+- **Persistent Storage**: User data persisted in localStorage
+- **Loading States**: Global loading indicators for API calls
+- **Modal System**: Centralized modal management for alerts and confirmations
+
+## API Simulation
+
+All backend functionality is simulated using mock data and services:
+
+- **Mock Users**: Predefined user accounts with different roles
+- **Mock Jobs**: Comprehensive job listings with realistic data
+- **Mock Applications**: Application tracking with status updates
+- **Simulated Delays**: Realistic API response times
+- **Error Simulation**: Error handling scenarios
+
+## Responsive Design
+
+The application is fully responsive:
+
+- **Mobile-first**: Optimized for mobile devices
+- **Tablet Support**: Enhanced layouts for tablets
+- **Desktop**: Full-featured desktop experience
+- **Accessibility**: ARIA labels and keyboard navigation
+
+## Development Guidelines
+
+### Code Quality
+- TypeScript for type safety
+- ESLint for code quality
+- Functional components with hooks
+- Proper error boundaries
+
+### UI/UX
+- Consistent design language
+- Loading states for all async operations
+- Error handling with user-friendly messages
+- No native browser alerts (custom modal system)
+
+### Performance
+- Code splitting and lazy loading ready
+- Optimized bundle size
+- Efficient re-renders with proper dependencies
+
+## Future Enhancements
+
+- Real backend API integration
+- Advanced search filters
+- File upload functionality
+- Email notifications
+- Real-time chat support
+- Advanced analytics dashboard
+- Mobile app version
+- Third-party integrations (LinkedIn, GitHub)
 
 ## Available Scripts
 
-In the project directory, you can run:
+- `npm start`: Start development server
+- `npm run build`: Build for production
+- `npm test`: Run tests
+- `npm run lint`: Run ESLint
+- `npm run eject`: Eject from Create React App (not recommended)
 
-### `npm start`
+## Environment Variables
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Create a `.env` file in the root directory for environment-specific configuration:
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+```env
+REACT_APP_API_URL=http://localhost:8000/api
+REACT_APP_VERSION=1.0.0
+```
 
-### `npm test`
+## Contributing
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Run linting and tests
+5. Submit a pull request
 
-### `npm run build`
+## License
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+This project is part of the Access Job Recommendation System and is intended for demonstration purposes.
