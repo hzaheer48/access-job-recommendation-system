@@ -43,6 +43,8 @@ INSTALLED_APPS = [
     "recommendations",
     "alerts",
     "logs",
+    "rest_framework",
+    "rest_framework.authtoken",
 ]
 
 MIDDLEWARE = [
