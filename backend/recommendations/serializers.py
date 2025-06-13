@@ -5,3 +5,4 @@ class RecommendationSerializer(serializers.ModelSerializer):
     class Meta:
         model = Recommendation
         fields = '__all__'
+        read_only_fields = ('date_generated',)
