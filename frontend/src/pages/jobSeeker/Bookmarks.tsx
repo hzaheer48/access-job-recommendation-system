@@ -108,7 +108,7 @@ const Bookmarks: React.FC = () => {
       {bookmarks.length > 0 ? (
         <>
           {/* Search and Sort Controls */}
-          <div className="bg-white rounded-lg shadow p-6 mb-6">
+          <div className="card-glass backdrop-blur-sm border border-white/20 p-6 mb-6">
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between space-y-4 sm:space-y-0">
               <div className="flex-1 max-w-lg">
                 <label htmlFor="search" className="sr-only">Search bookmarks</label>
@@ -158,7 +158,7 @@ const Bookmarks: React.FC = () => {
           {filteredAndSortedBookmarks.length > 0 ? (
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
               {filteredAndSortedBookmarks.map((bookmark) => (
-                <div key={bookmark.id} className="bg-white rounded-lg shadow hover:shadow-lg transition-shadow">
+                <div key={bookmark.id} className="group card-glass backdrop-blur-sm border border-white/20 hover:shadow-large transition-all duration-300 hover:-translate-y-1">
                   <div className="p-6">
                     <div className="flex items-start justify-between mb-4">
                       <div className="flex items-start space-x-4 flex-1">
@@ -318,4 +318,4 @@ const Bookmarks: React.FC = () => {
   );
 };
 
-export default Bookmarks; 
+export default Bookmarks;

@@ -295,12 +295,28 @@ const Jobs: React.FC = () => {
   const displayJobs = activeTab === 'recommendations' ? recommendations.map(r => r.job) : filteredJobs;
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-      {/* Header */}
-      <div className="mb-8">
-        <h1 className="text-2xl font-bold text-gray-900">Find Your Next Job</h1>
-        <p className="text-gray-600">Discover opportunities that match your skills and preferences</p>
-      </div>
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-primary-50">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        {/* Header */}
+        <div className="mb-8">
+          <div className="card-glass backdrop-blur-sm border border-white/20 p-6">
+            <div className="flex items-center justify-between">
+              <div>
+                <h1 className="text-3xl font-bold bg-gradient-to-r from-gray-900 to-primary-800 bg-clip-text text-transparent">
+                  Find Your Next Job 🚀
+                </h1>
+                <p className="mt-2 text-lg text-gray-600">Discover opportunities that match your skills and preferences</p>
+              </div>
+              <div className="hidden md:block">
+                <div className="w-16 h-16 bg-gradient-to-br from-primary-500 to-primary-600 rounded-2xl flex items-center justify-center">
+                  <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2-2v2m8 0V6a2 2 0 00-2 2H8a2 2 0 00-2-2V4m8 0h2a2 2 0 012 2v6.5" />
+                  </svg>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
 
       {/* Tabs */}
       <div className="mb-6">
@@ -517,7 +533,7 @@ const Jobs: React.FC = () => {
         {/* Job Listings */}
         <div className="lg:col-span-3">
           {/* Sort and Results Info */}
-          <div className="bg-white rounded-lg shadow p-4 mb-6">
+          <div className="card-glass backdrop-blur-sm border border-white/20 p-4 mb-6">
             <div className="flex justify-between items-center">
               <div className="flex items-center gap-4">
                 <div>
@@ -562,19 +578,25 @@ const Jobs: React.FC = () => {
                   recommendations.find(r => r.job.id === job.id) : null;
                 
                 return (
-                  <div key={job.id} className="bg-white rounded-lg shadow p-6 hover:shadow-lg transition-shadow">
+                  <div key={job.id} className="card-glass backdrop-blur-sm border border-white/20 p-6 hover:shadow-lg hover:scale-[1.02] transition-all duration-300 group">
                     <div className="flex justify-between items-start">
                       <div className="flex-1">
                         <div className="flex items-center space-x-4 mb-2">
-                          {job.companyLogo && (
+                          {job.companyLogo ? (
                             <img 
                               src={job.companyLogo} 
                               alt={job.company}
                               className="w-12 h-12 rounded-lg object-cover"
                             />
+                          ) : (
+                            <div className="w-12 h-12 bg-gradient-to-br from-primary-500 to-primary-600 rounded-lg flex items-center justify-center">
+                              <span className="text-white font-semibold text-lg">
+                                {job.company.charAt(0)}
+                              </span>
+                            </div>
                           )}
                           <div>
-                            <h3 className="text-lg font-semibold text-gray-900">
+                            <h3 className="text-xl font-semibold text-gray-900 group-hover:text-primary-700 transition-colors duration-200">
                               <Link 
                                 to={`/jobs/${job.id}`}
                                 className="hover:text-primary-600"
@@ -582,18 +604,39 @@ const Jobs: React.FC = () => {
                                 {job.title}
                               </Link>
                             </h3>
-                            <p className="text-gray-600">{job.company}</p>
+                            <p className="text-gray-600 font-medium">{job.company}</p>
                           </div>
                         </div>
 
-                        <div className="flex flex-wrap items-center gap-4 text-sm text-gray-500 mb-3">
-                          <span>📍 {job.location}</span>
-                          <span>💼 {job.jobType.replace('-', ' ')}</span>
-                          <span>📈 {job.experienceLevel}</span>
-                          <span>💰 ${job.salaryRange.min.toLocaleString()} - ${job.salaryRange.max.toLocaleString()}</span>
+                        <div className="flex flex-wrap items-center gap-4 text-sm text-gray-600 mb-3">
+                          <div className="flex items-center">
+                            <svg className="w-4 h-4 mr-1 text-primary-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                            </svg>
+                            {job.location}
+                          </div>
+                          <div className="flex items-center">
+                            <svg className="w-4 h-4 mr-1 text-primary-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2-2v2m8 0V6a2 2 0 00-2 2H8a2 2 0 00-2-2V4m8 0h2a2 2 0 012 2v6.5" />
+                            </svg>
+                            {job.jobType.replace('-', ' ')}
+                          </div>
+                          <div className="flex items-center">
+                            <svg className="w-4 h-4 mr-1 text-primary-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+                            </svg>
+                            {job.experienceLevel}
+                          </div>
+                          <div className="flex items-center font-semibold text-green-600">
+                            <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1" />
+                            </svg>
+                            ${job.salaryRange.min.toLocaleString()} - ${job.salaryRange.max.toLocaleString()}
+                          </div>
                         </div>
 
-                        <p className="text-gray-700 mb-4 line-clamp-3">
+                        <p className="text-gray-700 mb-4 leading-relaxed line-clamp-3">
                           {job.description}
                         </p>
 
@@ -602,13 +645,13 @@ const Jobs: React.FC = () => {
                           {job.skills.slice(0, 5).map((skill) => (
                             <span
                               key={skill}
-                              className="px-2 py-1 bg-gray-100 text-gray-700 rounded-md text-xs"
+                              className="badge-primary text-xs px-3 py-1 hover:scale-105 transition-transform duration-200"
                             >
                               {skill}
                             </span>
                           ))}
                           {job.skills.length > 5 && (
-                            <span className="px-2 py-1 bg-gray-100 text-gray-500 rounded-md text-xs">
+                            <span className="px-3 py-1 bg-gray-100 text-gray-500 rounded-full text-xs">
                               +{job.skills.length - 5} more
                             </span>
                           )}
@@ -616,38 +659,48 @@ const Jobs: React.FC = () => {
 
                         {/* AI Recommendation */}
                         {recommendation && (
-                          <div className="bg-green-50 border border-green-200 rounded-md p-3 mb-4">
+                          <div className="bg-gradient-to-r from-green-50 to-emerald-50 border border-green-200 rounded-xl p-4 mb-4">
                             <div className="flex items-center mb-2">
-                              <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                              <span className="badge-success text-xs px-3 py-1 animate-pulse">
+                                <svg className="w-3 h-3 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                                  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                                </svg>
                                 {Math.round(recommendation.score * 100)}% Match
                               </span>
-                              <span className="ml-2 text-sm text-green-700 font-medium">
-                                Recommended for you
+                              <span className="ml-2 text-sm text-green-700 font-semibold">
+                                AI Recommended for you
                               </span>
                             </div>
-                            <p className="text-sm text-green-700">
+                            <p className="text-sm text-green-700 leading-relaxed">
                               {recommendation.explanation.reasons[0]}
                             </p>
                           </div>
                         )}
 
                         <div className="flex items-center justify-between">
-                          <div className="text-sm text-gray-500">
+                          <div className="text-sm text-gray-500 flex items-center">
+                            <svg className="w-4 h-4 mr-1 text-primary-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
                             Posted {new Date(job.postedDate).toLocaleDateString()} • {job.applicationCount} applications
                           </div>
                           <div className="flex space-x-3">
                             <button
                               onClick={() => handleBookmarkJob(job.id)}
-                              className="text-gray-400 hover:text-primary-600"
+                              className="p-2 text-gray-400 hover:text-primary-600 hover:bg-primary-50 rounded-lg transition-all duration-200"
                             >
                               <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z" />
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z" />
                               </svg>
                             </button>
                             <Link
                               to={`/jobs/${job.id}`}
-                              className="bg-primary-600 hover:bg-primary-700 text-white px-4 py-2 rounded-md text-sm font-medium transition-colors"
+                              className="btn-primary px-6 py-2 rounded-xl hover:scale-105 transition-all duration-200 shadow-md hover:shadow-lg"
                             >
+                              <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                              </svg>
                               View Details
                             </Link>
                           </div>
@@ -660,55 +713,94 @@ const Jobs: React.FC = () => {
 
               {/* Pagination */}
               {totalPages > 1 && (
-                <div className="bg-white rounded-lg shadow p-4 mt-6">
-                  <div className="flex justify-between items-center">
-                    <div className="text-sm text-gray-600">
-                      Showing {((currentPage - 1) * itemsPerPage) + 1} to {Math.min(currentPage * itemsPerPage, filteredJobs.length)} of {filteredJobs.length} jobs
-                    </div>
-                    <div className="flex gap-2">
-                      <button
-                        onClick={() => handlePageChange(currentPage - 1)}
-                        disabled={currentPage === 1}
-                        className="px-3 py-2 bg-gray-300 text-gray-700 rounded-md hover:bg-gray-400 disabled:bg-gray-200 disabled:cursor-not-allowed transition-colors"
-                      >
-                        Previous
-                      </button>
+                <div className="mt-8">
+                  <div className="card-glass backdrop-blur-sm border border-white/20 p-6">
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center">
+                        <p className="text-sm text-gray-700">
+                          Showing <span className="font-semibold text-primary-600">{(currentPage - 1) * itemsPerPage + 1}</span> to{' '}
+                          <span className="font-semibold text-primary-600">
+                            {Math.min(currentPage * itemsPerPage, filteredJobs.length)}
+                          </span>{' '}
+                          of <span className="font-semibold text-primary-600">{filteredJobs.length}</span> results
+                        </p>
+                      </div>
                       
-                      {/* Page Numbers */}
-                      {Array.from({ length: Math.min(5, totalPages) }, (_, i) => {
-                        let pageNum: number;
-                        if (totalPages <= 5) {
-                          pageNum = i + 1;
-                        } else if (currentPage <= 3) {
-                          pageNum = i + 1;
-                        } else if (currentPage >= totalPages - 2) {
-                          pageNum = totalPages - 4 + i;
-                        } else {
-                          pageNum = currentPage - 2 + i;
-                        }
+                      <div className="flex items-center space-x-1">
+                        <button
+                          onClick={() => handlePageChange(currentPage - 1)}
+                          disabled={currentPage === 1}
+                          className="relative inline-flex items-center px-3 py-2 rounded-xl border-2 border-gray-200 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50 hover:border-primary-300 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200"
+                        >
+                          <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 19l-7-7 7-7" />
+                          </svg>
+                          <span className="ml-1">Previous</span>
+                        </button>
                         
-                        return (
-                          <button
-                            key={pageNum}
-                            onClick={() => handlePageChange(pageNum)}
-                            className={`px-3 py-2 rounded-md transition-colors ${
-                              currentPage === pageNum
-                                ? 'bg-primary-600 text-white'
-                                : 'bg-white text-gray-700 hover:bg-gray-50'
-                            }`}
-                          >
-                            {pageNum}
-                          </button>
-                        );
-                      })}
-                      
-                      <button
-                        onClick={() => handlePageChange(currentPage + 1)}
-                        disabled={currentPage === totalPages}
-                        className="px-3 py-2 bg-gray-300 text-gray-700 rounded-md hover:bg-gray-400 disabled:bg-gray-200 disabled:cursor-not-allowed transition-colors"
-                      >
-                        Next
-                      </button>
+                        <div className="flex items-center space-x-1 mx-4">
+                          {Array.from({ length: Math.min(totalPages, 5) }, (_, i) => {
+                            let page: number;
+                            if (totalPages <= 5) {
+                              page = i + 1;
+                            } else if (currentPage <= 3) {
+                              page = i + 1;
+                            } else if (currentPage >= totalPages - 2) {
+                              page = totalPages - 4 + i;
+                            } else {
+                              page = currentPage - 2 + i;
+                            }
+                            
+                            return (
+                              <button
+                                key={page}
+                                onClick={() => handlePageChange(page)}
+                                className={`relative inline-flex items-center px-4 py-2 rounded-xl text-sm font-medium transition-all duration-200 ${
+                                  page === currentPage
+                                    ? 'bg-gradient-to-r from-primary-500 to-primary-600 text-white shadow-lg transform scale-105'
+                                    : 'bg-white border-2 border-gray-200 text-gray-700 hover:bg-primary-50 hover:border-primary-300 hover:text-primary-600'
+                                }`}
+                              >
+                                {page}
+                              </button>
+                            );
+                          })}
+                        </div>
+                        
+                        <button
+                          onClick={() => handlePageChange(currentPage + 1)}
+                          disabled={currentPage === totalPages}
+                          className="relative inline-flex items-center px-3 py-2 rounded-xl border-2 border-gray-200 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50 hover:border-primary-300 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200"
+                        >
+                          <span className="mr-1">Next</span>
+                          <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 5l7 7-7 7" />
+                          </svg>
+                        </button>
+                      </div>
+                    </div>
+                    
+                    {/* Quick Jump */}
+                    <div className="mt-4 pt-4 border-t border-gray-200">
+                      <div className="flex items-center justify-center space-x-4">
+                        <span className="text-sm text-gray-600">Quick jump to page:</span>
+                        <div className="flex items-center space-x-2">
+                          <input
+                            type="number"
+                            min="1"
+                            max={totalPages}
+                            value={currentPage}
+                            onChange={(e) => {
+                              const page = parseInt(e.target.value);
+                              if (page >= 1 && page <= totalPages) {
+                                handlePageChange(page);
+                              }
+                            }}
+                            className="w-16 px-3 py-1 text-center border border-gray-300 rounded-lg focus:border-primary-500 focus:ring-primary-500"
+                          />
+                          <span className="text-sm text-gray-500">of {totalPages}</span>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -771,6 +863,7 @@ const Jobs: React.FC = () => {
           </div>
         </div>
       )}
+      </div>
     </div>
   );
 };

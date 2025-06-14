@@ -212,60 +212,82 @@ const AdminSettings: React.FC = () => {
 
   if (isLoading) {
     return (
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <Loading inline message="Loading settings..." />
+      <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-primary-50">
+        <div className="absolute inset-0 bg-grid-pattern opacity-5"></div>
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+          <div className="flex items-center justify-center min-h-[60vh]">
+            <div className="card-glass backdrop-blur-sm border border-white/20 p-8 text-center">
+              <div className="w-16 h-16 bg-gradient-to-br from-primary-500 to-primary-600 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                <svg className="w-8 h-8 text-white animate-spin" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                </svg>
+              </div>
+              <Loading inline message="Loading settings..." />
+            </div>
+          </div>
+        </div>
       </div>
     );
   }
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-      {/* Header */}
-      <div className="mb-8 flex justify-between items-start">
-        <div>
-          <h1 className="text-2xl font-bold text-gray-900">System Settings</h1>
-          <p className="text-gray-600">Configure system settings and preferences</p>
-        </div>
-        <div className="flex space-x-3">
-          {hasChanges && (
-            <button
-              onClick={handleResetSettings}
-              className="px-4 py-2 border border-gray-300 text-gray-700 rounded-md hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2"
-            >
-              Reset
-            </button>
-          )}
-          <button
-            onClick={handleSaveSettings}
-            disabled={!hasChanges}
-            className={`px-4 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 ${
-              hasChanges
-                ? 'bg-blue-600 text-white hover:bg-blue-700 focus:ring-blue-500'
-                : 'bg-gray-300 text-gray-500 cursor-not-allowed'
-            }`}
-          >
-            Save Changes
-          </button>
-        </div>
-      </div>
-
-      {/* Changes Indicator */}
-      {hasChanges && (
-        <div className="mb-6 bg-yellow-50 border border-yellow-200 rounded-md p-4">
-          <div className="flex">
-            <div className="flex-shrink-0">
-              <span className="text-yellow-400">⚠️</span>
-            </div>
-            <div className="ml-3">
-              <p className="text-sm text-yellow-700">
-                You have unsaved changes. Don't forget to save your settings.
-              </p>
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-primary-50">
+      <div className="absolute inset-0 bg-grid-pattern opacity-5"></div>
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        {/* Header */}
+        <div className="mb-8">
+          <div className="card-glass backdrop-blur-sm border border-white/20 p-6">
+            <div className="flex flex-col md:flex-row md:items-center justify-between">
+              <div className="mb-4 md:mb-0">
+                <h1 className="text-3xl font-bold bg-gradient-to-r from-gray-900 to-primary-800 bg-clip-text text-transparent">
+                  System Settings ⚙️
+                </h1>
+                <p className="text-gray-600 mt-2">Configure system settings and preferences</p>
+              </div>
+              <div className="flex space-x-3">
+                {hasChanges && (
+                  <button
+                    onClick={handleResetSettings}
+                    className="px-4 py-2 bg-white/80 backdrop-blur-sm border border-white/20 text-gray-700 rounded-xl hover:bg-white/90 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transition-all duration-200"
+                  >
+                    Reset
+                  </button>
+                )}
+                <button
+                  onClick={handleSaveSettings}
+                  disabled={!hasChanges}
+                  className={`px-4 py-2 rounded-xl focus:outline-none focus:ring-2 focus:ring-offset-2 transition-all duration-200 ${
+                    hasChanges
+                      ? 'bg-gradient-to-r from-primary-600 to-primary-700 text-white hover:from-primary-700 hover:to-primary-800 focus:ring-primary-500 shadow-lg'
+                      : 'bg-gray-300 text-gray-500 cursor-not-allowed'
+                  }`}
+                >
+                  Save Changes
+                </button>
+              </div>
             </div>
           </div>
         </div>
-      )}
 
-      <div className="bg-white rounded-lg shadow overflow-hidden">
+        {/* Changes Indicator */}
+        {hasChanges && (
+          <div className="mb-6 card-glass backdrop-blur-sm border border-yellow-200/50 bg-gradient-to-r from-yellow-50/80 to-orange-50/80 p-4">
+            <div className="flex">
+              <div className="flex-shrink-0">
+                <div className="w-8 h-8 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-lg flex items-center justify-center">
+                  <span className="text-white text-sm">⚠️</span>
+                </div>
+              </div>
+              <div className="ml-3">
+                <p className="text-sm text-yellow-800 font-medium">
+                  You have unsaved changes. Don't forget to save your settings.
+                </p>
+              </div>
+            </div>
+          </div>
+        )}
+
+      <div className="card-glass backdrop-blur-sm border border-white/20 overflow-hidden">
         {/* Tabs */}
         <div className="border-b border-gray-200">
           <nav className="-mb-px flex space-x-8 px-6">
@@ -780,6 +802,7 @@ const AdminSettings: React.FC = () => {
             </div>
           )}
         </div>
+      </div>
       </div>
     </div>
   );

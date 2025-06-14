@@ -224,7 +224,7 @@ const InterviewTracking: React.FC = () => {
         );
       case 'completed':
         return interviews.filter(interview => 
-          interview.status === 'completed' || new Date(interview.scheduledDate) < now
+          interview.status === 'completed'
         );
       case 'all':
       default:
@@ -378,7 +378,7 @@ const InterviewTracking: React.FC = () => {
               {/* Interview Details */}
               <div className="border-t pt-4">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
-                  {interview.interviewers.length > 0 && (
+                  {interview.interviewers && interview.interviewers.length > 0 && (
                     <div>
                       <span className="font-medium text-gray-700">Interviewers:</span>
                       <ul className="mt-1 space-y-1">

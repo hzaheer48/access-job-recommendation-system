@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useApp } from '../../context/AppContext';
 import { simulateApiCall } from '../../services/mockData';
+import { parseResumeWithNovitaAI } from '../../services/novitaAI';
 import { ResumeData, Experience, Education } from '../../types';
 
 interface ResumeParserProps {
@@ -140,61 +141,103 @@ const ResumeParser: React.FC<ResumeParserProps> = ({ onParseComplete }) => {
     setLoading({ isLoading: true, message: 'Parsing resume and extracting information...' });
 
     try {
-      // Simulate API call for resume parsing
-      await simulateApiCall(null, 2500);
-
-      // Get mock data based on filename or use default
-      const fileName = file.name.toLowerCase();
-      let resumeData;
+      // Check if Novita AI API key is available
+      const hasApiKey = process.env.REACT_APP_NOVITA_API_KEY;
       
-      if (fileName.includes('john') || fileName.includes('doe')) {
-        resumeData = mockResumeData['john_doe_resume.pdf'];
-      } else if (fileName.includes('jane') || fileName.includes('smith')) {
-        resumeData = mockResumeData['jane_smith_resume.pdf'];
+      if (hasApiKey) {
+        // Use real AI parsing with Novita AI
+        const resumeData = await parseResumeWithNovitaAI(file);
+        onParseComplete(resumeData);
+        
+        showModal({
+          type: 'success',
+          title: 'Resume Parsed Successfully',
+          message: `Successfully extracted information from ${file.name} using AI. Please review and edit the auto-populated fields as needed.`,
+        });
+        
+        // Log if text was truncated (for debugging)
+        if (resumeData && file.size > 50000) { // Rough estimate for large files
+          console.log('Note: Large resume file may have been truncated to fit AI model limits');
+        }
       } else {
-        // Default mock data for unknown files
-        resumeData = {
-          skills: ['JavaScript', 'React', 'CSS', 'HTML', 'Git'],
-          experience: [
-            {
-              id: 'exp_default_1',
-              company: 'Tech Company',
-              position: 'Software Developer',
-              description: 'Developed web applications and collaborated with team members.',
-              startDate: '2022-01-01',
-              endDate: '2023-12-31',
-              location: 'City, State',
-              skills: ['JavaScript', 'React', 'CSS']
-            }
-          ],
-          education: [
-            {
-              id: 'edu_default_1',
-              institution: 'University',
-              degree: 'Bachelor of Science',
-              fieldOfStudy: 'Computer Science',
-              startDate: '2018-09-01',
-              endDate: '2022-05-15'
-            }
-          ],
-          summary: 'Motivated software developer with experience in web technologies and a passion for creating innovative solutions.'
-        };
+        // Fallback to mock data system when API key is not configured
+        console.warn('Novita AI API key not configured, falling back to mock data');
+        
+        // Simulate API call for resume parsing
+        await simulateApiCall(null, 2500);
+
+        // Get mock data based on filename or use default
+        const fileName = file.name.toLowerCase();
+        let resumeData;
+        
+        if (fileName.includes('john') || fileName.includes('doe')) {
+          resumeData = mockResumeData['john_doe_resume.pdf'];
+        } else if (fileName.includes('jane') || fileName.includes('smith')) {
+          resumeData = mockResumeData['jane_smith_resume.pdf'];
+        } else {
+          // Default mock data for unknown files
+          resumeData = {
+            skills: ['JavaScript', 'React', 'CSS', 'HTML', 'Git'],
+            experience: [
+              {
+                id: 'exp_default_1',
+                company: 'Tech Company',
+                position: 'Software Developer',
+                description: 'Developed web applications and collaborated with team members.',
+                startDate: '2022-01-01',
+                endDate: '2023-12-31',
+                location: 'City, State',
+                skills: ['JavaScript', 'React', 'CSS']
+              }
+            ],
+            education: [
+              {
+                id: 'edu_default_1',
+                institution: 'University',
+                degree: 'Bachelor of Science',
+                fieldOfStudy: 'Computer Science',
+                startDate: '2018-09-01',
+                endDate: '2022-05-15'
+              }
+            ],
+            summary: 'Motivated software developer with experience in web technologies and a passion for creating innovative solutions.'
+          };
+        }
+
+        // Call the callback with parsed data
+        onParseComplete(resumeData);
+
+        showModal({
+          type: 'success',
+          title: 'Resume Parsed Successfully (Demo Mode)',
+          message: `Successfully extracted information from ${file.name} using mock data. To enable AI parsing, configure your Novita AI API key.`,
+        });
       }
 
-      // Call the callback with parsed data
-      onParseComplete(resumeData);
-
-      showModal({
-        type: 'success',
-        title: 'Resume Parsed Successfully',
-        message: `Successfully extracted information from ${file.name}. Please review and edit the auto-populated fields as needed.`,
-      });
-
     } catch (error) {
+      console.error('Resume parsing error:', error);
+      
+      // Provide more specific error messages
+      let errorMessage = 'Failed to parse resume. Please try again or enter information manually.';
+      
+      if (error instanceof Error) {
+        if (error.message.includes('API key')) {
+          errorMessage = 'AI parsing is not configured. Please set up your Novita AI API key or use manual entry.';
+        } else if (error.message.includes('extract sufficient text')) {
+          errorMessage = 'Unable to extract text from this file. This may happen with scanned PDFs or image-based documents. Please try a text-based PDF or enter information manually.';
+        } else if (error.message.includes('Failed to extract text from PDF')) {
+          errorMessage = 'PDF parsing failed. This file may be password-protected, corrupted, or contain only images. Please try a different PDF or enter information manually.';
+        } else if (error.message.includes('Unsupported file type')) {
+          errorMessage = 'This file type is not supported for automatic parsing. Please upload a PDF, DOC, DOCX, or TXT file.';
+        } else if (error.message.includes('Novita AI API error')) {
+          errorMessage = 'AI service is temporarily unavailable. Please try again later or enter information manually.';
+        }
+      }
+      
       showModal({
         type: 'error',
         title: 'Parsing Failed',
-        message: 'Failed to parse resume. Please try again or enter information manually.',
+        message: errorMessage,
       });
     } finally {
       setIsProcessing(false);
@@ -207,15 +250,22 @@ const ResumeParser: React.FC<ResumeParserProps> = ({ onParseComplete }) => {
   };
 
   return (
-    <div className="bg-white rounded-lg shadow p-6 mb-6">
-      <h3 className="text-lg font-semibold text-gray-900 mb-4">Resume Parser</h3>
-      <p className="text-gray-600 mb-4">
-        Upload your resume to automatically populate your profile with extracted information.
+    <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-4">
+      <div className="flex items-center justify-between mb-3">
+        <h3 className="text-base font-medium text-gray-900">Resume Parser</h3>
+        {!process.env.REACT_APP_NOVITA_API_KEY && (
+          <span className="text-xs text-amber-600 bg-amber-50 px-2 py-1 rounded">
+            Demo Mode
+          </span>
+        )}
+      </div>
+      <p className="text-sm text-gray-600 mb-3">
+        Upload your resume to automatically populate your profile.
       </p>
 
       {!uploadedFile ? (
         <div
-          className={`border-2 border-dashed rounded-lg p-8 text-center transition-colors ${
+          className={`border-2 border-dashed rounded-lg p-4 text-center transition-colors ${
             isDragOver
               ? 'border-primary-500 bg-primary-50'
               : 'border-gray-300 hover:border-gray-400'
@@ -226,7 +276,7 @@ const ResumeParser: React.FC<ResumeParserProps> = ({ onParseComplete }) => {
         >
           <div className="flex flex-col items-center">
             <svg
-              className="w-12 h-12 text-gray-400 mb-4"
+              className="w-8 h-8 text-gray-400 mb-2"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -238,11 +288,11 @@ const ResumeParser: React.FC<ResumeParserProps> = ({ onParseComplete }) => {
                 d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
               />
             </svg>
-            <p className="text-lg font-medium text-gray-900 mb-2">
+            <p className="text-sm font-medium text-gray-900 mb-1">
               Drop your resume here or click to browse
             </p>
-            <p className="text-sm text-gray-500 mb-4">
-              Supports PDF, DOC, DOCX, and TXT files (max 5MB)
+            <p className="text-xs text-gray-500 mb-3">
+              PDF, DOC, DOCX, TXT (max 5MB)
             </p>
             <label className="cursor-pointer">
               <input
@@ -252,7 +302,7 @@ const ResumeParser: React.FC<ResumeParserProps> = ({ onParseComplete }) => {
                 onChange={handleFileSelect}
                 disabled={isProcessing}
               />
-              <span className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500">
+              <span className="inline-flex items-center px-3 py-1.5 border border-transparent text-xs font-medium rounded-md text-white bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500">
                 Choose File
               </span>
             </label>
@@ -313,10 +363,8 @@ const ResumeParser: React.FC<ResumeParserProps> = ({ onParseComplete }) => {
         </div>
       )}
 
-      <div className="mt-4 text-xs text-gray-500">
-        <p className="mb-1">• Supported formats: PDF, DOC, DOCX, TXT</p>
-        <p className="mb-1">• Maximum file size: 5MB</p>
-        <p>• Your resume data is processed securely and not stored permanently</p>
+      <div className="mt-3 text-xs text-gray-500">
+        <p>Supported: PDF, DOC, DOCX, TXT (max 5MB) • Data processed securely</p>
       </div>
     </div>
   );
