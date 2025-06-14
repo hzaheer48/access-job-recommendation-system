@@ -1,10 +1,12 @@
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
-from . import views
+from .views import ApplicationViewSet, InterviewFeedbackViewSet, InterviewPreparationViewSet, InterviewScheduleViewSet
 
 router = DefaultRouter()
-router.register(r'', views.JobApplicationViewSet, basename='application')
-router.register(r'interviews', views.InterviewViewSet, basename='interview')
+router.register(r'applications', ApplicationViewSet)
+router.register(r'interview-feedback', InterviewFeedbackViewSet)
+router.register(r'interview-preparation', InterviewPreparationViewSet)
+router.register(r'interview-schedule', InterviewScheduleViewSet)
 
 urlpatterns = [
     # Application statistics

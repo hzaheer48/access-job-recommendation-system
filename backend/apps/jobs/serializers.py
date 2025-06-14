@@ -1,6 +1,6 @@
 from rest_framework import serializers
-from .models import JobListing, Company, JobSkillRequirement
-from apps.authentication.serializers import SkillSerializer
+from .models import JobListing, Company, JobSkillRequirement, Bookmark, SavedSearch
+from apps.authentication.serializers import SkillSerializer, UserSerializer
 
 class CompanySerializer(serializers.ModelSerializer):
     class Meta:
@@ -27,6 +27,7 @@ class JobListingSerializer(serializers.ModelSerializer):
         write_only=True
     )
     skill_requirements = JobSkillRequirementSerializer(many=True, read_only=True)
+    posted_by = UserSerializer(read_only=True)
     days_until_deadline = serializers.SerializerMethodField()
 
     class Meta:
@@ -36,7 +37,7 @@ class JobListingSerializer(serializers.ModelSerializer):
             'benefits', 'salary_min', 'salary_max', 'location', 'job_type',
             'experience_level', 'remote_option', 'posted_date', 'application_deadline',
             'is_active', 'is_featured', 'view_count', 'skill_requirements',
-            'days_until_deadline'
+            'days_until_deadline', 'posted_by'
         ]
         read_only_fields = ['posted_date', 'view_count']
 
@@ -47,3 +48,20 @@ class JobListingSerializer(serializers.ModelSerializer):
             delta = obj.application_deadline - now
             return max(0, delta.days)
         return None
+
+class BookmarkSerializer(serializers.ModelSerializer):
+    job = JobListingSerializer(read_only=True)
+    user = UserSerializer(read_only=True)
+    
+    class Meta:
+        model = Bookmark
+        fields = ['id', 'job', 'user', 'notes', 'created_at', 'updated_at']
+        read_only_fields = ['user', 'created_at', 'updated_at']
+
+class SavedSearchSerializer(serializers.ModelSerializer):
+    user = UserSerializer(read_only=True)
+    
+    class Meta:
+        model = SavedSearch
+        fields = ['id', 'name', 'criteria', 'created_at', 'last_used', 'is_active', 'user']
+        read_only_fields = ['user', 'created_at', 'last_used']

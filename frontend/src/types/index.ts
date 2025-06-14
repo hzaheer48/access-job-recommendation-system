@@ -71,23 +71,30 @@ export interface Job {
   id: string;
   title: string;
   company: string;
+  location: string;
+  type: JobType;
   description: string;
   requirements: string[];
-  benefits: string[];
-  location: string;
-  salaryRange: {
+  requiredSkills: string[];
+  skillLevels: Record<string, number>;
+  salary: {
     min: number;
     max: number;
+    currency: string;
   };
-  jobType: JobType;
-  experienceLevel: ExperienceLevel;
-  industry: string;
   postedDate: string;
-  applicationDeadline?: string;
-  isActive: boolean;
-  companyLogo?: string;
-  skills: string[];
+  deadline: string;
+  status: 'active' | 'closed' | 'draft';
+  experienceLevel: ExperienceLevel;
+  education: string;
+  benefits: string[];
   applicationCount: number;
+  viewCount: number;
+  isRemote: boolean;
+  isFeatured: boolean;
+  isUrgent: boolean;
+  tags: string[];
+  metadata: Record<string, any>;
 }
 
 export type JobType = 'full-time' | 'part-time' | 'contract' | 'temporary' | 'internship';
@@ -162,11 +169,55 @@ export interface JobAlert {
   id: string;
   userId: string;
   name: string;
-  criteria: SearchCriteria;
-  isActive: boolean;
-  frequency: 'immediate' | 'daily' | 'weekly';
-  lastTriggered?: string;
+  criteria: {
+    keywords: string[];
+    locations: string[];
+    jobTypes: string[];
+    industries: string[];
+    experienceLevel: 'entry' | 'mid' | 'senior' | 'executive';
+    salaryRange?: {
+      min: number;
+      max: number;
+    };
+    skills: string[];
+    companies?: string[];
+    remote?: boolean;
+  };
+  frequency: 'daily' | 'weekly' | 'monthly' | 'realtime';
+  status: 'active' | 'paused' | 'deleted';
+  lastSent?: string;
+  nextScheduled?: string;
   createdAt: string;
+  updatedAt: string;
+}
+
+export interface JobAlertMatch {
+  id: string;
+  alertId: string;
+  jobId: string;
+  matchScore: number;
+  matchReasons: string[];
+  createdAt: string;
+  status: 'new' | 'viewed' | 'applied' | 'dismissed';
+}
+
+export interface JobAlertStats {
+  totalAlerts: number;
+  activeAlerts: number;
+  totalMatches: number;
+  matchesByFrequency: {
+    daily: number;
+    weekly: number;
+    monthly: number;
+    realtime: number;
+  };
+  matchesByStatus: {
+    new: number;
+    viewed: number;
+    applied: number;
+    dismissed: number;
+  };
+  lastUpdated: string;
 }
 
 export interface SearchCriteria {
@@ -338,4 +389,149 @@ export interface JobFormData {
   industry: string;
   applicationDeadline?: string;
   skills: string[];
+}
+
+export interface Skill {
+  name: string;
+  proficiencyLevel: number;
+  yearsOfExperience?: number;
+  verified: boolean;
+  verifiedBy?: string;
+  lastUsed?: string;
+  category: 'technical' | 'soft' | 'language' | 'other';
+  aliases?: string[];
+  popularityScore?: number;
+}
+
+export interface Interview {
+  id: string;
+  applicationId: string;
+  type: 'technical' | 'behavioral' | 'system_design' | 'culture_fit';
+  status: 'scheduled' | 'completed' | 'cancelled' | 'rescheduled';
+  date: string;
+  duration: number;
+  interviewers: string[];
+  notes: string;
+  feedback?: {
+    technicalScore: number;
+    communicationScore: number;
+    problemSolvingScore: number;
+    cultureFitScore: number;
+    strengths: string[];
+    areasForImprovement: string[];
+    notes: string;
+  };
+  preparation?: {
+    resources: {
+      type: 'article' | 'video' | 'practice' | 'document';
+      title: string;
+      url: string;
+      description: string;
+    }[];
+    practiceQuestions: {
+      question: string;
+      category: string;
+      difficulty: 'easy' | 'medium' | 'hard';
+      answer?: string;
+    }[];
+  };
+}
+
+export interface ResumeTemplate {
+  id: string;
+  name: string;
+  description: string;
+  thumbnail: string;
+}
+
+export interface Document {
+  id: string;
+  userId: string;
+  name: string;
+  type: 'resume' | 'cover_letter' | 'certificate' | 'portfolio' | 'other';
+  fileUrl: string;
+  fileSize: number;
+  mimeType: string;
+  version: number;
+  isCurrent: boolean;
+  metadata: {
+    uploadedAt: string;
+    lastModified: string;
+    tags: string[];
+    description?: string;
+    visibility: 'private' | 'public' | 'shared';
+    sharedWith?: string[];
+  };
+}
+
+export interface DocumentVersion {
+  id: string;
+  documentId: string;
+  version: number;
+  fileUrl: string;
+  fileSize: number;
+  uploadedAt: string;
+  changes: {
+    type: 'content' | 'format' | 'metadata';
+    description: string;
+  }[];
+}
+
+export interface Assessment {
+  id: string;
+  userId: string;
+  type: string;
+  status: 'pending' | 'in_progress' | 'completed';
+  score?: number;
+  maxScore: number;
+  duration: number;
+  startTime?: string;
+  endTime?: string;
+  questions: AssessmentQuestion[];
+}
+
+export interface AssessmentQuestion {
+  id: string;
+  question: string;
+  type: 'multiple_choice' | 'text' | 'code';
+  points: number;
+  difficulty: 'easy' | 'medium' | 'hard';
+  category: string;
+  options?: string[];
+  correctAnswer?: string;
+}
+
+export interface AssessmentTemplate {
+  id: string;
+  name: string;
+  description: string;
+  type: string;
+  difficulty: 'easy' | 'medium' | 'hard';
+  duration: number;
+  tags: string[];
+  questions: AssessmentQuestion[];
+}
+
+export interface AssessmentResult {
+  id: string;
+  assessmentId: string;
+  userId: string;
+  score: number;
+  maxScore: number;
+  percentage: number;
+  timeTaken: number;
+  answers: AssessmentAnswer[];
+  feedback: {
+    strengths: string[];
+    weaknesses: string[];
+    recommendations: string[];
+  };
+  completedAt: string;
+}
+
+export interface AssessmentAnswer {
+  questionId: string;
+  answer: string;
+  points: number;
+  isCorrect: boolean;
 } 

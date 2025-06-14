@@ -56,6 +56,10 @@ class User(AbstractUser):
     show_education = models.BooleanField(default=True)
     show_skills = models.BooleanField(default=True)
 
+    # Add these new fields
+    resumeVersions = models.ManyToManyField('ResumeVersion', related_name='users', blank=True)
+    selectedTemplate = models.ForeignKey('ResumeTemplate', on_delete=models.SET_NULL, null=True, blank=True)
+
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['username']
 
@@ -391,3 +395,24 @@ class ResumeVersion(models.Model):
             # Set all other versions to not current
             ResumeVersion.objects.filter(user=self.user).update(is_current=False)
         super().save(*args, **kwargs)
+
+class ResumeTemplate(models.Model):
+    name = models.CharField(max_length=200)
+    description = models.TextField()
+    thumbnail = models.ImageField(upload_to='resume_templates/thumbnails/')
+    templateFile = models.FileField(upload_to='resume_templates/')
+    category = models.CharField(max_length=50, choices=[
+        ('professional', 'Professional'),
+        ('creative', 'Creative'),
+        ('simple', 'Simple'),
+        ('modern', 'Modern')
+    ])
+    isActive = models.BooleanField(default=True)
+    createdAt = models.DateTimeField(auto_now_add=True)
+    updatedAt = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ['name']
+
+    def __str__(self):
+        return self.name

@@ -5,6 +5,7 @@ import Header from './components/shared/Header';
 import Modal from './components/shared/Modal';
 import Loading from './components/shared/Loading';
 import ProtectedRoute from './components/shared/ProtectedRoute';
+import ApiTestPage from './components/examples/ApiTestPage';
 
 // Auth Pages
 import Login from './pages/auth/Login';
@@ -45,6 +46,7 @@ function AppContent() {
               <Route path="/" element={<LandingPage />} />
               <Route path="/login" element={<Login />} />
               <Route path="/register" element={<Register />} />
+              <Route path="/api-test" element={<ApiTestPage />} />
 
               {/* Job Seeker Protected Routes */}
               <Route

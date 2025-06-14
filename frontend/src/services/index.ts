@@ -1,12 +1,7 @@
-// Re-export all mock data from organized files
-export * from './mockUsers';
-export * from './mockJobs';
-export * from './mockApplications';
-export * from './mockAlertsAndSearches';
-export * from './mockSkillsAndAssessment';
-export * from './mockAdminAndAnalytics';
-export * from './mockUtilities';
+// Export API configuration and hooks
+export * from './api';
+export * from './apiHooks';
 export * from './novitaAI';
 
-// For backward compatibility, also export from the main mockData file
-export * from './mockData';
+// Export types and utilities
+export * from './mockUtilities';  // Keep utilities for now as they might be useful

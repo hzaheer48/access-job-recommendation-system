@@ -56,6 +56,8 @@ INSTALLED_APPS = [
     "apps.recommendations",
     "apps.alerts",
     "apps.analytics",
+    "apps.notifications",
+    "apps.skills",
     "apps.common",
 ]
 

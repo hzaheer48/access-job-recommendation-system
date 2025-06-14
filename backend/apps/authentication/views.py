@@ -3,8 +3,8 @@ from rest_framework import viewsets, status
 from rest_framework.permissions import IsAuthenticated, IsAdminUser, AllowAny
 from rest_framework.decorators import action
 from rest_framework.response import Response
-from .models import User, Skill, UserSkill, Education, WorkExperience
-from .serializers import UserSerializer, SkillSerializer, UserSkillSerializer, EducationSerializer, WorkExperienceSerializer
+from .models import User, Skill, UserSkill, Education, WorkExperience, ResumeVersion, ResumeTemplate
+from .serializers import UserSerializer, SkillSerializer, UserSkillSerializer, EducationSerializer, WorkExperienceSerializer, ResumeVersionSerializer, ResumeTemplateSerializer
 from rest_framework.views import APIView
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework_simplejwt.views import TokenObtainPairView
@@ -89,6 +89,16 @@ class WorkExperienceViewSet(viewsets.ModelViewSet):
 
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
+
+class ResumeVersionViewSet(viewsets.ModelViewSet):
+    queryset = ResumeVersion.objects.all()
+    serializer_class = ResumeVersionSerializer
+    permission_classes = [IsAuthenticated]
+
+class ResumeTemplateViewSet(viewsets.ModelViewSet):
+    queryset = ResumeTemplate.objects.all()
+    serializer_class = ResumeTemplateSerializer
+    permission_classes = [IsAuthenticated]
 
 class LoginRateThrottle(AnonRateThrottle):
     rate = '5/hour'

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useApp } from '../../context/AppContext';
 import { simulateApiCall } from '../../services/mockData';
 import { parseResumeWithNovitaAI } from '../../services/novitaAI';
@@ -13,11 +13,98 @@ interface ResumeParserProps {
   }) => void;
 }
 
+interface ResumeVersion {
+  id: string;
+  fileName: string;
+  uploadDate: string;
+  isCurrent: boolean;
+  parsedData?: {
+    skills: string[];
+    experience: Experience[];
+    education: Education[];
+    summary: string;
+  };
+}
+
+interface ResumeTemplate {
+  id: string;
+  name: string;
+  description: string;
+  thumbnail: string;
+  sections: string[];
+}
+
 const ResumeParser: React.FC<ResumeParserProps> = ({ onParseComplete }) => {
   const { showModal, setLoading } = useApp();
   const [isDragOver, setIsDragOver] = useState(false);
   const [uploadedFile, setUploadedFile] = useState<File | null>(null);
   const [isProcessing, setIsProcessing] = useState(false);
+  const [resumeVersions, setResumeVersions] = useState<ResumeVersion[]>([]);
+  const [selectedTemplate, setSelectedTemplate] = useState<ResumeTemplate | null>(null);
+  const [showTemplates, setShowTemplates] = useState(false);
+
+  // Mock resume templates
+  const resumeTemplates: ResumeTemplate[] = [
+    {
+      id: 'template1',
+      name: 'Professional',
+      description: 'Clean and professional design suitable for most industries',
+      thumbnail: '/templates/professional.png',
+      sections: ['Summary', 'Experience', 'Education', 'Skills']
+    },
+    {
+      id: 'template2',
+      name: 'Creative',
+      description: 'Modern and creative design for creative industries',
+      thumbnail: '/templates/creative.png',
+      sections: ['Summary', 'Experience', 'Education', 'Skills', 'Projects']
+    },
+    {
+      id: 'template3',
+      name: 'Technical',
+      description: 'Technical-focused design for IT and engineering roles',
+      thumbnail: '/templates/technical.png',
+      sections: ['Summary', 'Experience', 'Education', 'Skills', 'Certifications']
+    }
+  ];
+
+  // Load resume versions on component mount
+  useEffect(() => {
+    loadResumeVersions();
+  }, []);
+
+  const loadResumeVersions = async () => {
+    try {
+      // In a real app, this would be an API call
+      const versions = await simulateApiCall([
+        {
+          id: 'v1',
+          fileName: 'resume_v1.pdf',
+          uploadDate: '2024-01-15',
+          isCurrent: true
+        },
+        {
+          id: 'v2',
+          fileName: 'resume_v2.pdf',
+          uploadDate: '2024-02-01',
+          isCurrent: false
+        }
+      ]);
+      setResumeVersions(versions);
+    } catch (error) {
+      console.error('Failed to load resume versions:', error);
+    }
+  };
+
+  const handleTemplateSelect = (template: ResumeTemplate) => {
+    setSelectedTemplate(template);
+    setShowTemplates(false);
+    showModal({
+      type: 'success',
+      title: 'Template Selected',
+      message: `You've selected the ${template.name} template. Your resume will be formatted according to this template.`
+    });
+  };
 
   // Mock resume data for different file types
   const mockResumeData = {
@@ -253,15 +340,104 @@ const ResumeParser: React.FC<ResumeParserProps> = ({ onParseComplete }) => {
     <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 p-4">
       <div className="flex items-center justify-between mb-3">
         <h3 className="text-base font-medium text-gray-900 dark:text-white">Resume Parser</h3>
-        {!process.env.REACT_APP_NOVITA_API_KEY && (
-          <span className="text-xs text-amber-600 dark:text-amber-400 bg-amber-50 dark:bg-amber-900/20 px-2 py-1 rounded">
-            Demo Mode
-          </span>
-        )}
+        <div className="flex items-center space-x-2">
+          {!process.env.REACT_APP_NOVITA_API_KEY && (
+            <span className="text-xs text-amber-600 dark:text-amber-400 bg-amber-50 dark:bg-amber-900/20 px-2 py-1 rounded">
+              Demo Mode
+            </span>
+          )}
+          <button
+            onClick={() => setShowTemplates(!showTemplates)}
+            className="text-sm text-primary-600 hover:text-primary-700 dark:text-primary-400 dark:hover:text-primary-300"
+          >
+            {selectedTemplate ? `Template: ${selectedTemplate.name}` : 'Select Template'}
+          </button>
+        </div>
       </div>
       <p className="text-sm text-gray-600 dark:text-gray-300 mb-3">
         Upload your resume to automatically populate your profile.
       </p>
+
+      {/* Template Selection Modal */}
+      {showTemplates && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <div className="bg-white dark:bg-gray-800 rounded-lg p-6 max-w-2xl w-full mx-4">
+            <h3 className="text-lg font-medium mb-4">Select Resume Template</h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {resumeTemplates.map(template => (
+                <div
+                  key={template.id}
+                  className="border rounded-lg p-4 cursor-pointer hover:border-primary-500"
+                  onClick={() => handleTemplateSelect(template)}
+                >
+                  <img
+                    src={template.thumbnail}
+                    alt={template.name}
+                    className="w-full h-32 object-cover rounded mb-2"
+                  />
+                  <h4 className="font-medium">{template.name}</h4>
+                  <p className="text-sm text-gray-600 dark:text-gray-400">{template.description}</p>
+                </div>
+              ))}
+            </div>
+            <button
+              onClick={() => setShowTemplates(false)}
+              className="mt-4 w-full bg-gray-200 hover:bg-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-800 dark:text-white py-2 rounded"
+            >
+              Cancel
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* Resume Versions */}
+      {resumeVersions.length > 0 && (
+        <div className="mb-4">
+          <h4 className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Resume Versions</h4>
+          <div className="space-y-2">
+            {resumeVersions.map(version => (
+              <div
+                key={version.id}
+                className="flex items-center justify-between p-2 bg-gray-50 dark:bg-gray-700 rounded"
+              >
+                <div className="flex items-center">
+                  <svg
+                    className="w-5 h-5 text-gray-400 mr-2"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+                    />
+                  </svg>
+                  <span className="text-sm">{version.fileName}</span>
+                  {version.isCurrent && (
+                    <span className="ml-2 text-xs text-green-600 dark:text-green-400">Current</span>
+                  )}
+                </div>
+                <div className="flex items-center space-x-2">
+                  <button
+                    onClick={() => {/* Handle version restore */}}
+                    className="text-xs text-primary-600 hover:text-primary-700"
+                  >
+                    Restore
+                  </button>
+                  <button
+                    onClick={() => {/* Handle version delete */}}
+                    className="text-xs text-red-600 hover:text-red-700"
+                  >
+                    Delete
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
 
       {!uploadedFile ? (
         <div

@@ -1,8 +1,8 @@
 from django.shortcuts import render
-from rest_framework import viewsets, filters
+from rest_framework import viewsets, filters, permissions
 from rest_framework.permissions import IsAuthenticated
-from .models import Recommendation
-from .serializers import RecommendationSerializer
+from .models import Recommendation, JobMatch, JobSimilarity
+from .serializers import RecommendationSerializer, JobMatchSerializer, JobSimilaritySerializer
 from rest_framework.views import APIView
 from rest_framework.response import Response
 
@@ -42,3 +42,13 @@ class ModelRetrainingView(APIView):
     permission_classes = [IsAuthenticated]
     def post(self, request):
         return Response({'message': 'Model retraining started.'})
+
+class JobMatchViewSet(viewsets.ModelViewSet):
+    queryset = JobMatch.objects.all()
+    serializer_class = JobMatchSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+class JobSimilarityViewSet(viewsets.ModelViewSet):
+    queryset = JobSimilarity.objects.all()
+    serializer_class = JobSimilaritySerializer
+    permission_classes = [permissions.IsAuthenticated]

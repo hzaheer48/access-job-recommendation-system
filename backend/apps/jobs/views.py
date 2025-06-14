@@ -1,19 +1,18 @@
 from django.shortcuts import render
-from rest_framework import viewsets, filters, status
-from rest_framework.permissions import IsAuthenticated, AllowAny
+from rest_framework import viewsets, filters, status, permissions
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from django.utils import timezone
 from django.db.models import Q
-from .models import JobListing, JobSkillRequirement, Company
-from .serializers import JobListingSerializer, JobSkillRequirementSerializer, CompanySerializer
+from .models import JobListing, JobSkillRequirement, Company, Bookmark, SavedSearch
+from .serializers import JobListingSerializer, JobSkillRequirementSerializer, CompanySerializer, BookmarkSerializer, SavedSearchSerializer
 
 # Create your views here.
 
 class JobListingViewSet(viewsets.ModelViewSet):
     queryset = JobListing.objects.all()
     serializer_class = JobListingSerializer
-    permission_classes = [IsAuthenticated]
+    permission_classes = [permissions.IsAuthenticated]
     filter_backends = [filters.SearchFilter, filters.OrderingFilter]
     search_fields = ['title', 'description', 'requirements', 'company__name']
     ordering_fields = ['posted_date', 'salary_min', 'salary_max', 'view_count']
@@ -85,14 +84,14 @@ class JobListingViewSet(viewsets.ModelViewSet):
 class CompanyViewSet(viewsets.ModelViewSet):
     queryset = Company.objects.all()
     serializer_class = CompanySerializer
-    permission_classes = [IsAuthenticated]
+    permission_classes = [permissions.IsAuthenticated]
     filter_backends = [filters.SearchFilter]
     search_fields = ['name', 'description', 'industry']
 
 class JobSkillRequirementViewSet(viewsets.ModelViewSet):
     queryset = JobSkillRequirement.objects.all()
     serializer_class = JobSkillRequirementSerializer
-    permission_classes = [IsAuthenticated]
+    permission_classes = [permissions.IsAuthenticated]
 
     def get_queryset(self):
         queryset = JobSkillRequirement.objects.all()
@@ -100,3 +99,30 @@ class JobSkillRequirementViewSet(viewsets.ModelViewSet):
         if job_id:
             queryset = queryset.filter(job_id=job_id)
         return queryset
+
+class BookmarkViewSet(viewsets.ModelViewSet):
+    serializer_class = BookmarkSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get_queryset(self):
+        return Bookmark.objects.filter(user=self.request.user)
+
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
+
+class SavedSearchViewSet(viewsets.ModelViewSet):
+    serializer_class = SavedSearchSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get_queryset(self):
+        return SavedSearch.objects.filter(user=self.request.user)
+
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
+
+    @action(detail=True, methods=['post'])
+    def execute(self, request, pk=None):
+        saved_search = self.get_object()
+        # Here you would implement the search logic using the saved criteria
+        # For now, we'll just return the search criteria
+        return Response(saved_search.criteria)

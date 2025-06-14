@@ -67,3 +67,31 @@ class JobSkillRequirement(models.Model):
 
     class Meta:
         unique_together = ('job', 'skill')
+
+class Bookmark(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='bookmarks')
+    job = models.ForeignKey(JobListing, on_delete=models.CASCADE, related_name='bookmarked_by')
+    notes = models.TextField(blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        unique_together = ('user', 'job')
+        ordering = ['-created_at']
+
+    def __str__(self):
+        return f"{self.user.email} bookmarked {self.job.title}"
+
+class SavedSearch(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='saved_searches')
+    name = models.CharField(max_length=200)
+    criteria = models.JSONField()  # Store search criteria as JSON
+    created_at = models.DateTimeField(auto_now_add=True)
+    last_used = models.DateTimeField(auto_now=True)
+    is_active = models.BooleanField(default=True)
+
+    class Meta:
+        ordering = ['-last_used']
+
+    def __str__(self):
+        return f"{self.user.email}'s search: {self.name}"

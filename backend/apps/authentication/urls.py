@@ -8,6 +8,8 @@ router.register(r'skills', views.SkillViewSet, basename='skill')
 router.register(r'user-skills', views.UserSkillViewSet, basename='userskill')
 router.register(r'education', views.EducationViewSet, basename='education')
 router.register(r'experience', views.WorkExperienceViewSet, basename='experience')
+router.register(r'resume-versions', views.ResumeVersionViewSet, basename='resumeversion')
+router.register(r'resume-templates', views.ResumeTemplateViewSet, basename='resumetemplate')
 
 urlpatterns = [
     # Authentication endpoints
