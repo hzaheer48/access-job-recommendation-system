@@ -30,6 +30,9 @@ const Header: React.FC = () => {
     { name: 'Dashboard', path: '/dashboard' },
     { name: 'Jobs', path: '/jobs' },
     { name: 'Applications', path: '/applications' },
+    { name: 'Interviews', path: '/interview-tracking' },
+    { name: 'Job Alerts', path: '/job-alerts' },
+    { name: 'Skills', path: '/skill-assessment' },
     { name: 'Bookmarks', path: '/bookmarks' },
     { name: 'Profile', path: '/profile' },
   ];
@@ -175,4 +178,4 @@ const Header: React.FC = () => {
   );
 };
 
-export default Header; 
+export default Header;
