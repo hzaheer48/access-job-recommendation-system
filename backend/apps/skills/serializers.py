@@ -56,7 +56,26 @@ class AssessmentResultSerializer(serializers.ModelSerializer):
 class AssessmentSerializer(serializers.ModelSerializer):
     template = AssessmentTemplateSerializer(read_only=True)
     results = AssessmentResultSerializer(many=True, read_only=True)
+    userId = serializers.IntegerField(source='user.id')
+    type = serializers.CharField(source='type')
+    status = serializers.CharField(source='status')
+    score = serializers.FloatField(source='score')
+    maxScore = serializers.FloatField(source='maxScore')
+    duration = serializers.IntegerField(source='duration')
+    startTime = serializers.DateTimeField(source='startTime')
+    endTime = serializers.DateTimeField(source='endTime')
+    questions = serializers.SerializerMethodField()
+    createdAt = serializers.DateTimeField(source='created_at')
+    updatedAt = serializers.DateTimeField(source='updated_at')
 
     class Meta:
         model = Assessment
-        fields = '__all__' 
+        fields = [
+            'id', 'userId', 'type', 'status', 'score', 'maxScore',
+            'duration', 'startTime', 'endTime', 'questions', 'template',
+            'results', 'createdAt', 'updatedAt'
+        ]
+        read_only_fields = ['created_at', 'updated_at']
+
+    def get_questions(self, obj):
+        return AssessmentQuestionSerializer(obj.template.questions.all(), many=True).data 
