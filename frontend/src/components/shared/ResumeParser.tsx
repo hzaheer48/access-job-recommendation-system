@@ -156,7 +156,7 @@ const ResumeParser: React.FC<ResumeParserProps> = ({ onParseComplete }) => {
         });
         
         // Log if text was truncated (for debugging)
-        if (resumeData && file.size > 50000) { // Rough estimate for large files
+        if (resumeData && file.size > LARGE_FILE_SIZE_THRESHOLD) { // Rough estimate for large files
           console.log('Note: Large resume file may have been truncated to fit AI model limits');
         }
       } else {
