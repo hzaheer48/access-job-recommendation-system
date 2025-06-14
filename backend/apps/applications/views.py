@@ -1,23 +1,23 @@
 from django.shortcuts import render
 from rest_framework import viewsets
 from rest_framework.permissions import IsAuthenticated
-from .models import Application, Interview
-from .serializers import ApplicationSerializer, InterviewSerializer
+from .models import JobApplication, Interview
+from .serializers import JobApplicationSerializer, InterviewSerializer
 from rest_framework.views import APIView
 from rest_framework.response import Response
 
 # Create your views here.
 
-class ApplicationViewSet(viewsets.ModelViewSet):
-    serializer_class = ApplicationSerializer
+class JobApplicationViewSet(viewsets.ModelViewSet):
+    serializer_class = JobApplicationSerializer
     permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
         # If user is staff/admin, show all applications
         if self.request.user.is_staff:
-            return Application.objects.all()
+            return JobApplication.objects.all()
         # Otherwise, show only user's applications
-        return Application.objects.filter(user=self.request.user)
+        return JobApplication.objects.filter(user=self.request.user)
 
     def perform_create(self, serializer):
         # Automatically set the user to the current user
@@ -36,8 +36,8 @@ class ApplicationStatsView(APIView):
     permission_classes = [IsAuthenticated]
 
     def get(self, request):
-        total = Application.objects.count()
-        user_total = Application.objects.filter(user=request.user).count()
+        total = JobApplication.objects.count()
+        user_total = JobApplication.objects.filter(user=request.user).count()
         return Response({
             'total_applications': total,
             'your_applications': user_total

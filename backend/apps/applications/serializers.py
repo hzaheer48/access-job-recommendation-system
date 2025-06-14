@@ -1,9 +1,9 @@
 from rest_framework import serializers
-from .models import Application, Interview
+from .models import JobApplication, Interview
 
-class ApplicationSerializer(serializers.ModelSerializer):
+class JobApplicationSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Application
+        model = JobApplication
         fields = '__all__'
 
 class InterviewSerializer(serializers.ModelSerializer):
