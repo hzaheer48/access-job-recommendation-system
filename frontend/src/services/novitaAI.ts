@@ -30,7 +30,7 @@ const truncateTextForTokenLimit = (text: string, maxTokens: number): string => {
   const truncated = text.substring(0, maxChars);
   const lastSpaceIndex = truncated.lastIndexOf(' ');
   
-  if (lastSpaceIndex > maxChars * 0.8) {
+  if (lastSpaceIndex > maxChars * WORD_BOUNDARY_THRESHOLD) {
     return truncated.substring(0, lastSpaceIndex) + '...';
   }
   
