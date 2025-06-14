@@ -16,8 +16,27 @@ Including another URLconf
 """
 
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
+from rest_framework.routers import DefaultRouter
+from jobs.views import JobViewSet, JobSkillViewSet
+from applications.views import ApplicationViewSet
+from users.views import UserViewSet, SkillViewSet, UserSkillViewSet
+from recommendations.views import RecommendationViewSet
+from alerts.views import AlertViewSet
+
+# Create a router and register our viewsets with it
+router = DefaultRouter()
+router.register(r'jobs', JobViewSet, basename='job')
+router.register(r'job-skills', JobSkillViewSet, basename='jobskill')
+router.register(r'applications', ApplicationViewSet, basename='application')
+router.register(r'users', UserViewSet, basename='user')
+router.register(r'skills', SkillViewSet, basename='skill')
+router.register(r'user-skills', UserSkillViewSet, basename='userskill')
+router.register(r'recommendations', RecommendationViewSet, basename='recommendation')
+router.register(r'alerts', AlertViewSet, basename='alert')
 
 urlpatterns = [
     path("admin/", admin.site.urls),
+    path('api/', include(router.urls)),
+    path('api-auth/', include('rest_framework.urls')),
 ]
