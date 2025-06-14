@@ -80,9 +80,9 @@ const LandingPage: React.FC = () => {
                 </div>
                 
                 <h1 className="text-4xl tracking-tight font-bold text-gray-900 dark:text-white sm:text-5xl md:text-6xl lg:text-7xl">
-                  <span className="block mb-2">{typedText}</span>
-                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary-600 via-primary-700 to-primary-800">
-                    <span className="inline-block w-1 h-16 bg-primary-600 ml-1 animate-pulse"></span>
+                  <span className="block mb-2">
+                    {typedText}
+                    <span className="inline-block w-1 h-16 bg-primary-600 ml-1 animate-pulse align-baseline"></span>
                   </span>
                   <span className="block mt-2 text-3xl sm:text-4xl lg:text-5xl font-semibold bg-gradient-to-r from-gray-700 to-gray-900 dark:from-gray-200 dark:to-gray-400 bg-clip-text text-transparent">
                     with AI Intelligence
