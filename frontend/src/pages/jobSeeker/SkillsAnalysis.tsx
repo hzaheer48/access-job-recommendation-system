@@ -116,7 +116,7 @@ const SkillsAnalysis: React.FC = () => {
       </div>
 
       {/* Generate New Analysis */}
-      <div className="bg-white rounded-lg shadow p-6 mb-8">
+      <div className="card-glass backdrop-blur-sm border border-white/20 p-6 mb-8">
         <h2 className="text-lg font-semibold text-gray-900 mb-4">Generate Analysis for Target Role</h2>
         <div className="flex items-end space-x-4">
           <div className="flex-1">
@@ -151,7 +151,7 @@ const SkillsAnalysis: React.FC = () => {
         <>
           {/* Analysis Overview */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-            <div className="bg-white rounded-lg shadow p-6">
+            <div className="card-glass backdrop-blur-sm border border-white/20 p-6 hover:shadow-medium transition-all duration-300">
               <div className="flex items-center">
                 <div className="flex-shrink-0">
                   <div className="w-8 h-8 bg-green-100 rounded-md flex items-center justify-center">
@@ -165,7 +165,7 @@ const SkillsAnalysis: React.FC = () => {
               </div>
             </div>
 
-            <div className="bg-white rounded-lg shadow p-6">
+            <div className="card-glass backdrop-blur-sm border border-white/20 p-6 hover:shadow-medium transition-all duration-300">
               <div className="flex items-center">
                 <div className="flex-shrink-0">
                   <div className="w-8 h-8 bg-blue-100 rounded-md flex items-center justify-center">
@@ -195,7 +195,7 @@ const SkillsAnalysis: React.FC = () => {
           </div>
 
           {/* Current Skills */}
-          <div className="bg-white rounded-lg shadow p-6 mb-8">
+          <div className="card-glass backdrop-blur-sm border border-white/20 p-6 mb-8">
             <h3 className="text-lg font-semibold text-gray-900 mb-4">Your Current Skills</h3>
             <div className="flex flex-wrap gap-2">
               {analysis.currentSkills.map((skill) => (
@@ -210,7 +210,7 @@ const SkillsAnalysis: React.FC = () => {
           </div>
 
           {/* Skill Gaps */}
-          <div className="bg-white rounded-lg shadow p-6 mb-8">
+          <div className="card-glass backdrop-blur-sm border border-white/20 p-6 mb-8">
             <h3 className="text-lg font-semibold text-gray-900 mb-4">Skills to Develop</h3>
             <div className="space-y-4">
               {analysis.skillGaps.map((gap, index) => (
@@ -238,7 +238,7 @@ const SkillsAnalysis: React.FC = () => {
           </div>
 
           {/* Learning Paths */}
-          <div className="bg-white rounded-lg shadow p-6">
+          <div className="card-glass backdrop-blur-sm border border-white/20 p-6">
             <h3 className="text-lg font-semibold text-gray-900 mb-6">Recommended Learning Paths</h3>
             <div className="space-y-8">
               {analysis.learningPaths.map((path, index) => (
@@ -248,7 +248,7 @@ const SkillsAnalysis: React.FC = () => {
                     {path.resources.map((resource, resourceIndex) => (
                       <div
                         key={resourceIndex}
-                        className="border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow"
+                        className="card-glass backdrop-blur-sm border border-white/20 p-4 hover:shadow-medium transition-all duration-300 hover:-translate-y-1"
                       >
                         <div className="flex items-start justify-between mb-2">
                           <h5 className="font-medium text-gray-900 text-sm">{resource.title}</h5>
@@ -309,4 +309,4 @@ const SkillsAnalysis: React.FC = () => {
   );
 };
 
-export default SkillsAnalysis; 
+export default SkillsAnalysis;

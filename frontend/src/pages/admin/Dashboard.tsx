@@ -71,110 +71,185 @@ const Dashboard: React.FC = () => {
 
   if (isLoading) {
     return (
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <Loading inline message="Loading dashboard..." />
+      <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-primary-50">
+        <div className="absolute inset-0 bg-grid-pattern opacity-5"></div>
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+          <div className="flex items-center justify-center min-h-[60vh]">
+            <div className="card-glass backdrop-blur-sm border border-white/20 p-8 text-center">
+              <div className="w-16 h-16 bg-gradient-to-br from-primary-500 to-primary-600 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                <svg className="w-8 h-8 text-white animate-spin" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                </svg>
+              </div>
+              <Loading inline message="Loading dashboard..." />
+            </div>
+          </div>
+        </div>
       </div>
     );
   }
 
   if (!metrics) {
     return (
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="text-center py-12">
-          <p className="text-gray-500">No dashboard data available.</p>
+      <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-primary-50">
+        <div className="absolute inset-0 bg-grid-pattern opacity-5"></div>
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+          <div className="flex items-center justify-center min-h-[60vh]">
+            <div className="card-glass backdrop-blur-sm border border-white/20 p-8 text-center">
+              <div className="w-16 h-16 bg-gradient-to-br from-gray-400 to-gray-500 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+              </div>
+              <p className="text-lg text-gray-600">No dashboard data available.</p>
+            </div>
+          </div>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-      {/* Header */}
-      <div className="mb-8 flex justify-between items-start">
-        <div>
-          <h1 className="text-2xl font-bold text-gray-900">Admin Dashboard</h1>
-          <p className="text-gray-600">System overview and key metrics</p>
-        </div>
-        <div className="flex items-center space-x-4">
-          <select
-            value={timeframe}
-            onChange={(e) => setTimeframe(e.target.value as '7d' | '30d' | '90d')}
-            className="px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-primary-500 focus:border-primary-500"
-          >
-            <option value="7d">Last 7 days</option>
-            <option value="30d">Last 30 days</option>
-            <option value="90d">Last 90 days</option>
-          </select>
-        </div>
-      </div>
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-primary-50">
+      <main className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
+        <div className="px-4 py-6 sm:px-0">
+          {/* Header Section */}
+          <div className="mb-8">
+            <div className="card-glass backdrop-blur-sm border border-white/20 p-6">
+              <div className="flex items-center justify-between">
+                <div>
+                  <h1 className="text-3xl font-bold bg-gradient-to-r from-gray-900 to-primary-800 bg-clip-text text-transparent">
+                    Admin Dashboard 📊
+                  </h1>
+                  <p className="mt-2 text-lg text-gray-600">
+                    System overview and key metrics
+                  </p>
+                </div>
+                <div className="hidden md:block">
+                  <div className="w-16 h-16 bg-gradient-to-br from-primary-500 to-primary-600 rounded-2xl flex items-center justify-center">
+                    <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                    </svg>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Time Filter */}
+          <div className="mb-8">
+            <div className="card-glass backdrop-blur-sm border border-white/20 p-4">
+              <div className="flex items-center justify-between">
+                <h3 className="text-lg font-semibold text-gray-900 flex items-center">
+                  <svg className="w-5 h-5 mr-2 text-primary-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                  Time Period
+                </h3>
+                <div className="flex bg-gray-100 rounded-xl p-1">
+                  {['7d', '30d', '90d'].map((period) => (
+                    <button
+                      key={period}
+                      onClick={() => setTimeframe(period as '7d' | '30d' | '90d')}
+                      className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
+                        timeframe === period
+                          ? 'bg-gradient-to-r from-primary-500 to-primary-600 text-white shadow-md transform scale-105'
+                          : 'text-gray-600 hover:text-gray-800 hover:bg-white'
+                      }`}
+                    >
+                      {period === '7d' && '📅 Last 7 days'}
+                      {period === '30d' && '📊 Last 30 days'}
+                      {period === '90d' && '📈 Last 90 days'}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
 
       {/* Key Metrics */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-        <div className="bg-white rounded-lg shadow p-6">
-          <div className="flex items-center">
-            <div className="flex-shrink-0">
-              <div className="w-8 h-8 bg-blue-100 rounded-md flex items-center justify-center">
-                <span className="text-blue-600 font-semibold">👥</span>
-              </div>
+        <div className="card-glass backdrop-blur-sm border border-white/20 p-6 hover:shadow-lg hover:scale-105 transition-all duration-300 group">
+          <div className="flex items-center justify-between mb-4">
+            <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+              <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z" />
+              </svg>
             </div>
-            <div className="ml-4">
-              <p className="text-sm font-medium text-gray-500">Total Users</p>
-              <p className="text-2xl font-semibold text-gray-900">{metrics.totalUsers.toLocaleString()}</p>
-              <p className="text-sm text-green-600">
-                +{metrics.activeUsers} active today
-              </p>
-            </div>
+          </div>
+          <div>
+            <h3 className="text-sm font-medium text-gray-600 mb-1">
+              Total Users
+            </h3>
+            <p className="text-3xl font-bold text-gray-900 group-hover:text-primary-700 transition-colors duration-200">
+              {metrics.totalUsers.toLocaleString()}
+            </p>
+            <p className="text-sm text-green-600 mt-1">
+              +{metrics.activeUsers} active today
+            </p>
           </div>
         </div>
 
-        <div className="bg-white rounded-lg shadow p-6">
-          <div className="flex items-center">
-            <div className="flex-shrink-0">
-              <div className="w-8 h-8 bg-green-100 rounded-md flex items-center justify-center">
-                <span className="text-green-600 font-semibold">💼</span>
-              </div>
+        <div className="card-glass backdrop-blur-sm border border-white/20 p-6 hover:shadow-lg hover:scale-105 transition-all duration-300 group">
+          <div className="flex items-center justify-between mb-4">
+            <div className="w-12 h-12 bg-gradient-to-br from-green-500 to-green-600 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+              <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2-2v2m8 0V6a2 2 0 00-2 2H8a2 2 0 00-2-2V4m8 0h2a2 2 0 012 2v6.5" />
+              </svg>
             </div>
-            <div className="ml-4">
-              <p className="text-sm font-medium text-gray-500">Active Jobs</p>
-              <p className="text-2xl font-semibold text-gray-900">{metrics.activeJobs.toLocaleString()}</p>
-              <p className="text-sm text-gray-600">
-                {metrics.totalJobs} total posted
-              </p>
-            </div>
+          </div>
+          <div>
+            <h3 className="text-sm font-medium text-gray-600 mb-1">
+              Active Jobs
+            </h3>
+            <p className="text-3xl font-bold text-gray-900 group-hover:text-primary-700 transition-colors duration-200">
+              {metrics.activeJobs.toLocaleString()}
+            </p>
+            <p className="text-sm text-gray-600 mt-1">
+              {metrics.totalJobs} total posted
+            </p>
           </div>
         </div>
 
-        <div className="bg-white rounded-lg shadow p-6">
-          <div className="flex items-center">
-            <div className="flex-shrink-0">
-              <div className="w-8 h-8 bg-purple-100 rounded-md flex items-center justify-center">
-                <span className="text-purple-600 font-semibold">📝</span>
-              </div>
+        <div className="card-glass backdrop-blur-sm border border-white/20 p-6 hover:shadow-lg hover:scale-105 transition-all duration-300 group">
+          <div className="flex items-center justify-between mb-4">
+            <div className="w-12 h-12 bg-gradient-to-br from-purple-500 to-purple-600 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+              <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+              </svg>
             </div>
-            <div className="ml-4">
-              <p className="text-sm font-medium text-gray-500">Applications</p>
-              <p className="text-2xl font-semibold text-gray-900">{metrics.totalApplications.toLocaleString()}</p>
-              <p className="text-sm text-blue-600">
-                {Math.round((metrics.applicationsByStatus.accepted / metrics.totalApplications) * 100)}% success rate
-              </p>
-            </div>
+          </div>
+          <div>
+            <h3 className="text-sm font-medium text-gray-600 mb-1">
+              Applications
+            </h3>
+            <p className="text-3xl font-bold text-gray-900 group-hover:text-primary-700 transition-colors duration-200">
+              {metrics.totalApplications.toLocaleString()}
+            </p>
+            <p className="text-sm text-blue-600 mt-1">
+              {Math.round((metrics.applicationsByStatus.accepted / metrics.totalApplications) * 100)}% success rate
+            </p>
           </div>
         </div>
 
-        <div className="bg-white rounded-lg shadow p-6">
-          <div className="flex items-center">
-            <div className="flex-shrink-0">
-              <div className="w-8 h-8 bg-yellow-100 rounded-md flex items-center justify-center">
-                <span className="text-yellow-600 font-semibold">⚡</span>
-              </div>
+        <div className="card-glass backdrop-blur-sm border border-white/20 p-6 hover:shadow-lg hover:scale-105 transition-all duration-300 group">
+          <div className="flex items-center justify-between mb-4">
+            <div className="w-12 h-12 bg-gradient-to-br from-orange-500 to-orange-600 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+              <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+              </svg>
             </div>
-            <div className="ml-4">
-              <p className="text-sm font-medium text-gray-500">System Health</p>
-              <p className="text-2xl font-semibold text-gray-900">{metrics.systemPerformance.uptime}%</p>
-              <p className="text-sm text-green-600">
-                {metrics.systemPerformance.responseTime}ms avg response
-              </p>
-            </div>
+          </div>
+          <div>
+            <h3 className="text-sm font-medium text-gray-600 mb-1">
+              System Health
+            </h3>
+            <p className="text-3xl font-bold text-gray-900 group-hover:text-primary-700 transition-colors duration-200">
+              {metrics.systemPerformance.uptime}%
+            </p>
+            <p className="text-sm text-green-600 mt-1">
+              {metrics.systemPerformance.responseTime}ms avg response
+            </p>
           </div>
         </div>
       </div>
@@ -387,8 +462,10 @@ const Dashboard: React.FC = () => {
           </Link>
         </div>
       </div>
+        </div>
+      </main>
     </div>
   );
 };
 
-export default Dashboard; 
+export default Dashboard;
