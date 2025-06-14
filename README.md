@@ -21,6 +21,7 @@ The application is ready to run locally with comprehensive mock data and full fu
 ### For Job Seekers
 - **🤖 AI-Powered Recommendations**: Get personalized job suggestions with explainable AI reasoning
 - **🔍 Advanced Job Search**: Filter by location, salary, job type, experience level, and skills
+- **📄 Resume Parsing**: Upload resume files with automatic data extraction and profile population
 - **📊 Skills Gap Analysis**: Identify missing skills and get learning path recommendations
 - **📝 Application Tracking**: Monitor application status with progress indicators
 - **⭐ Job Bookmarking**: Save interesting positions for later review
@@ -128,11 +129,15 @@ npm run lint
 
 1. **Sign In**: Use the demo account or register as a new job seeker
 2. **Complete Profile**: Add your skills, experience, and preferences
-3. **Browse Jobs**: Search and filter through available positions
-4. **Get Recommendations**: View AI-powered job suggestions with explanations
-5. **Apply**: Submit applications with cover letters
-6. **Track Progress**: Monitor application status and interview stages
-7. **Analyze Skills**: Get personalized learning recommendations
+3. **Upload Resume**: Use the resume parser to automatically populate your profile
+   - Drag and drop PDF, DOC, or DOCX files
+   - Automatic extraction of skills, experience, and education
+   - Review and edit the auto-populated information
+4. **Browse Jobs**: Search and filter through available positions
+5. **Get Recommendations**: View AI-powered job suggestions with explanations
+6. **Apply**: Submit applications with cover letters
+7. **Track Progress**: Monitor application status and interview stages
+8. **Analyze Skills**: Get personalized learning recommendations
 
 ### Administrators
 
@@ -150,6 +155,7 @@ The application includes comprehensive mock data for demonstration:
 - **50+ Users** with realistic profiles and preferences
 - **100+ Job Listings** from major tech companies
 - **200+ Applications** with various statuses
+- **Resume Parsing Data** with multiple profile scenarios (senior developer, data analyst, generic)
 - **AI Recommendations** with explainable reasoning
 - **Skills Analysis** with learning paths
 - **Admin Analytics** with performance metrics
@@ -269,4 +275,4 @@ For questions, suggestions, or issues:
 
 ---
 
-**Made with ❤️ for connecting talent with opportunities through AI-powered job matching.** 
+**Made with ❤️ for connecting talent with opportunities through AI-powered job matching.**
