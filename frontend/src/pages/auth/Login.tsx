@@ -287,7 +287,7 @@ const Login: React.FC = () => {
                   <span className="relative flex items-center">
                     {state.loading.isLoading ? (
                       <>
-                        <Loading inline size="sm" />
+                        <Loading inline size="small" />
                         <span className="ml-2">Signing in...</span>
                       </>
                     ) : (

@@ -216,7 +216,7 @@ const Profile: React.FC = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Header Section */}
         <div className="card-glass backdrop-blur-sm border border-white/20 mb-8">
-          <div className="px-6 py-8 sm:p-8">
+          <div className="px-6 py-6 sm:p-6">
             <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
               <div>
                 <h1 className="text-3xl font-bold bg-gradient-to-r from-gray-900 to-primary-800 bg-clip-text text-transparent">
@@ -226,38 +226,31 @@ const Profile: React.FC = () => {
                   Manage your professional information and career preferences
                 </p>
               </div>
-              <div className="flex flex-col sm:flex-row gap-3">
-                <ResumeParser onParseComplete={handleResumeParseComplete} />
+              <div className="flex flex-col sm:flex-row gap-2">
                 {!isEditing ? (
                   <button
                     onClick={() => setIsEditing(true)}
-                    className="group relative inline-flex items-center justify-center px-6 py-3 text-sm font-semibold text-white bg-gradient-to-r from-primary-600 to-primary-700 rounded-xl shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2"
+                    className="inline-flex items-center justify-center px-4 py-2 text-sm font-medium text-white bg-primary-600 rounded-lg hover:bg-primary-700 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2"
                   >
-                    <span className="absolute inset-0 bg-gradient-to-r from-primary-700 to-primary-800 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-200"></span>
-                    <span className="relative flex items-center">
-                      <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
-                      </svg>
-                      Edit Profile
-                    </span>
+                    <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                    </svg>
+                    Edit Profile
                   </button>
                 ) : (
-                  <div className="flex gap-3">
+                  <div className="flex gap-2">
                     <button
                       onClick={handleSaveProfile}
-                      className="group relative inline-flex items-center justify-center px-6 py-3 text-sm font-semibold text-white bg-gradient-to-r from-green-600 to-green-700 rounded-xl shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
+                      className="inline-flex items-center justify-center px-4 py-2 text-sm font-medium text-white bg-green-600 rounded-lg hover:bg-green-700 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
                     >
-                      <span className="absolute inset-0 bg-gradient-to-r from-green-700 to-green-800 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-200"></span>
-                      <span className="relative flex items-center">
-                        <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                        </svg>
-                        Save Changes
-                      </span>
+                      <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                      </svg>
+                      Save
                     </button>
                     <button
                       onClick={() => setIsEditing(false)}
-                      className="inline-flex items-center justify-center px-6 py-3 text-sm font-semibold text-gray-700 bg-white border-2 border-gray-200 rounded-xl hover:bg-gray-50 hover:border-gray-300 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 shadow-sm hover:shadow-md"
+                      className="inline-flex items-center justify-center px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2"
                     >
                       <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -273,34 +266,54 @@ const Profile: React.FC = () => {
 
         {/* Profile Summary Card */}
         {profile && (
-          <div className="card-glass backdrop-blur-sm border border-white/20 mb-8">
-            <div className="px-6 py-8 sm:p-8">
-              <div className="flex flex-col sm:flex-row items-start gap-6">
-                <div className="w-24 h-24 bg-gradient-to-br from-primary-500 to-primary-600 rounded-2xl flex items-center justify-center shadow-lg">
-                  <span className="text-2xl font-bold text-white">
+          <div className="card-glass backdrop-blur-sm border border-white/20 mb-6">
+            <div className="px-6 py-4 sm:p-6">
+              <div className="flex flex-col sm:flex-row items-start gap-4">
+                <div className="w-16 h-16 bg-gradient-to-br from-primary-500 to-primary-600 rounded-xl flex items-center justify-center shadow-lg">
+                  <span className="text-lg font-bold text-white">
                     {personalInfo.firstName.charAt(0)}{personalInfo.lastName.charAt(0)}
                   </span>
                 </div>
                 <div className="flex-1">
-                  <h2 className="text-2xl font-bold bg-gradient-to-r from-gray-900 to-primary-800 bg-clip-text text-transparent">
+                  <h2 className="text-xl font-bold bg-gradient-to-r from-gray-900 to-primary-800 bg-clip-text text-transparent">
                     {personalInfo.firstName} {personalInfo.lastName}
                   </h2>
-                  <p className="text-gray-600 text-lg mt-1">{personalInfo.email}</p>
-                  <div className="flex items-center mt-2 text-gray-600">
-                    <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <p className="text-gray-600 mt-1">{personalInfo.email}</p>
+                  <div className="flex items-center mt-1 text-sm text-gray-600">
+                    <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                     </svg>
                     {personalInfo.location || 'Location not specified'}
                   </div>
                   {personalInfo.summary && (
-                    <p className="mt-4 text-gray-700 leading-relaxed">{personalInfo.summary}</p>
+                    <p className="mt-2 text-sm text-gray-700 leading-relaxed line-clamp-2">{personalInfo.summary}</p>
+                  )}
+                  {/* Skills Preview */}
+                  {personalInfo.skills.length > 0 && (
+                    <div className="mt-2">
+                      <div className="flex flex-wrap gap-1">
+                        {personalInfo.skills.slice(0, 4).map((skill) => (
+                          <span
+                            key={skill}
+                            className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-primary-100 text-primary-800"
+                          >
+                            {skill}
+                          </span>
+                        ))}
+                        {personalInfo.skills.length > 4 && (
+                          <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-gray-100 text-gray-600">
+                            +{personalInfo.skills.length - 4} more
+                          </span>
+                        )}
+                      </div>
+                    </div>
                   )}
                 </div>
                 <div className="text-center sm:text-right">
-                  <div className="text-sm font-medium text-gray-600 mb-2">Profile Completion</div>
-                  <div className="relative w-20 h-20 mx-auto sm:mx-0">
-                    <svg className="w-20 h-20 transform -rotate-90" viewBox="0 0 36 36">
+                  <div className="text-xs font-medium text-gray-600 mb-1">Profile Completion</div>
+                  <div className="relative w-12 h-12 mx-auto sm:mx-0">
+                    <svg className="w-12 h-12 transform -rotate-90" viewBox="0 0 36 36">
                       <path
                         className="text-gray-200"
                         stroke="currentColor"
@@ -319,7 +332,7 @@ const Profile: React.FC = () => {
                       />
                     </svg>
                     <div className="absolute inset-0 flex items-center justify-center">
-                      <span className="text-xl font-bold text-primary-600">85%</span>
+                      <span className="text-sm font-bold text-primary-600">85%</span>
                     </div>
                   </div>
                 </div>
@@ -328,15 +341,17 @@ const Profile: React.FC = () => {
           </div>
         )}
 
-      {/* Resume Parser - Only show when editing */}
-      {isEditing && (
-        <ResumeParser onParseComplete={handleResumeParseComplete} />
-      )}
+        {/* Resume Parser - Only show when editing */}
+        {isEditing && (
+          <div className="mb-6">
+            <ResumeParser onParseComplete={handleResumeParseComplete} />
+          </div>
+        )}
 
         {/* Tab Navigation */}
-        <div className="card-glass backdrop-blur-sm border border-white/20 mb-8">
-          <div className="px-6 py-4">
-            <nav className="flex space-x-2">
+        <div className="card-glass backdrop-blur-sm border border-white/20 mb-6">
+          <div className="px-6 py-3">
+            <nav className="flex space-x-1">
               {[
                 { id: 'personal', label: 'Personal Info', icon: '👤' },
                 { id: 'experience', label: 'Experience', icon: '💼' },
@@ -346,19 +361,15 @@ const Profile: React.FC = () => {
                 <button
                   key={tab.id}
                   onClick={() => setActiveTab(tab.id as any)}
-                  className={`group relative inline-flex items-center px-4 py-3 text-sm font-medium rounded-xl transition-all duration-200 ${
+                  className={`inline-flex items-center px-3 py-2 text-sm font-medium rounded-lg transition-all duration-200 ${
                     activeTab === tab.id
-                      ? 'bg-gradient-to-r from-primary-600 to-primary-700 text-white shadow-lg'
-                      : 'text-gray-600 hover:text-gray-900 hover:bg-white/50 hover:shadow-md'
+                      ? 'bg-primary-600 text-white shadow-md'
+                      : 'text-gray-600 hover:text-gray-900 hover:bg-white/50'
                   }`}
                 >
-                  {activeTab === tab.id && (
-                    <span className="absolute inset-0 bg-gradient-to-r from-primary-700 to-primary-800 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-200"></span>
-                  )}
-                  <span className="relative flex items-center">
-                    <span className="mr-2 text-base">{tab.icon}</span>
-                    {tab.label}
-                  </span>
+                  <span className="mr-1.5 text-sm">{tab.icon}</span>
+                  <span className="hidden sm:inline">{tab.label}</span>
+                  <span className="sm:hidden">{tab.label.split(' ')[0]}</span>
                 </button>
               ))}
             </nav>

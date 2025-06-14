@@ -250,20 +250,22 @@ const ResumeParser: React.FC<ResumeParserProps> = ({ onParseComplete }) => {
   };
 
   return (
-    <div className="bg-white rounded-lg shadow p-6 mb-6">
-      <h3 className="text-lg font-semibold text-gray-900 mb-4">Resume Parser</h3>
-      <p className="text-gray-600 mb-4">
-        Upload your resume to automatically populate your profile with extracted information.
+    <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-4">
+      <div className="flex items-center justify-between mb-3">
+        <h3 className="text-base font-medium text-gray-900">Resume Parser</h3>
         {!process.env.REACT_APP_NOVITA_API_KEY && (
-          <span className="block mt-2 text-sm text-amber-600">
-            ⚠️ AI parsing not configured - using demo mode. Configure your Novita AI API key for real parsing.
+          <span className="text-xs text-amber-600 bg-amber-50 px-2 py-1 rounded">
+            Demo Mode
           </span>
         )}
+      </div>
+      <p className="text-sm text-gray-600 mb-3">
+        Upload your resume to automatically populate your profile.
       </p>
 
       {!uploadedFile ? (
         <div
-          className={`border-2 border-dashed rounded-lg p-8 text-center transition-colors ${
+          className={`border-2 border-dashed rounded-lg p-4 text-center transition-colors ${
             isDragOver
               ? 'border-primary-500 bg-primary-50'
               : 'border-gray-300 hover:border-gray-400'
@@ -274,7 +276,7 @@ const ResumeParser: React.FC<ResumeParserProps> = ({ onParseComplete }) => {
         >
           <div className="flex flex-col items-center">
             <svg
-              className="w-12 h-12 text-gray-400 mb-4"
+              className="w-8 h-8 text-gray-400 mb-2"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -286,11 +288,11 @@ const ResumeParser: React.FC<ResumeParserProps> = ({ onParseComplete }) => {
                 d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
               />
             </svg>
-            <p className="text-lg font-medium text-gray-900 mb-2">
+            <p className="text-sm font-medium text-gray-900 mb-1">
               Drop your resume here or click to browse
             </p>
-            <p className="text-sm text-gray-500 mb-4">
-              Supports PDF, DOC, DOCX, and TXT files (max 5MB)
+            <p className="text-xs text-gray-500 mb-3">
+              PDF, DOC, DOCX, TXT (max 5MB)
             </p>
             <label className="cursor-pointer">
               <input
@@ -300,7 +302,7 @@ const ResumeParser: React.FC<ResumeParserProps> = ({ onParseComplete }) => {
                 onChange={handleFileSelect}
                 disabled={isProcessing}
               />
-              <span className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500">
+              <span className="inline-flex items-center px-3 py-1.5 border border-transparent text-xs font-medium rounded-md text-white bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500">
                 Choose File
               </span>
             </label>
@@ -361,10 +363,8 @@ const ResumeParser: React.FC<ResumeParserProps> = ({ onParseComplete }) => {
         </div>
       )}
 
-      <div className="mt-4 text-xs text-gray-500">
-        <p className="mb-1">• Supported formats: PDF, DOC, DOCX, TXT</p>
-        <p className="mb-1">• Maximum file size: 5MB</p>
-        <p>• Your resume data is processed securely and not stored permanently</p>
+      <div className="mt-3 text-xs text-gray-500">
+        <p>Supported: PDF, DOC, DOCX, TXT (max 5MB) • Data processed securely</p>
       </div>
     </div>
   );
