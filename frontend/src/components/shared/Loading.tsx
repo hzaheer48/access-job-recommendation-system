@@ -27,8 +27,8 @@ const Loading: React.FC<LoadingProps> = ({ inline = false, size = 'medium', mess
   if (inline) {
     return (
       <div className="flex items-center space-x-3">
-        <div className={`animate-spin rounded-full border-2 border-primary-200 border-t-primary-600 ${getSizeClasses()}`}></div>
-        {displayMessage && <span className="text-sm font-medium bg-gradient-to-r from-gray-700 to-primary-700 bg-clip-text text-transparent">{displayMessage}</span>}
+        <div className={`animate-spin rounded-full border-2 border-primary-200 dark:border-primary-800 border-t-primary-600 dark:border-t-primary-400 ${getSizeClasses()}`}></div>
+        {displayMessage && <span className="text-sm font-medium bg-gradient-to-r from-gray-700 to-primary-700 dark:from-gray-300 dark:to-primary-300 bg-clip-text text-transparent">{displayMessage}</span>}
       </div>
     );
   }
@@ -39,9 +39,9 @@ const Loading: React.FC<LoadingProps> = ({ inline = false, size = 'medium', mess
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-gradient-to-br from-gray-900/20 to-primary-900/20 backdrop-blur-sm">
-      <div className="card-glass backdrop-blur-sm border border-white/20 p-8 text-center">
-        <div className={`mx-auto animate-spin rounded-full border-4 border-primary-200 border-t-primary-600 ${getSizeClasses()}`}></div>
-        <p className="mt-4 text-sm font-medium bg-gradient-to-r from-gray-700 to-primary-700 bg-clip-text text-transparent">{displayMessage}</p>
+      <div className="card-glass backdrop-blur-sm border border-white/20 dark:border-gray-700/20 bg-white/95 dark:bg-gray-800/95 p-8 text-center">
+        <div className={`mx-auto animate-spin rounded-full border-4 border-primary-200 dark:border-primary-800 border-t-primary-600 dark:border-t-primary-400 ${getSizeClasses()}`}></div>
+        <p className="mt-4 text-sm font-medium bg-gradient-to-r from-gray-700 to-primary-700 dark:from-gray-300 dark:to-primary-300 bg-clip-text text-transparent">{displayMessage}</p>
       </div>
     </div>
   );

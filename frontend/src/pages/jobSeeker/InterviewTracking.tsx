@@ -266,8 +266,8 @@ const InterviewTracking: React.FC = () => {
       {/* Header */}
       <div className="flex justify-between items-center mb-8">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Interview Tracking</h1>
-          <p className="text-gray-600">Manage and track your interview schedule</p>
+          <h1 className="text-2xl font-bold text-gray-900 dark:text-white">Interview Tracking</h1>
+          <p className="text-gray-600 dark:text-gray-300">Manage and track your interview schedule</p>
         </div>
         <button
           onClick={() => setShowAddInterview(true)}
@@ -290,8 +290,8 @@ const InterviewTracking: React.FC = () => {
               onClick={() => setActiveTab(tab.key as any)}
               className={`py-2 px-1 border-b-2 font-medium text-sm ${
                 activeTab === tab.key
-                  ? 'border-primary-500 text-primary-600'
-                  : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+                  ? 'border-primary-500 text-primary-600 dark:text-primary-400'
+                  : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 dark:text-gray-400 dark:hover:text-gray-200 dark:hover:border-gray-600'
               }`}
             >
               {tab.label} ({tab.count})
@@ -303,14 +303,14 @@ const InterviewTracking: React.FC = () => {
       {/* Interviews List */}
       <div className="space-y-6">
         {filteredInterviews.length === 0 ? (
-          <div className="bg-white rounded-lg shadow p-8 text-center">
-            <div className="mx-auto w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center mb-4">
-              <svg className="w-6 h-6 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <div className="bg-white dark:bg-gray-800 rounded-lg shadow dark:shadow-gray-900/20 p-8 text-center">
+            <div className="mx-auto w-12 h-12 bg-gray-100 dark:bg-gray-700 rounded-full flex items-center justify-center mb-4">
+              <svg className="w-6 h-6 text-gray-400 dark:text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3a2 2 0 012-2h4a2 2 0 012 2v4m-6 4v10m6-10v10" />
               </svg>
             </div>
-            <h3 className="text-lg font-medium text-gray-900 mb-2">No interviews {activeTab === 'upcoming' ? 'scheduled' : activeTab}</h3>
-            <p className="text-gray-500 mb-4">
+            <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-2">No interviews {activeTab === 'upcoming' ? 'scheduled' : activeTab}</h3>
+            <p className="text-gray-500 dark:text-gray-400 mb-4">
               {activeTab === 'upcoming' 
                 ? 'Schedule your first interview to get started'
                 : `No ${activeTab} interviews found`
@@ -327,11 +327,11 @@ const InterviewTracking: React.FC = () => {
           </div>
         ) : (
           filteredInterviews.map((interview) => (
-            <div key={interview.id} className="bg-white rounded-lg shadow p-6">
+            <div key={interview.id} className="bg-white dark:bg-gray-800 rounded-lg shadow dark:shadow-gray-900/20 p-6">
               <div className="flex justify-between items-start mb-4">
                 <div className="flex-1">
                   <div className="flex items-center gap-3 mb-2">
-                    <h3 className="text-lg font-semibold text-gray-900">{interview.jobTitle}</h3>
+                    <h3 className="text-lg font-semibold text-gray-900 dark:text-white">{interview.jobTitle}</h3>
                     <span className={`px-2 py-1 rounded-full text-xs font-medium ${getStatusColor(interview.status)}`}>
                       {interview.status}
                     </span>
@@ -341,8 +341,8 @@ const InterviewTracking: React.FC = () => {
                       </span>
                     )}
                   </div>
-                  <p className="text-gray-600 mb-2">{interview.company}</p>
-                  <div className="text-sm text-gray-600 space-y-1">
+                  <p className="text-gray-600 dark:text-gray-300 mb-2">{interview.company}</p>
+                  <div className="text-sm text-gray-600 dark:text-gray-300 space-y-1">
                     <p><strong>Stage:</strong> {interview.stage}</p>
                     <p><strong>Date:</strong> {new Date(interview.scheduledDate).toLocaleString()}</p>
                     <p><strong>Duration:</strong> {interview.duration} minutes</p>
@@ -380,10 +380,10 @@ const InterviewTracking: React.FC = () => {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
                   {interview.interviewers && interview.interviewers.length > 0 && (
                     <div>
-                      <span className="font-medium text-gray-700">Interviewers:</span>
+                      <span className="font-medium text-gray-700 dark:text-gray-300">Interviewers:</span>
                       <ul className="mt-1 space-y-1">
                         {interview.interviewers.map((interviewer, index) => (
-                          <li key={index} className="text-gray-600">• {interviewer}</li>
+                          <li key={index} className="text-gray-600 dark:text-gray-400">• {interviewer}</li>
                         ))}
                       </ul>
                     </div>
@@ -391,14 +391,14 @@ const InterviewTracking: React.FC = () => {
                   
                   {interview.location && (
                     <div>
-                      <span className="font-medium text-gray-700">Location:</span>
-                      <p className="text-gray-600 mt-1">{interview.location}</p>
+                      <span className="font-medium text-gray-700 dark:text-gray-300">Location:</span>
+                      <p className="text-gray-600 dark:text-gray-400 mt-1">{interview.location}</p>
                     </div>
                   )}
                   
                   {interview.meetingLink && (
                     <div>
-                      <span className="font-medium text-gray-700">Meeting Link:</span>
+                      <span className="font-medium text-gray-700 dark:text-gray-300">Meeting Link:</span>
                       <a 
                         href={interview.meetingLink} 
                         target="_blank" 
@@ -412,15 +412,15 @@ const InterviewTracking: React.FC = () => {
                   
                   {interview.notes && (
                     <div className="md:col-span-2">
-                      <span className="font-medium text-gray-700">Notes:</span>
-                      <p className="text-gray-600 mt-1">{interview.notes}</p>
+                      <span className="font-medium text-gray-700 dark:text-gray-300">Notes:</span>
+                      <p className="text-gray-600 dark:text-gray-400 mt-1">{interview.notes}</p>
                     </div>
                   )}
                   
                   {interview.feedback && (
                     <div className="md:col-span-2">
-                      <span className="font-medium text-gray-700">Feedback:</span>
-                      <p className="text-gray-600 mt-1">{interview.feedback}</p>
+                      <span className="font-medium text-gray-700 dark:text-gray-300">Feedback:</span>
+                      <p className="text-gray-600 dark:text-gray-400 mt-1">{interview.feedback}</p>
                     </div>
                   )}
                 </div>
@@ -433,20 +433,20 @@ const InterviewTracking: React.FC = () => {
       {/* Add Interview Modal */}
       {showAddInterview && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-lg w-full max-w-2xl max-h-[90vh] overflow-y-auto">
+          <div className="bg-white dark:bg-gray-800 rounded-lg w-full max-w-2xl max-h-[90vh] overflow-y-auto">
             <div className="p-6">
-              <h3 className="text-lg font-semibold mb-4">Schedule Interview</h3>
+              <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Schedule Interview</h3>
               
               <div className="space-y-4">
                 {/* Application Selection */}
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                     Application *
                   </label>
                   <select
                     value={selectedApplication}
                     onChange={(e) => setSelectedApplication(e.target.value)}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500"
+                    className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500"
                   >
                     <option value="">Select an application</option>
                     {applications.map((app) => (
@@ -459,13 +459,13 @@ const InterviewTracking: React.FC = () => {
 
                 {/* Interview Stage */}
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                     Interview Stage *
                   </label>
                   <select
                     value={newInterview.stage || ''}
                     onChange={(e) => setNewInterview(prev => ({ ...prev, stage: e.target.value as any }))}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500"
+                    className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500"
                   >
                     <option value="phone">Phone Screen</option>
                     <option value="video">Video Interview</option>
@@ -477,39 +477,39 @@ const InterviewTracking: React.FC = () => {
 
                 {/* Scheduled Date */}
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                     Scheduled Date & Time *
                   </label>
                   <input
                     type="datetime-local"
                     value={newInterview.scheduledDate || ''}
                     onChange={(e) => setNewInterview(prev => ({ ...prev, scheduledDate: e.target.value }))}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500"
+                    className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500"
                   />
                 </div>
 
                 {/* Duration */}
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                     Duration (minutes)
                   </label>
                   <input
                     type="number"
                     value={newInterview.duration || ''}
                     onChange={(e) => setNewInterview(prev => ({ ...prev, duration: parseInt(e.target.value) || 60 }))}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500"
+                    className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500"
                   />
                 </div>
 
                 {/* Interview Type */}
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                     Interview Type
                   </label>
                   <select
                     value={newInterview.interviewType || ''}
                     onChange={(e) => setNewInterview(prev => ({ ...prev, interviewType: e.target.value as any }))}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500"
+                    className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500"
                   >
                     <option value="phone">Phone</option>
                     <option value="video">Video</option>
@@ -520,7 +520,7 @@ const InterviewTracking: React.FC = () => {
 
                 {/* Interviewers */}
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                     Interviewers
                   </label>
                   <div className="flex gap-2 mb-2">
@@ -530,7 +530,7 @@ const InterviewTracking: React.FC = () => {
                       onChange={(e) => setInterviewerInput(e.target.value)}
                       onKeyPress={(e) => e.key === 'Enter' && addInterviewer()}
                       placeholder="Add interviewer name and role"
-                      className="flex-1 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500"
+                      className="flex-1 px-3 py-2 border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500"
                     />
                     <button
                       onClick={addInterviewer}
@@ -542,11 +542,11 @@ const InterviewTracking: React.FC = () => {
                   {newInterview.interviewers && newInterview.interviewers.length > 0 && (
                     <div className="space-y-2">
                       {newInterview.interviewers.map((interviewer, index) => (
-                        <div key={index} className="flex items-center justify-between bg-gray-50 rounded-md px-3 py-2">
-                          <span className="text-sm">{interviewer}</span>
+                        <div key={index} className="flex items-center justify-between bg-gray-50 dark:bg-gray-700 rounded-md px-3 py-2">
+                          <span className="text-sm text-gray-900 dark:text-white">{interviewer}</span>
                           <button
                             onClick={() => removeInterviewer(interviewer)}
-                            className="text-red-500 hover:text-red-700"
+                            className="text-red-500 hover:text-red-700 dark:text-red-400 dark:hover:text-red-300"
                           >
                             ×
                           </button>
@@ -558,7 +558,7 @@ const InterviewTracking: React.FC = () => {
 
                 {/* Location */}
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                     Location
                   </label>
                   <input
@@ -566,13 +566,13 @@ const InterviewTracking: React.FC = () => {
                     value={newInterview.location || ''}
                     onChange={(e) => setNewInterview(prev => ({ ...prev, location: e.target.value }))}
                     placeholder="Office address or meeting room"
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500"
+                    className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500"
                   />
                 </div>
 
                 {/* Meeting Link */}
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                     Meeting Link
                   </label>
                   <input
@@ -580,13 +580,13 @@ const InterviewTracking: React.FC = () => {
                     value={newInterview.meetingLink || ''}
                     onChange={(e) => setNewInterview(prev => ({ ...prev, meetingLink: e.target.value }))}
                     placeholder="Zoom, Google Meet, or other video call link"
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500"
+                    className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500"
                   />
                 </div>
 
                 {/* Notes */}
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                     Notes
                   </label>
                   <textarea
@@ -594,18 +594,18 @@ const InterviewTracking: React.FC = () => {
                     onChange={(e) => setNewInterview(prev => ({ ...prev, notes: e.target.value }))}
                     placeholder="Additional notes about the interview"
                     rows={3}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500"
+                    className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500"
                   />
                 </div>
               </div>
 
-              <div className="flex justify-end gap-2 mt-6 pt-4 border-t">
+              <div className="flex justify-end gap-2 mt-6 pt-4 border-t border-gray-200 dark:border-gray-600">
                 <button
                   onClick={() => {
                     setShowAddInterview(false);
                     resetNewInterview();
                   }}
-                  className="px-4 py-2 bg-gray-300 text-gray-700 rounded-md hover:bg-gray-400 transition-colors"
+                  className="px-4 py-2 bg-gray-300 dark:bg-gray-600 text-gray-700 dark:text-gray-300 rounded-md hover:bg-gray-400 dark:hover:bg-gray-500 transition-colors"
                 >
                   Cancel
                 </button>

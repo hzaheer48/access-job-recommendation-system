@@ -121,7 +121,7 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
 
     // Load theme from localStorage
     const savedTheme = localStorage.getItem('accessjobs_theme');
-    if (savedTheme === 'dark') {
+    if (savedTheme && savedTheme !== initialState.theme) {
       dispatch({ type: 'TOGGLE_THEME' });
     }
   }, []);
@@ -174,4 +174,4 @@ export const useApp = (): AppContextType => {
     throw new Error('useApp must be used within an AppProvider');
   }
   return context;
-}; 
+};

@@ -1,10 +1,10 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useApp } from '../../context/AppContext';
 
 const Header: React.FC = () => {
-  const { state, logout, showModal } = useApp();
-  const { user, isAuthenticated } = state;
+  const { state, logout, showModal, toggleTheme } = useApp();
+  const { user, isAuthenticated, theme } = state;
   const location = useLocation();
   const navigate = useNavigate();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -130,7 +130,7 @@ const Header: React.FC = () => {
   const navGroups = user?.role === 'admin' ? adminNavGroups : jobSeekerNavGroups;
 
   return (
-    <header className="bg-white/80 backdrop-blur-md shadow-lg border-b border-white/20 sticky top-0 z-40">
+    <header className="bg-white/80 dark:bg-gray-900/80 backdrop-blur-md shadow-lg border-b border-white/20 dark:border-gray-700/20 sticky top-0 z-40">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
@@ -154,7 +154,7 @@ const Header: React.FC = () => {
                       className={`flex items-center space-x-2 px-4 py-2 rounded-xl text-sm font-medium transition-all duration-200 ${
                         isActive(group.path!)
                           ? 'text-white bg-gradient-to-r from-primary-500 to-primary-600 shadow-lg'
-                          : 'text-gray-700 hover:text-primary-600 hover:bg-white/60 backdrop-blur-sm'
+                          : 'text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 hover:bg-white/60 dark:hover:bg-gray-800/60 backdrop-blur-sm'
                       }`}
                     >
                       {group.icon}
@@ -167,7 +167,7 @@ const Header: React.FC = () => {
                         className={`flex items-center space-x-2 px-4 py-2 rounded-xl text-sm font-medium transition-all duration-200 ${
                           group.items?.some(item => isActive(item.path))
                             ? 'text-white bg-gradient-to-r from-primary-500 to-primary-600 shadow-lg'
-                            : 'text-gray-700 hover:text-primary-600 hover:bg-white/60 backdrop-blur-sm'
+                            : 'text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 hover:bg-white/60 dark:hover:bg-gray-800/60 backdrop-blur-sm'
                         }`}
                       >
                         {group.icon}
@@ -185,15 +185,15 @@ const Header: React.FC = () => {
                       </button>
                       
                       {activeDropdown === group.name && (
-                        <div className="absolute top-full left-0 mt-2 w-56 bg-white/95 backdrop-blur-lg border border-white/30 shadow-xl z-50 rounded-xl py-2">
+                        <div className="absolute top-full left-0 mt-2 w-56 bg-white/95 dark:bg-gray-800/95 backdrop-blur-lg border border-white/30 dark:border-gray-700/30 shadow-xl z-50 rounded-xl py-2">
                           {group.items?.map((item) => (
                             <Link
                               key={item.name}
                               to={item.path}
                               className={`flex items-center px-4 py-3 text-sm transition-colors duration-200 ${
                                 isActive(item.path)
-                                  ? 'text-primary-600 bg-primary-50/50 font-medium'
-                                  : 'text-gray-700 hover:text-primary-600 hover:bg-white/50'
+                                  ? 'text-primary-600 dark:text-primary-400 bg-primary-50/50 dark:bg-primary-900/50 font-medium'
+                                  : 'text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 hover:bg-white/50 dark:hover:bg-gray-700/50'
                               }`}
                               onClick={() => setActiveDropdown(null)}
                             >
@@ -209,13 +209,29 @@ const Header: React.FC = () => {
             </nav>
           )}
 
-          {/* User Menu */}
+          {/* Theme Toggle & User Menu */}
           <div className="flex items-center space-x-4">
+            {/* Theme Toggle Button */}
+            <button
+              onClick={toggleTheme}
+              className="p-2 rounded-xl text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 bg-white/60 dark:bg-gray-800/60 backdrop-blur-sm hover:bg-white/80 dark:hover:bg-gray-800/80 focus:outline-none focus:ring-2 focus:ring-primary-500/50 transition-all duration-200"
+              title={`Switch to ${theme === 'light' ? 'dark' : 'light'} mode`}
+            >
+              {theme === 'light' ? (
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+                </svg>
+              ) : (
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+                </svg>
+              )}
+            </button>
             {isAuthenticated ? (
               <div className="relative" ref={dropdownRef}>
                 <button
                   onClick={() => setIsMenuOpen(!isMenuOpen)}
-                  className="flex items-center space-x-3 text-sm font-medium text-gray-700 hover:text-primary-600 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 rounded-xl px-4 py-2 bg-white/60 backdrop-blur-sm hover:bg-white/80 transition-all duration-200"
+                  className="flex items-center space-x-3 text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 rounded-xl px-4 py-2 bg-white/60 dark:bg-gray-800/60 backdrop-blur-sm hover:bg-white/80 dark:hover:bg-gray-800/80 transition-all duration-200"
                 >
                   <div className="h-10 w-10 rounded-xl bg-gradient-to-br from-primary-500 to-primary-600 flex items-center justify-center shadow-lg">
                     <span className="text-sm font-bold text-white">
@@ -229,18 +245,18 @@ const Header: React.FC = () => {
                 </button>
 
                 {isMenuOpen && (
-                  <div className="absolute right-0 mt-3 w-56 bg-white/95 backdrop-blur-lg border border-white/30 shadow-xl z-50 rounded-xl">
+                  <div className="absolute right-0 mt-3 w-56 bg-white/95 dark:bg-gray-800/95 backdrop-blur-lg border border-white/30 dark:border-gray-700/30 shadow-xl z-50 rounded-xl">
                     <div className="py-2">
-                      <div className="px-4 py-3 border-b border-white/10">
-                        <p className="font-semibold text-gray-800">{user?.firstName} {user?.lastName}</p>
-                        <p className="text-sm text-gray-600">{user?.email}</p>
+                      <div className="px-4 py-3 border-b border-white/10 dark:border-gray-700/10">
+                        <p className="font-semibold text-gray-800 dark:text-gray-200">{user?.firstName} {user?.lastName}</p>
+                        <p className="text-sm text-gray-600 dark:text-gray-400">{user?.email}</p>
                         <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-gradient-to-r from-primary-100 to-primary-200 text-primary-800 mt-1 capitalize">
                           {user?.role?.replace('_', ' ')}
                         </span>
                       </div>
                       <Link
                         to="/profile"
-                        className="flex items-center px-4 py-3 text-sm text-gray-700 hover:bg-white/50 transition-colors duration-200"
+                        className="flex items-center px-4 py-3 text-sm text-gray-700 dark:text-gray-300 hover:bg-white/50 dark:hover:bg-gray-700/50 transition-colors duration-200"
                         onClick={() => setIsMenuOpen(false)}
                       >
                         <svg className="w-4 h-4 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -250,7 +266,7 @@ const Header: React.FC = () => {
                       </Link>
                       <button
                         onClick={handleLogout}
-                        className="flex items-center w-full text-left px-4 py-3 text-sm text-red-600 hover:bg-red-50/50 transition-colors duration-200"
+                        className="flex items-center w-full text-left px-4 py-3 text-sm text-red-600 dark:text-red-400 hover:bg-red-50/50 dark:hover:bg-red-900/20 transition-colors duration-200"
                       >
                         <svg className="w-4 h-4 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
@@ -265,7 +281,7 @@ const Header: React.FC = () => {
               <div className="flex space-x-3">
                 <Link
                   to="/login"
-                  className="text-gray-700 hover:text-primary-600 px-4 py-2 rounded-xl text-sm font-medium bg-white/60 backdrop-blur-sm hover:bg-white/80 transition-all duration-200"
+                  className="text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 px-4 py-2 rounded-xl text-sm font-medium bg-white/60 dark:bg-gray-800/60 backdrop-blur-sm hover:bg-white/80 dark:hover:bg-gray-800/80 transition-all duration-200"
                 >
                   Sign in
                 </Link>
@@ -282,7 +298,7 @@ const Header: React.FC = () => {
             {isAuthenticated && (
               <button
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
-                className="md:hidden p-2 rounded-xl text-gray-700 hover:text-primary-600 bg-white/60 backdrop-blur-sm hover:bg-white/80 focus:outline-none focus:ring-2 focus:ring-primary-500/50 transition-all duration-200"
+                className="md:hidden p-2 rounded-xl text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 bg-white/60 dark:bg-gray-800/60 backdrop-blur-sm hover:bg-white/80 dark:hover:bg-gray-800/80 focus:outline-none focus:ring-2 focus:ring-primary-500/50 transition-all duration-200"
               >
                 <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
@@ -294,7 +310,7 @@ const Header: React.FC = () => {
 
         {/* Mobile Navigation */}
         {isAuthenticated && isMenuOpen && (
-          <div className="md:hidden border-t border-white/20 py-4 bg-white/30 backdrop-blur-sm">
+          <div className="md:hidden border-t border-white/20 dark:border-gray-700/20 py-4 bg-white/30 dark:bg-gray-800/30 backdrop-blur-sm">
             <nav className="space-y-3 px-4">
               {navGroups.map((group) => (
                 <div key={group.name}>
@@ -304,7 +320,7 @@ const Header: React.FC = () => {
                       className={`flex items-center space-x-3 px-4 py-3 rounded-xl text-base font-medium transition-all duration-200 ${
                         isActive(group.path!)
                           ? 'text-white bg-gradient-to-r from-primary-600 to-primary-700 shadow-lg'
-                          : 'text-gray-700 hover:text-primary-600 bg-white/60 hover:bg-white/80 backdrop-blur-sm'
+                          : 'text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 bg-white/60 dark:bg-gray-800/60 hover:bg-white/80 dark:hover:bg-gray-800/80 backdrop-blur-sm'
                       }`}
                       onClick={() => setIsMenuOpen(false)}
                     >
@@ -313,7 +329,7 @@ const Header: React.FC = () => {
                     </Link>
                   ) : (
                     <div className="space-y-1">
-                      <div className="flex items-center space-x-3 px-4 py-2 text-sm font-semibold text-gray-600 uppercase tracking-wider">
+                      <div className="flex items-center space-x-3 px-4 py-2 text-sm font-semibold text-gray-600 dark:text-gray-400 uppercase tracking-wider">
                         {group.icon}
                         <span>{group.name}</span>
                       </div>
@@ -325,7 +341,7 @@ const Header: React.FC = () => {
                             className={`block px-4 py-3 rounded-xl text-base font-medium transition-all duration-200 ${
                               isActive(item.path)
                                 ? 'text-white bg-gradient-to-r from-primary-600 to-primary-700 shadow-lg'
-                                : 'text-gray-700 hover:text-primary-600 bg-white/60 hover:bg-white/80 backdrop-blur-sm'
+                                : 'text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 bg-white/60 dark:bg-gray-800/60 hover:bg-white/80 dark:hover:bg-gray-800/80 backdrop-blur-sm'
                             }`}
                             onClick={() => setIsMenuOpen(false)}
                           >

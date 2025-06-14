@@ -203,7 +203,7 @@ const Profile: React.FC = () => {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-gray-50 to-primary-50">
+      <div className="min-h-screen bg-gradient-to-br from-gray-50 to-primary-50 dark:from-gray-900 dark:to-gray-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           <Loading inline message="Loading your profile..." />
         </div>
@@ -212,17 +212,17 @@ const Profile: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-primary-50">
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-primary-50 dark:from-gray-900 dark:to-gray-800">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Header Section */}
-        <div className="card-glass backdrop-blur-sm border border-white/20 mb-8">
+        <div className="card-glass backdrop-blur-sm border border-white/20 dark:border-gray-700/30 mb-8">
           <div className="px-6 py-6 sm:p-6">
             <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
               <div>
-                <h1 className="text-3xl font-bold bg-gradient-to-r from-gray-900 to-primary-800 bg-clip-text text-transparent">
+                <h1 className="text-3xl font-bold bg-gradient-to-r from-gray-900 to-primary-800 dark:from-white dark:to-primary-300 bg-clip-text text-transparent">
                   My Profile
                 </h1>
-                <p className="mt-2 text-lg text-gray-600">
+                <p className="mt-2 text-lg text-gray-600 dark:text-gray-300">
                   Manage your professional information and career preferences
                 </p>
               </div>
@@ -230,7 +230,7 @@ const Profile: React.FC = () => {
                 {!isEditing ? (
                   <button
                     onClick={() => setIsEditing(true)}
-                    className="inline-flex items-center justify-center px-4 py-2 text-sm font-medium text-white bg-primary-600 rounded-lg hover:bg-primary-700 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2"
+                    className="inline-flex items-center justify-center px-4 py-2 text-sm font-medium text-white bg-primary-600 dark:bg-primary-500 rounded-lg hover:bg-primary-700 dark:hover:bg-primary-600 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2"
                   >
                     <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
@@ -241,7 +241,7 @@ const Profile: React.FC = () => {
                   <div className="flex gap-2">
                     <button
                       onClick={handleSaveProfile}
-                      className="inline-flex items-center justify-center px-4 py-2 text-sm font-medium text-white bg-green-600 rounded-lg hover:bg-green-700 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
+                      className="inline-flex items-center justify-center px-4 py-2 text-sm font-medium text-white bg-green-600 dark:bg-green-500 rounded-lg hover:bg-green-700 dark:hover:bg-green-600 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
                     >
                       <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
@@ -250,7 +250,7 @@ const Profile: React.FC = () => {
                     </button>
                     <button
                       onClick={() => setIsEditing(false)}
-                      className="inline-flex items-center justify-center px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2"
+                      className="inline-flex items-center justify-center px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-600 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2"
                     >
                       <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -266,20 +266,20 @@ const Profile: React.FC = () => {
 
         {/* Profile Summary Card */}
         {profile && (
-          <div className="card-glass backdrop-blur-sm border border-white/20 mb-6">
+          <div className="card-glass backdrop-blur-sm border border-white/20 dark:border-gray-700/30 mb-6">
             <div className="px-6 py-4 sm:p-6">
               <div className="flex flex-col sm:flex-row items-start gap-4">
-                <div className="w-16 h-16 bg-gradient-to-br from-primary-500 to-primary-600 rounded-xl flex items-center justify-center shadow-lg">
+                <div className="w-16 h-16 bg-gradient-to-br from-primary-500 to-primary-600 dark:from-primary-400 dark:to-primary-500 rounded-xl flex items-center justify-center shadow-lg">
                   <span className="text-lg font-bold text-white">
                     {personalInfo.firstName.charAt(0)}{personalInfo.lastName.charAt(0)}
                   </span>
                 </div>
                 <div className="flex-1">
-                  <h2 className="text-xl font-bold bg-gradient-to-r from-gray-900 to-primary-800 bg-clip-text text-transparent">
+                  <h2 className="text-xl font-bold bg-gradient-to-r from-gray-900 to-primary-800 dark:from-white dark:to-primary-300 bg-clip-text text-transparent">
                     {personalInfo.firstName} {personalInfo.lastName}
                   </h2>
-                  <p className="text-gray-600 mt-1">{personalInfo.email}</p>
-                  <div className="flex items-center mt-1 text-sm text-gray-600">
+                  <p className="text-gray-600 dark:text-gray-300 mt-1">{personalInfo.email}</p>
+                  <div className="flex items-center mt-1 text-sm text-gray-600 dark:text-gray-400">
                     <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
@@ -287,7 +287,7 @@ const Profile: React.FC = () => {
                     {personalInfo.location || 'Location not specified'}
                   </div>
                   {personalInfo.summary && (
-                    <p className="mt-2 text-sm text-gray-700 leading-relaxed line-clamp-2">{personalInfo.summary}</p>
+                    <p className="mt-2 text-sm text-gray-700 dark:text-gray-300 leading-relaxed line-clamp-2">{personalInfo.summary}</p>
                   )}
                   {/* Skills Preview */}
                   {personalInfo.skills.length > 0 && (
@@ -296,13 +296,13 @@ const Profile: React.FC = () => {
                         {personalInfo.skills.slice(0, 4).map((skill) => (
                           <span
                             key={skill}
-                            className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-primary-100 text-primary-800"
+                            className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-primary-100 dark:bg-primary-900/30 text-primary-800 dark:text-primary-300"
                           >
                             {skill}
                           </span>
                         ))}
                         {personalInfo.skills.length > 4 && (
-                          <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-gray-100 text-gray-600">
+                          <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300">
                             +{personalInfo.skills.length - 4} more
                           </span>
                         )}
@@ -311,18 +311,18 @@ const Profile: React.FC = () => {
                   )}
                 </div>
                 <div className="text-center sm:text-right">
-                  <div className="text-xs font-medium text-gray-600 mb-1">Profile Completion</div>
+                  <div className="text-xs font-medium text-gray-600 dark:text-gray-400 mb-1">Profile Completion</div>
                   <div className="relative w-12 h-12 mx-auto sm:mx-0">
                     <svg className="w-12 h-12 transform -rotate-90" viewBox="0 0 36 36">
                       <path
-                        className="text-gray-200"
+                        className="text-gray-200 dark:text-gray-700"
                         stroke="currentColor"
                         strokeWidth="3"
                         fill="none"
                         d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
                       />
                       <path
-                        className="text-primary-600"
+                        className="text-primary-600 dark:text-primary-400"
                         stroke="currentColor"
                         strokeWidth="3"
                         strokeDasharray="85, 100"
@@ -332,7 +332,7 @@ const Profile: React.FC = () => {
                       />
                     </svg>
                     <div className="absolute inset-0 flex items-center justify-center">
-                      <span className="text-sm font-bold text-primary-600">85%</span>
+                      <span className="text-sm font-bold text-primary-600 dark:text-primary-400">85%</span>
                     </div>
                   </div>
                 </div>
@@ -349,7 +349,7 @@ const Profile: React.FC = () => {
         )}
 
         {/* Tab Navigation */}
-        <div className="card-glass backdrop-blur-sm border border-white/20 mb-6">
+        <div className="card-glass backdrop-blur-sm border border-white/20 dark:border-gray-700/30 mb-6">
           <div className="px-6 py-3">
             <nav className="flex space-x-1">
               {[
@@ -363,8 +363,8 @@ const Profile: React.FC = () => {
                   onClick={() => setActiveTab(tab.id as any)}
                   className={`inline-flex items-center px-3 py-2 text-sm font-medium rounded-lg transition-all duration-200 ${
                     activeTab === tab.id
-                      ? 'bg-primary-600 text-white shadow-md'
-                      : 'text-gray-600 hover:text-gray-900 hover:bg-white/50'
+                      ? 'bg-primary-600 dark:bg-primary-500 text-white shadow-md'
+                      : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-white/50 dark:hover:bg-gray-700/50'
                   }`}
                 >
                   <span className="mr-1.5 text-sm">{tab.icon}</span>
@@ -377,14 +377,14 @@ const Profile: React.FC = () => {
         </div>
 
         {/* Tab Content */}
-        <div className="card-glass backdrop-blur-sm border border-white/20">
+        <div className="card-glass backdrop-blur-sm border border-white/20 dark:border-gray-700/30">
         {activeTab === 'personal' && (
           <div className="p-6">
-            <h3 className="text-lg font-medium text-gray-900 mb-6">Personal Information</h3>
+            <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-6">Personal Information</h3>
             
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                   First Name
                 </label>
                 <input
@@ -392,12 +392,12 @@ const Profile: React.FC = () => {
                   value={personalInfo.firstName}
                   onChange={(e) => setPersonalInfo(prev => ({ ...prev, firstName: e.target.value }))}
                   disabled={!isEditing}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-primary-500 focus:border-primary-500 disabled:bg-gray-50"
+                  className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-primary-500 focus:border-primary-500 disabled:bg-gray-50 dark:disabled:bg-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-white"
                 />
               </div>
               
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                   Last Name
                 </label>
                 <input
@@ -405,12 +405,12 @@ const Profile: React.FC = () => {
                   value={personalInfo.lastName}
                   onChange={(e) => setPersonalInfo(prev => ({ ...prev, lastName: e.target.value }))}
                   disabled={!isEditing}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-primary-500 focus:border-primary-500 disabled:bg-gray-50"
+                  className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-primary-500 focus:border-primary-500 disabled:bg-gray-50 dark:disabled:bg-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-white"
                 />
               </div>
               
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                   Email
                 </label>
                 <input
@@ -418,12 +418,12 @@ const Profile: React.FC = () => {
                   value={personalInfo.email}
                   onChange={(e) => setPersonalInfo(prev => ({ ...prev, email: e.target.value }))}
                   disabled={!isEditing}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-primary-500 focus:border-primary-500 disabled:bg-gray-50"
+                  className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-primary-500 focus:border-primary-500 disabled:bg-gray-50 dark:disabled:bg-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-white"
                 />
               </div>
               
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                   Location
                 </label>
                 <input
@@ -432,13 +432,13 @@ const Profile: React.FC = () => {
                   onChange={(e) => setPersonalInfo(prev => ({ ...prev, location: e.target.value }))}
                   disabled={!isEditing}
                   placeholder="City, State or Country"
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-primary-500 focus:border-primary-500 disabled:bg-gray-50"
+                  className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-primary-500 focus:border-primary-500 disabled:bg-gray-50 dark:disabled:bg-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400"
                 />
               </div>
             </div>
             
             <div className="mt-6">
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                 Professional Summary
               </label>
               <textarea
@@ -447,13 +447,13 @@ const Profile: React.FC = () => {
                 disabled={!isEditing}
                 rows={4}
                 placeholder="Tell us about yourself, your experience, and career goals..."
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-primary-500 focus:border-primary-500 disabled:bg-gray-50"
+                className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-primary-500 focus:border-primary-500 disabled:bg-gray-50 dark:disabled:bg-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400"
               />
             </div>
             
             {/* Skills */}
             <div className="mt-6">
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                 Skills
               </label>
               
@@ -465,11 +465,11 @@ const Profile: React.FC = () => {
                     onChange={(e) => setNewSkill(e.target.value)}
                     onKeyPress={(e) => e.key === 'Enter' && addSkill()}
                     placeholder="Add a skill..."
-                    className="flex-1 px-3 py-2 border border-gray-300 rounded-l-md focus:outline-none focus:ring-primary-500 focus:border-primary-500"
+                    className="flex-1 px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-l-md focus:outline-none focus:ring-primary-500 focus:border-primary-500 bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400"
                   />
                   <button
                     onClick={addSkill}
-                    className="px-4 py-2 bg-primary-600 text-white rounded-r-md hover:bg-primary-700"
+                    className="px-4 py-2 bg-primary-600 dark:bg-primary-500 text-white rounded-r-md hover:bg-primary-700 dark:hover:bg-primary-600"
                   >
                     Add
                   </button>
@@ -480,13 +480,13 @@ const Profile: React.FC = () => {
                 {personalInfo.skills.map((skill) => (
                   <span
                     key={skill}
-                    className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-primary-100 text-primary-800"
+                    className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-primary-100 dark:bg-primary-900/30 text-primary-800 dark:text-primary-300"
                   >
                     {skill}
                     {isEditing && (
                       <button
                         onClick={() => removeSkill(skill)}
-                        className="ml-2 text-primary-600 hover:text-primary-800"
+                        className="ml-2 text-primary-600 dark:text-primary-400 hover:text-primary-800 dark:hover:text-primary-200"
                       >
                         ×
                       </button>
@@ -501,11 +501,11 @@ const Profile: React.FC = () => {
         {activeTab === 'experience' && (
           <div className="p-6">
             <div className="flex justify-between items-center mb-6">
-              <h3 className="text-lg font-medium text-gray-900">Work Experience</h3>
+              <h3 className="text-lg font-medium text-gray-900 dark:text-white">Work Experience</h3>
               {isEditing && (
                 <button
                   onClick={addExperience}
-                  className="px-4 py-2 bg-primary-600 text-white rounded-md hover:bg-primary-700"
+                  className="px-4 py-2 bg-primary-600 dark:bg-primary-500 text-white rounded-md hover:bg-primary-700 dark:hover:bg-primary-600"
                 >
                   Add Experience
                 </button>
@@ -514,12 +514,12 @@ const Profile: React.FC = () => {
             
             <div className="space-y-6">
               {experiences.map((exp, index) => (
-                <div key={exp.id} className="border border-gray-200 rounded-lg p-4">
+                <div key={exp.id} className="border border-gray-200 dark:border-gray-700 rounded-lg p-4 bg-white dark:bg-gray-800">
                   {isEditing && (
                     <div className="flex justify-end mb-4">
                       <button
                         onClick={() => removeExperience(exp.id)}
-                        className="text-red-600 hover:text-red-800"
+                        className="text-red-600 dark:text-red-400 hover:text-red-800 dark:hover:text-red-200"
                       >
                         Remove
                       </button>
@@ -528,7 +528,7 @@ const Profile: React.FC = () => {
                   
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">
+                      <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                         Position
                       </label>
                       <input
@@ -536,12 +536,12 @@ const Profile: React.FC = () => {
                         value={exp.position}
                         onChange={(e) => updateExperience(exp.id, 'position', e.target.value)}
                         disabled={!isEditing}
-                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-primary-500 focus:border-primary-500 disabled:bg-gray-50"
+                        className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-primary-500 focus:border-primary-500 disabled:bg-gray-50 dark:disabled:bg-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-white"
                       />
                     </div>
                     
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">
+                      <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                         Company
                       </label>
                       <input
@@ -549,12 +549,12 @@ const Profile: React.FC = () => {
                         value={exp.company}
                         onChange={(e) => updateExperience(exp.id, 'company', e.target.value)}
                         disabled={!isEditing}
-                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-primary-500 focus:border-primary-500 disabled:bg-gray-50"
+                        className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-primary-500 focus:border-primary-500 disabled:bg-gray-50 dark:disabled:bg-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-white"
                       />
                     </div>
                     
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">
+                      <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                         Start Date
                       </label>
                       <input
@@ -562,12 +562,12 @@ const Profile: React.FC = () => {
                         value={exp.startDate ? exp.startDate.substring(0, 7) : ''}
                         onChange={(e) => updateExperience(exp.id, 'startDate', e.target.value + '-01')}
                         disabled={!isEditing}
-                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-primary-500 focus:border-primary-500 disabled:bg-gray-50"
+                        className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-primary-500 focus:border-primary-500 disabled:bg-gray-50 dark:disabled:bg-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-white"
                       />
                     </div>
                     
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">
+                      <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                         End Date
                       </label>
                       <input
@@ -576,13 +576,13 @@ const Profile: React.FC = () => {
                         onChange={(e) => updateExperience(exp.id, 'endDate', e.target.value + '-01')}
                         disabled={!isEditing}
                         placeholder="Leave blank if current"
-                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-primary-500 focus:border-primary-500 disabled:bg-gray-50"
+                        className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-primary-500 focus:border-primary-500 disabled:bg-gray-50 dark:disabled:bg-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400"
                       />
                     </div>
                   </div>
                   
                   <div className="mt-4">
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                       Description
                     </label>
                     <textarea
@@ -590,14 +590,14 @@ const Profile: React.FC = () => {
                       onChange={(e) => updateExperience(exp.id, 'description', e.target.value)}
                       disabled={!isEditing}
                       rows={3}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-primary-500 focus:border-primary-500 disabled:bg-gray-50"
+                      className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-primary-500 focus:border-primary-500 disabled:bg-gray-50 dark:disabled:bg-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-white"
                     />
                   </div>
                 </div>
               ))}
               
               {experiences.length === 0 && (
-                <div className="text-center py-8 text-gray-500">
+                <div className="text-center py-8 text-gray-500 dark:text-gray-400">
                   No work experience added yet.
                 </div>
               )}
@@ -607,50 +607,50 @@ const Profile: React.FC = () => {
 
         {activeTab === 'education' && (
           <div className="p-6">
-            <h3 className="text-lg font-medium text-gray-900 mb-6">Education</h3>
+            <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-6">Education</h3>
             
             <div className="space-y-6">
               {education.map((edu) => (
-                <div key={edu.id} className="border border-gray-200 rounded-lg p-4">
+                <div key={edu.id} className="border border-gray-200 dark:border-gray-700 rounded-lg p-4 bg-white dark:bg-gray-800">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">
+                      <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                         Institution
                       </label>
                       <input
                         type="text"
                         value={edu.institution}
                         disabled={!isEditing}
-                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-primary-500 focus:border-primary-500 disabled:bg-gray-50"
+                        className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-primary-500 focus:border-primary-500 disabled:bg-gray-50 dark:disabled:bg-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-white"
                       />
                     </div>
                     
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">
+                      <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                         Degree
                       </label>
                       <input
                         type="text"
                         value={edu.degree}
                         disabled={!isEditing}
-                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-primary-500 focus:border-primary-500 disabled:bg-gray-50"
+                        className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-primary-500 focus:border-primary-500 disabled:bg-gray-50 dark:disabled:bg-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-white"
                       />
                     </div>
                     
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">
+                      <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                         Field of Study
                       </label>
                       <input
                         type="text"
                         value={edu.fieldOfStudy}
                         disabled={!isEditing}
-                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-primary-500 focus:border-primary-500 disabled:bg-gray-50"
+                        className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-primary-500 focus:border-primary-500 disabled:bg-gray-50 dark:disabled:bg-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-white"
                       />
                     </div>
                     
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">
+                      <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                         GPA
                       </label>
                       <input
@@ -659,24 +659,30 @@ const Profile: React.FC = () => {
                         max="4.0"
                         value={edu.gpa || ''}
                         disabled={!isEditing}
-                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-primary-500 focus:border-primary-500 disabled:bg-gray-50"
+                        className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-primary-500 focus:border-primary-500 disabled:bg-gray-50 dark:disabled:bg-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-white"
                       />
                     </div>
                   </div>
                 </div>
               ))}
+              
+              {education.length === 0 && (
+                <div className="text-center py-8 text-gray-500 dark:text-gray-400">
+                  No education information added yet.
+                </div>
+              )}
             </div>
           </div>
         )}
 
         {activeTab === 'preferences' && (
           <div className="p-6">
-            <h3 className="text-lg font-medium text-gray-900 mb-6">Career Preferences</h3>
+            <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-6">Career Preferences</h3>
             
             <div className="space-y-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                     Minimum Salary
                   </label>
                   <input
@@ -684,12 +690,12 @@ const Profile: React.FC = () => {
                     value={preferences.salaryMin}
                     onChange={(e) => setPreferences(prev => ({ ...prev, salaryMin: parseInt(e.target.value) || 0 }))}
                     disabled={!isEditing}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-primary-500 focus:border-primary-500 disabled:bg-gray-50"
+                    className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-primary-500 focus:border-primary-500 disabled:bg-gray-50 dark:disabled:bg-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-white"
                   />
                 </div>
                 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                     Maximum Salary
                   </label>
                   <input
@@ -697,20 +703,20 @@ const Profile: React.FC = () => {
                     value={preferences.salaryMax}
                     onChange={(e) => setPreferences(prev => ({ ...prev, salaryMax: parseInt(e.target.value) || 0 }))}
                     disabled={!isEditing}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-primary-500 focus:border-primary-500 disabled:bg-gray-50"
+                    className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-primary-500 focus:border-primary-500 disabled:bg-gray-50 dark:disabled:bg-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-white"
                   />
                 </div>
               </div>
               
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                   Work Arrangement
                 </label>
                 <select
                   value={preferences.workArrangement}
                   onChange={(e) => setPreferences(prev => ({ ...prev, workArrangement: e.target.value as any }))}
                   disabled={!isEditing}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-primary-500 focus:border-primary-500 disabled:bg-gray-50"
+                  className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-primary-500 focus:border-primary-500 disabled:bg-gray-50 dark:disabled:bg-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-white"
                 >
                   <option value="any">Any</option>
                   <option value="remote">Remote</option>
@@ -720,34 +726,40 @@ const Profile: React.FC = () => {
               </div>
               
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                   Desired Positions
                 </label>
                 <div className="flex flex-wrap gap-2">
                   {preferences.desiredPositions.map((position) => (
                     <span
                       key={position}
-                      className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-blue-100 text-blue-800"
+                      className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-300"
                     >
                       {position}
                     </span>
                   ))}
+                  {preferences.desiredPositions.length === 0 && (
+                    <span className="text-gray-500 dark:text-gray-400 text-sm">No desired positions specified</span>
+                  )}
                 </div>
               </div>
               
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                   Preferred Industries
                 </label>
                 <div className="flex flex-wrap gap-2">
                   {preferences.industries.map((industry) => (
                     <span
                       key={industry}
-                      className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-green-100 text-green-800"
+                      className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-300"
                     >
                       {industry}
                     </span>
                   ))}
+                  {preferences.industries.length === 0 && (
+                    <span className="text-gray-500 dark:text-gray-400 text-sm">No preferred industries specified</span>
+                  )}
                 </div>
               </div>
             </div>

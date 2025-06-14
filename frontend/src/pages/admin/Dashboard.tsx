@@ -71,11 +71,11 @@ const Dashboard: React.FC = () => {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-primary-50">
+      <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-primary-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-700">
         <div className="absolute inset-0 bg-grid-pattern opacity-5"></div>
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           <div className="flex items-center justify-center min-h-[60vh]">
-            <div className="card-glass backdrop-blur-sm border border-white/20 p-8 text-center">
+            <div className="card-glass backdrop-blur-sm border border-white/20 dark:border-gray-700/30 p-8 text-center">
               <div className="w-16 h-16 bg-gradient-to-br from-primary-500 to-primary-600 rounded-2xl flex items-center justify-center mx-auto mb-4">
                 <svg className="w-8 h-8 text-white animate-spin" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
@@ -91,17 +91,17 @@ const Dashboard: React.FC = () => {
 
   if (!metrics) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-primary-50">
+      <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-primary-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-700">
         <div className="absolute inset-0 bg-grid-pattern opacity-5"></div>
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           <div className="flex items-center justify-center min-h-[60vh]">
-            <div className="card-glass backdrop-blur-sm border border-white/20 p-8 text-center">
+            <div className="card-glass backdrop-blur-sm border border-white/20 dark:border-gray-700/30 p-8 text-center">
               <div className="w-16 h-16 bg-gradient-to-br from-gray-400 to-gray-500 rounded-2xl flex items-center justify-center mx-auto mb-4">
                 <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
               </div>
-              <p className="text-lg text-gray-600">No dashboard data available.</p>
+              <p className="text-lg text-gray-600 dark:text-gray-300">No dashboard data available.</p>
             </div>
           </div>
         </div>
@@ -110,18 +110,18 @@ const Dashboard: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-primary-50">
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-primary-50 dark:from-gray-900 dark:to-gray-800">
       <main className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
         <div className="px-4 py-6 sm:px-0">
           {/* Header Section */}
           <div className="mb-8">
-            <div className="card-glass backdrop-blur-sm border border-white/20 p-6">
+            <div className="card-glass backdrop-blur-sm border border-white/20 dark:border-gray-700/30 p-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <h1 className="text-3xl font-bold bg-gradient-to-r from-gray-900 to-primary-800 bg-clip-text text-transparent">
+                  <h1 className="text-3xl font-bold bg-gradient-to-r from-gray-900 to-primary-800 dark:from-white dark:to-primary-300 bg-clip-text text-transparent">
                     Admin Dashboard 📊
                   </h1>
-                  <p className="mt-2 text-lg text-gray-600">
+                  <p className="mt-2 text-lg text-gray-600 dark:text-gray-300">
                     System overview and key metrics
                   </p>
                 </div>
@@ -138,15 +138,15 @@ const Dashboard: React.FC = () => {
 
           {/* Time Filter */}
           <div className="mb-8">
-            <div className="card-glass backdrop-blur-sm border border-white/20 p-4">
+            <div className="card-glass backdrop-blur-sm border border-white/20 dark:border-gray-700/30 p-4">
               <div className="flex items-center justify-between">
-                <h3 className="text-lg font-semibold text-gray-900 flex items-center">
+                <h3 className="text-lg font-semibold text-gray-900 dark:text-white flex items-center">
                   <svg className="w-5 h-5 mr-2 text-primary-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                   </svg>
                   Time Period
                 </h3>
-                <div className="flex bg-gray-100 rounded-xl p-1">
+                <div className="flex bg-gray-100 dark:bg-gray-700 rounded-xl p-1">
                   {['7d', '30d', '90d'].map((period) => (
                     <button
                       key={period}
@@ -154,7 +154,7 @@ const Dashboard: React.FC = () => {
                       className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
                         timeframe === period
                           ? 'bg-gradient-to-r from-primary-500 to-primary-600 text-white shadow-md transform scale-105'
-                          : 'text-gray-600 hover:text-gray-800 hover:bg-white'
+                          : 'text-gray-600 dark:text-gray-300 hover:text-gray-800 dark:hover:text-gray-100 hover:bg-white dark:hover:bg-gray-600'
                       }`}
                     >
                       {period === '7d' && '📅 Last 7 days'}
@@ -169,7 +169,7 @@ const Dashboard: React.FC = () => {
 
       {/* Key Metrics */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-        <div className="card-glass backdrop-blur-sm border border-white/20 p-6 hover:shadow-lg hover:scale-105 transition-all duration-300 group">
+        <div className="card-glass backdrop-blur-sm border border-white/20 dark:border-gray-700/30 p-6 hover:shadow-lg hover:scale-105 transition-all duration-300 group">
           <div className="flex items-center justify-between mb-4">
             <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
               <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -178,10 +178,10 @@ const Dashboard: React.FC = () => {
             </div>
           </div>
           <div>
-            <h3 className="text-sm font-medium text-gray-600 mb-1">
+            <h3 className="text-sm font-medium text-gray-600 dark:text-gray-300 mb-1">
               Total Users
             </h3>
-            <p className="text-3xl font-bold text-gray-900 group-hover:text-primary-700 transition-colors duration-200">
+            <p className="text-3xl font-bold text-gray-900 dark:text-white group-hover:text-primary-700 dark:group-hover:text-primary-300 transition-colors duration-200">
               {metrics.totalUsers.toLocaleString()}
             </p>
             <p className="text-sm text-green-600 mt-1">
@@ -190,7 +190,7 @@ const Dashboard: React.FC = () => {
           </div>
         </div>
 
-        <div className="card-glass backdrop-blur-sm border border-white/20 p-6 hover:shadow-lg hover:scale-105 transition-all duration-300 group">
+        <div className="card-glass backdrop-blur-sm border border-white/20 dark:border-gray-700/30 p-6 hover:shadow-lg hover:scale-105 transition-all duration-300 group">
           <div className="flex items-center justify-between mb-4">
             <div className="w-12 h-12 bg-gradient-to-br from-green-500 to-green-600 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
               <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -199,19 +199,19 @@ const Dashboard: React.FC = () => {
             </div>
           </div>
           <div>
-            <h3 className="text-sm font-medium text-gray-600 mb-1">
+            <h3 className="text-sm font-medium text-gray-600 dark:text-gray-300 mb-1">
               Active Jobs
             </h3>
-            <p className="text-3xl font-bold text-gray-900 group-hover:text-primary-700 transition-colors duration-200">
+            <p className="text-3xl font-bold text-gray-900 dark:text-white group-hover:text-primary-700 dark:group-hover:text-primary-300 transition-colors duration-200">
               {metrics.activeJobs.toLocaleString()}
             </p>
-            <p className="text-sm text-gray-600 mt-1">
+            <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
               {metrics.totalJobs} total posted
             </p>
           </div>
         </div>
 
-        <div className="card-glass backdrop-blur-sm border border-white/20 p-6 hover:shadow-lg hover:scale-105 transition-all duration-300 group">
+        <div className="card-glass backdrop-blur-sm border border-white/20 dark:border-gray-700/30 p-6 hover:shadow-lg hover:scale-105 transition-all duration-300 group">
           <div className="flex items-center justify-between mb-4">
             <div className="w-12 h-12 bg-gradient-to-br from-purple-500 to-purple-600 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
               <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -220,10 +220,10 @@ const Dashboard: React.FC = () => {
             </div>
           </div>
           <div>
-            <h3 className="text-sm font-medium text-gray-600 mb-1">
+            <h3 className="text-sm font-medium text-gray-600 dark:text-gray-300 mb-1">
               Applications
             </h3>
-            <p className="text-3xl font-bold text-gray-900 group-hover:text-primary-700 transition-colors duration-200">
+            <p className="text-3xl font-bold text-gray-900 dark:text-white group-hover:text-primary-700 dark:group-hover:text-primary-300 transition-colors duration-200">
               {metrics.totalApplications.toLocaleString()}
             </p>
             <p className="text-sm text-blue-600 mt-1">
@@ -232,7 +232,7 @@ const Dashboard: React.FC = () => {
           </div>
         </div>
 
-        <div className="card-glass backdrop-blur-sm border border-white/20 p-6 hover:shadow-lg hover:scale-105 transition-all duration-300 group">
+        <div className="card-glass backdrop-blur-sm border border-white/20 dark:border-gray-700/30 p-6 hover:shadow-lg hover:scale-105 transition-all duration-300 group">
           <div className="flex items-center justify-between mb-4">
             <div className="w-12 h-12 bg-gradient-to-br from-orange-500 to-orange-600 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
               <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -241,10 +241,10 @@ const Dashboard: React.FC = () => {
             </div>
           </div>
           <div>
-            <h3 className="text-sm font-medium text-gray-600 mb-1">
+            <h3 className="text-sm font-medium text-gray-600 dark:text-gray-300 mb-1">
               System Health
             </h3>
-            <p className="text-3xl font-bold text-gray-900 group-hover:text-primary-700 transition-colors duration-200">
+            <p className="text-3xl font-bold text-gray-900 dark:text-white group-hover:text-primary-700 dark:group-hover:text-primary-300 transition-colors duration-200">
               {metrics.systemPerformance.uptime}%
             </p>
             <p className="text-sm text-green-600 mt-1">
@@ -256,8 +256,8 @@ const Dashboard: React.FC = () => {
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
         {/* Application Status Chart */}
-        <div className="bg-white rounded-lg shadow p-6">
-          <h3 className="text-lg font-semibold text-gray-900 mb-4">Application Status Distribution</h3>
+        <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
+          <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Application Status Distribution</h3>
           <div className="space-y-4">
             {Object.entries(metrics.applicationsByStatus).map(([status, count]) => {
               const percentage = (count / metrics.totalApplications) * 100;
@@ -286,10 +286,10 @@ const Dashboard: React.FC = () => {
               return (
                 <div key={status}>
                   <div className="flex justify-between text-sm mb-1">
-                    <span className="text-gray-600">{statusLabels[status as keyof typeof statusLabels]}</span>
+                    <span className="text-gray-600 dark:text-gray-300">{statusLabels[status as keyof typeof statusLabels]}</span>
                     <span className="font-medium">{count} ({percentage.toFixed(1)}%)</span>
                   </div>
-                  <div className="w-full bg-gray-200 rounded-full h-2">
+                  <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
                     <div
                       className={`h-2 rounded-full ${statusColors[status as keyof typeof statusColors]}`}
                       style={{ width: `${percentage}%` }}
@@ -302,18 +302,18 @@ const Dashboard: React.FC = () => {
         </div>
 
         {/* Top Job Categories */}
-        <div className="bg-white rounded-lg shadow p-6">
-          <h3 className="text-lg font-semibold text-gray-900 mb-4">Popular Job Categories</h3>
+        <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
+          <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Popular Job Categories</h3>
           <div className="space-y-4">
             {metrics.popularJobCategories.map((category, index) => (
               <div key={index} className="flex items-center justify-between">
                 <div className="flex-1">
                   <div className="flex justify-between text-sm mb-1">
-                    <span className="text-gray-900 font-medium">{category.category}</span>
-                    <span className="text-gray-600">{category.count} jobs</span>
+                    <span className="text-gray-900 dark:text-white font-medium">{category.category}</span>
+                    <span className="text-gray-600 dark:text-gray-300">{category.count} jobs</span>
                   </div>
                   <div className="flex items-center">
-                    <div className="flex-1 bg-gray-200 rounded-full h-2 mr-3">
+                    <div className="flex-1 bg-gray-200 dark:bg-gray-700 rounded-full h-2 mr-3">
                       <div
                         className="bg-primary-500 h-2 rounded-full"
                         style={{ width: `${(category.count / metrics.popularJobCategories[0].count) * 100}%` }}
@@ -332,9 +332,9 @@ const Dashboard: React.FC = () => {
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         {/* Recent Activity */}
-        <div className="bg-white rounded-lg shadow p-6">
+        <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
           <div className="flex justify-between items-center mb-4">
-            <h3 className="text-lg font-semibold text-gray-900">Recent Activity</h3>
+            <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Recent Activity</h3>
             <Link to="/admin/analytics" className="text-sm text-primary-600 hover:text-primary-700">
               View all
             </Link>
@@ -346,8 +346,8 @@ const Dashboard: React.FC = () => {
                   {getActivityIcon(activity.type)}
                 </div>
                 <div className="flex-1 min-w-0">
-                  <p className="text-sm text-gray-900">{activity.description}</p>
-                  <p className="text-xs text-gray-500">{new Date(activity.timestamp).toLocaleString()}</p>
+                  <p className="text-sm text-gray-900 dark:text-white">{activity.description}</p>
+                  <p className="text-xs text-gray-500 dark:text-gray-400">{new Date(activity.timestamp).toLocaleString()}</p>
                 </div>
               </div>
             ))}
@@ -355,15 +355,15 @@ const Dashboard: React.FC = () => {
         </div>
 
         {/* System Performance */}
-        <div className="bg-white rounded-lg shadow p-6">
-          <h3 className="text-lg font-semibold text-gray-900 mb-4">System Performance</h3>
+        <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
+          <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">System Performance</h3>
           <div className="space-y-6">
             <div>
               <div className="flex justify-between text-sm mb-2">
-                <span className="text-gray-600">Uptime</span>
+                <span className="text-gray-600 dark:text-gray-300">Uptime</span>
                 <span className="font-medium">{metrics.systemPerformance.uptime}%</span>
               </div>
-              <div className="w-full bg-gray-200 rounded-full h-2">
+              <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
                 <div
                   className="bg-green-500 h-2 rounded-full"
                   style={{ width: `${metrics.systemPerformance.uptime}%` }}
@@ -373,10 +373,10 @@ const Dashboard: React.FC = () => {
 
             <div>
               <div className="flex justify-between text-sm mb-2">
-                <span className="text-gray-600">Response Time</span>
+                <span className="text-gray-600 dark:text-gray-300">Response Time</span>
                 <span className="font-medium">{metrics.systemPerformance.responseTime}ms</span>
               </div>
-              <div className="w-full bg-gray-200 rounded-full h-2">
+              <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
                 <div
                   className={`h-2 rounded-full ${
                     metrics.systemPerformance.responseTime < 200 ? 'bg-green-500' :
@@ -389,10 +389,10 @@ const Dashboard: React.FC = () => {
 
             <div>
               <div className="flex justify-between text-sm mb-2">
-                <span className="text-gray-600">Error Rate</span>
+                <span className="text-gray-600 dark:text-gray-300">Error Rate</span>
                 <span className="font-medium">{metrics.systemPerformance.errorRate}%</span>
               </div>
-              <div className="w-full bg-gray-200 rounded-full h-2">
+              <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
                 <div
                   className={`h-2 rounded-full ${
                     metrics.systemPerformance.errorRate < 1 ? 'bg-green-500' :
@@ -405,10 +405,10 @@ const Dashboard: React.FC = () => {
 
             <div>
               <div className="flex justify-between text-sm mb-2">
-                <span className="text-gray-600">AI Recommendation Accuracy</span>
+                <span className="text-gray-600 dark:text-gray-300">AI Recommendation Accuracy</span>
                 <span className="font-medium">{metrics.systemPerformance.recommendationAccuracy}%</span>
               </div>
-              <div className="w-full bg-gray-200 rounded-full h-2">
+              <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
                 <div
                   className="bg-blue-500 h-2 rounded-full"
                   style={{ width: `${metrics.systemPerformance.recommendationAccuracy}%` }}
@@ -420,12 +420,12 @@ const Dashboard: React.FC = () => {
       </div>
 
       {/* Quick Actions */}
-      <div className="mt-8 bg-gray-50 rounded-lg p-6">
-        <h3 className="text-lg font-semibold text-gray-900 mb-4">Quick Actions</h3>
+      <div className="mt-8 bg-gray-50 dark:bg-gray-800 rounded-lg p-6">
+        <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Quick Actions</h3>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           <Link
             to="/admin/users"
-            className="flex items-center justify-center px-4 py-3 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50"
+            className="flex items-center justify-center px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm text-sm font-medium text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
           >
             <svg className="h-5 w-5 mr-2 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0z" />
@@ -434,7 +434,7 @@ const Dashboard: React.FC = () => {
           </Link>
           <Link
             to="/admin/jobs"
-            className="flex items-center justify-center px-4 py-3 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50"
+            className="flex items-center justify-center px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm text-sm font-medium text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
           >
             <svg className="h-5 w-5 mr-2 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2-2v2m8 0V6a2 2 0 012 2v6a2 2 0 01-2 2H8a2 2 0 01-2-2V8a2 2 0 012-2V6" />
@@ -443,7 +443,7 @@ const Dashboard: React.FC = () => {
           </Link>
           <Link
             to="/admin/analytics"
-            className="flex items-center justify-center px-4 py-3 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50"
+            className="flex items-center justify-center px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm text-sm font-medium text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
           >
             <svg className="h-5 w-5 mr-2 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
@@ -452,7 +452,7 @@ const Dashboard: React.FC = () => {
           </Link>
           <Link
             to="/admin/settings"
-            className="flex items-center justify-center px-4 py-3 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50"
+            className="flex items-center justify-center px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm text-sm font-medium text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
           >
             <svg className="h-5 w-5 mr-2 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
