@@ -32,46 +32,76 @@ const AdminAnalytics: React.FC = () => {
 
   if (isLoading) {
     return (
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <Loading inline message="Loading analytics..." />
+      <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-primary-50">
+        <div className="absolute inset-0 bg-grid-pattern opacity-5"></div>
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+          <div className="flex items-center justify-center min-h-[60vh]">
+            <div className="card-glass backdrop-blur-sm border border-white/20 p-8 text-center">
+              <div className="w-16 h-16 bg-gradient-to-br from-primary-500 to-primary-600 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                <svg className="w-8 h-8 text-white animate-spin" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                </svg>
+              </div>
+              <Loading inline message="Loading analytics..." />
+            </div>
+          </div>
+        </div>
       </div>
     );
   }
 
   if (!metrics) {
     return (
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="text-center py-12">
-          <p className="text-gray-500">No analytics data available.</p>
+      <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-primary-50">
+        <div className="absolute inset-0 bg-grid-pattern opacity-5"></div>
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+          <div className="flex items-center justify-center min-h-[60vh]">
+            <div className="card-glass backdrop-blur-sm border border-white/20 p-8 text-center">
+              <div className="w-16 h-16 bg-gradient-to-br from-gray-400 to-gray-500 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+              </div>
+              <p className="text-lg text-gray-600">No analytics data available.</p>
+            </div>
+          </div>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-      {/* Header */}
-      <div className="mb-8 flex justify-between items-start">
-        <div>
-          <h1 className="text-2xl font-bold text-gray-900">Analytics Dashboard</h1>
-          <p className="text-gray-600">Comprehensive system analytics and performance metrics</p>
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-primary-50">
+      <div className="absolute inset-0 bg-grid-pattern opacity-5"></div>
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        {/* Header */}
+        <div className="mb-8">
+          <div className="card-glass backdrop-blur-sm border border-white/20 p-6">
+            <div className="flex flex-col md:flex-row md:items-center justify-between">
+              <div className="mb-4 md:mb-0">
+                <h1 className="text-3xl font-bold bg-gradient-to-r from-gray-900 to-primary-800 bg-clip-text text-transparent">
+                  Analytics Dashboard 📊
+                </h1>
+                <p className="text-gray-600 mt-2">Comprehensive system analytics and performance metrics</p>
+              </div>
+              <div className="flex items-center space-x-4">
+                <select
+                  value={timeframe}
+                  onChange={(e) => setTimeframe(e.target.value as '7d' | '30d' | '90d')}
+                  className="px-4 py-2 bg-white/80 backdrop-blur-sm border border-white/20 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-200"
+                >
+                  <option value="7d">Last 7 days</option>
+                  <option value="30d">Last 30 days</option>
+                  <option value="90d">Last 90 days</option>
+                </select>
+              </div>
+            </div>
+          </div>
         </div>
-        <div className="flex items-center space-x-4">
-          <select
-            value={timeframe}
-            onChange={(e) => setTimeframe(e.target.value as '7d' | '30d' | '90d')}
-            className="px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-primary-500 focus:border-primary-500"
-          >
-            <option value="7d">Last 7 days</option>
-            <option value="30d">Last 30 days</option>
-            <option value="90d">Last 90 days</option>
-          </select>
-        </div>
-      </div>
 
       {/* Key Performance Indicators */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-        <div className="bg-white rounded-lg shadow p-6">
+        <div className="card-glass backdrop-blur-sm border border-white/20 p-6 hover:shadow-medium transition-all duration-300">
           <div className="flex items-center">
             <div className="flex-shrink-0">
               <div className="w-8 h-8 bg-blue-100 rounded-md flex items-center justify-center">
@@ -88,7 +118,7 @@ const AdminAnalytics: React.FC = () => {
           </div>
         </div>
 
-        <div className="bg-white rounded-lg shadow p-6">
+        <div className="card-glass backdrop-blur-sm border border-white/20 p-6 hover:shadow-medium transition-all duration-300">
           <div className="flex items-center">
             <div className="flex-shrink-0">
               <div className="w-8 h-8 bg-green-100 rounded-md flex items-center justify-center">
@@ -105,7 +135,7 @@ const AdminAnalytics: React.FC = () => {
           </div>
         </div>
 
-        <div className="bg-white rounded-lg shadow p-6">
+        <div className="card-glass backdrop-blur-sm border border-white/20 p-6 hover:shadow-medium transition-all duration-300">
           <div className="flex items-center">
             <div className="flex-shrink-0">
               <div className="w-8 h-8 bg-purple-100 rounded-md flex items-center justify-center">
@@ -122,7 +152,7 @@ const AdminAnalytics: React.FC = () => {
           </div>
         </div>
 
-        <div className="bg-white rounded-lg shadow p-6">
+        <div className="card-glass backdrop-blur-sm border border-white/20 p-6 hover:shadow-medium transition-all duration-300">
           <div className="flex items-center">
             <div className="flex-shrink-0">
               <div className="w-8 h-8 bg-yellow-100 rounded-md flex items-center justify-center">
@@ -142,7 +172,7 @@ const AdminAnalytics: React.FC = () => {
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
         {/* Application Status Distribution */}
-        <div className="bg-white rounded-lg shadow p-6">
+        <div className="card-glass backdrop-blur-sm border border-white/20 p-6">
           <h3 className="text-lg font-semibold text-gray-900 mb-4">Application Status Distribution</h3>
           <div className="space-y-4">
             {Object.entries(metrics.applicationsByStatus).map(([status, count]) => {
@@ -194,7 +224,7 @@ const AdminAnalytics: React.FC = () => {
         </div>
 
         {/* Top Search Queries */}
-        <div className="bg-white rounded-lg shadow p-6">
+        <div className="card-glass backdrop-blur-sm border border-white/20 p-6">
           <h3 className="text-lg font-semibold text-gray-900 mb-4">Top Search Queries</h3>
           <div className="space-y-4">
             {metrics.topSearchQueries.map((query, index) => {
@@ -231,7 +261,7 @@ const AdminAnalytics: React.FC = () => {
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
         {/* Popular Job Categories */}
-        <div className="bg-white rounded-lg shadow p-6">
+        <div className="card-glass backdrop-blur-sm border border-white/20 p-6">
           <h3 className="text-lg font-semibold text-gray-900 mb-4">Popular Job Categories</h3>
           <div className="space-y-4">
             {metrics.popularJobCategories.map((category, index) => (
@@ -250,7 +280,7 @@ const AdminAnalytics: React.FC = () => {
         </div>
 
         {/* System Performance */}
-        <div className="bg-white rounded-lg shadow p-6">
+        <div className="card-glass backdrop-blur-sm border border-white/20 p-6">
           <h3 className="text-lg font-semibold text-gray-900 mb-4">System Performance</h3>
           <div className="space-y-6">
             <div>
@@ -306,6 +336,7 @@ const AdminAnalytics: React.FC = () => {
             </div>
           </div>
         </div>
+      </div>
       </div>
 
       {/* Export and Actions */}
