@@ -71,15 +71,15 @@ const Modal: React.FC = () => {
       <div className="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
         <div className="fixed inset-0 bg-black/50 backdrop-blur-sm transition-opacity" onClick={handleCancel}></div>
         
-        <div className="relative transform overflow-hidden rounded-2xl card-glass backdrop-blur-md border border-white/20 px-6 pb-6 pt-6 text-left shadow-2xl transition-all sm:my-8 sm:w-full sm:max-w-lg sm:p-8">
+        <div className="relative transform overflow-hidden rounded-2xl card-glass backdrop-blur-md border border-white/20 dark:border-gray-700/20 bg-white/95 dark:bg-gray-800/95 px-6 pb-6 pt-6 text-left shadow-2xl transition-all sm:my-8 sm:w-full sm:max-w-lg sm:p-8">
           <div>
             {getModalIcon()}
             <div className="mt-4 text-center sm:mt-6">
-              <h3 className="text-lg font-bold leading-6 text-gray-900">
+              <h3 className="text-lg font-bold leading-6 text-gray-900 dark:text-gray-100">
                 {modal.title}
               </h3>
               <div className="mt-3">
-                <p className="text-sm text-gray-600 leading-relaxed">
+                <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
                   {modal.message}
                 </p>
               </div>
@@ -99,7 +99,7 @@ const Modal: React.FC = () => {
             
             <button
               type="button"
-              className={`mt-3 inline-flex w-full justify-center rounded-xl bg-white/80 backdrop-blur-sm px-4 py-3 text-sm font-semibold text-gray-700 shadow-lg border border-white/20 hover:bg-white/90 transition-all duration-200 sm:col-start-1 sm:mt-0 ${
+              className={`mt-3 inline-flex w-full justify-center rounded-xl bg-white/80 dark:bg-gray-700/80 backdrop-blur-sm px-4 py-3 text-sm font-semibold text-gray-700 dark:text-gray-300 shadow-lg border border-white/20 dark:border-gray-600/20 hover:bg-white/90 dark:hover:bg-gray-700/90 transition-all duration-200 sm:col-start-1 sm:mt-0 ${
                 (modal.type === 'confirm' || modal.onConfirm) ? '' : 'sm:col-span-2'
               }`}
               onClick={handleCancel}

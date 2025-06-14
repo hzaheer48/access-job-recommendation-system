@@ -105,7 +105,7 @@ const Login: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-primary-50 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-primary-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
       {/* Background Pattern */}
       <div className="absolute inset-0 bg-grid-pattern opacity-5"></div>
       
@@ -117,13 +117,13 @@ const Login: React.FC = () => {
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
             </svg>
           </div>
-          <h2 className="text-3xl font-bold bg-gradient-to-r from-gray-900 to-primary-800 bg-clip-text text-transparent">
+          <h2 className="text-3xl font-bold bg-gradient-to-r from-gray-900 to-primary-800 dark:from-white dark:to-primary-300 bg-clip-text text-transparent">
             Welcome back
           </h2>
-          <p className="mt-2 text-lg text-gray-600">
+          <p className="mt-2 text-lg text-gray-600 dark:text-gray-300">
             Sign in to your account
           </p>
-          <p className="mt-2 text-sm text-gray-600">
+          <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">
             Don't have an account?{' '}
             <Link
               to="/register"
@@ -135,7 +135,7 @@ const Login: React.FC = () => {
         </div>
         
         {/* Demo Credentials */}
-        <div className="card-glass backdrop-blur-sm border border-white/20">
+        <div className="card-glass backdrop-blur-sm border border-white/20 dark:border-gray-700/30">
           <div className="p-6">
             <div className="flex items-center mb-4">
               <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-blue-600 rounded-lg flex items-center justify-center mr-3">
@@ -143,7 +143,7 @@ const Login: React.FC = () => {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
                 </svg>
               </div>
-              <h3 className="text-sm font-semibold text-gray-800">Quick Demo Access</h3>
+              <h3 className="text-sm font-semibold text-gray-800 dark:text-gray-200">Quick Demo Access</h3>
             </div>
             <div className="space-y-3">
               <button
@@ -176,7 +176,7 @@ const Login: React.FC = () => {
                   </svg>
                 </div>
               </button>
-              <div className="text-xs text-gray-600 text-center pt-2 border-t border-gray-200">
+              <div className="text-xs text-gray-600 dark:text-gray-400 text-center pt-2 border-t border-gray-200 dark:border-gray-600">
                 🔑 Password for all demo accounts: <span className="font-mono font-semibold">password123</span>
               </div>
             </div>
@@ -184,12 +184,12 @@ const Login: React.FC = () => {
         </div>
 
         {/* Login Form */}
-        <div className="card-glass backdrop-blur-sm border border-white/20">
+        <div className="card-glass backdrop-blur-sm border border-white/20 dark:border-gray-700/30">
           <div className="p-8">
             <form className="space-y-6" onSubmit={handleSubmit}>
               <div className="space-y-5">
                 <div>
-                  <label htmlFor="email" className="block text-sm font-semibold text-gray-700 mb-2">
+                  <label htmlFor="email" className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
                     Email address
                   </label>
                   <div className="relative">
@@ -206,8 +206,8 @@ const Login: React.FC = () => {
                       required
                       value={formData.email}
                       onChange={handleInputChange}
-                      className={`block w-full pl-10 pr-3 py-3 border rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 bg-white/80 backdrop-blur-sm transition-all duration-200 ${
-                        errors.email ? 'border-red-300 focus:ring-red-500 focus:border-red-500' : 'border-gray-300'
+                      className={`block w-full pl-10 pr-3 py-3 border rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm transition-all duration-200 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 ${
+                        errors.email ? 'border-red-300 focus:ring-red-500 focus:border-red-500' : 'border-gray-300 dark:border-gray-600'
                       }`}
                       placeholder="Enter your email address"
                     />
@@ -223,7 +223,7 @@ const Login: React.FC = () => {
                 </div>
 
                 <div>
-                  <label htmlFor="password" className="block text-sm font-semibold text-gray-700 mb-2">
+                  <label htmlFor="password" className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
                     Password
                   </label>
                   <div className="relative">
@@ -240,8 +240,8 @@ const Login: React.FC = () => {
                       required
                       value={formData.password}
                       onChange={handleInputChange}
-                      className={`block w-full pl-10 pr-3 py-3 border rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 bg-white/80 backdrop-blur-sm transition-all duration-200 ${
-                        errors.password ? 'border-red-300 focus:ring-red-500 focus:border-red-500' : 'border-gray-300'
+                      className={`block w-full pl-10 pr-3 py-3 border rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm transition-all duration-200 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 ${
+                        errors.password ? 'border-red-300 focus:ring-red-500 focus:border-red-500' : 'border-gray-300 dark:border-gray-600'
                       }`}
                       placeholder="Enter your password"
                     />
@@ -263,9 +263,9 @@ const Login: React.FC = () => {
                     id="remember-me"
                     name="remember-me"
                     type="checkbox"
-                    className="h-4 w-4 text-primary-600 focus:ring-primary-500 border-gray-300 rounded transition-colors duration-200"
+                    className="h-4 w-4 text-primary-600 focus:ring-primary-500 border-gray-300 dark:border-gray-600 dark:bg-gray-700 rounded transition-colors duration-200"
                   />
-                  <label htmlFor="remember-me" className="ml-2 block text-sm font-medium text-gray-700">
+                  <label htmlFor="remember-me" className="ml-2 block text-sm font-medium text-gray-700 dark:text-gray-300">
                     Remember me
                   </label>
                 </div>

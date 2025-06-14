@@ -25,7 +25,8 @@ type AppAction =
   | { type: 'SHOW_MODAL'; payload: Partial<ModalConfig> }
   | { type: 'HIDE_MODAL' }
   | { type: 'SET_LOADING'; payload: Partial<LoadingState> }
-  | { type: 'TOGGLE_THEME' };
+  | { type: 'TOGGLE_THEME' }
+  | { type: 'SET_THEME'; payload: 'light' | 'dark' };
 
 const initialState: AppState = {
   user: null,
@@ -95,6 +96,12 @@ const appReducer = (state: AppState, action: AppAction): AppState => {
         theme: newTheme,
       };
     
+    case 'SET_THEME':
+      return {
+        ...state,
+        theme: action.payload,
+      };
+    
     default:
       return state;
   }
@@ -104,6 +111,15 @@ const AppContext = createContext<AppContextType | undefined>(undefined);
 
 export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [state, dispatch] = useReducer(appReducer, initialState);
+
+  // Apply theme to document element
+  useEffect(() => {
+    if (state.theme === 'dark') {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+  }, [state.theme]);
 
   // Load persisted data on app start
   useEffect(() => {
@@ -120,9 +136,9 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
     }
 
     // Load theme from localStorage
-    const savedTheme = localStorage.getItem('accessjobs_theme');
-    if (savedTheme === 'dark') {
-      dispatch({ type: 'TOGGLE_THEME' });
+    const savedTheme = localStorage.getItem('accessjobs_theme') as 'light' | 'dark' | null;
+    if (savedTheme && (savedTheme === 'light' || savedTheme === 'dark')) {
+      dispatch({ type: 'SET_THEME', payload: savedTheme });
     }
   }, []);
 
@@ -174,4 +190,4 @@ export const useApp = (): AppContextType => {
     throw new Error('useApp must be used within an AppProvider');
   }
   return context;
-}; 
+};

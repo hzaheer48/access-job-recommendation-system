@@ -143,8 +143,8 @@ const JobDetail: React.FC = () => {
     return (
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="text-center">
-          <h1 className="text-2xl font-bold text-gray-900">Job Not Found</h1>
-          <p className="mt-2 text-gray-600">The job you are looking for does not exist.</p>
+          <h1 className="text-2xl font-bold text-gray-900 dark:text-white">Job Not Found</h1>
+          <p className="mt-2 text-gray-600 dark:text-gray-400">The job you are looking for does not exist.</p>
           <Link to="/jobs" className="mt-4 inline-block bg-primary-600 text-white px-4 py-2 rounded-md">
             Back to Jobs
           </Link>
@@ -159,7 +159,7 @@ const JobDetail: React.FC = () => {
       <div className="mb-6">
         <button
           onClick={() => navigate('/jobs')}
-          className="flex items-center text-primary-600 hover:text-primary-700"
+          className="flex items-center text-primary-600 hover:text-primary-700 dark:text-primary-400 dark:hover:text-primary-300"
         >
           <svg className="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
@@ -171,7 +171,7 @@ const JobDetail: React.FC = () => {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         {/* Main Content */}
         <div className="lg:col-span-2">
-          <div className="bg-white rounded-lg shadow-lg p-6">
+          <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6">
             {/* Job Header */}
             <div className="flex items-start space-x-4 mb-6">
               {job.companyLogo && (
@@ -182,9 +182,9 @@ const JobDetail: React.FC = () => {
                 />
               )}
               <div className="flex-1">
-                <h1 className="text-2xl font-bold text-gray-900 mb-2">{job.title}</h1>
-                <p className="text-lg text-gray-600 mb-2">{job.company}</p>
-                <div className="flex flex-wrap items-center gap-4 text-sm text-gray-500">
+                <h1 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">{job.title}</h1>
+                <p className="text-lg text-gray-600 dark:text-gray-300 mb-2">{job.company}</p>
+                <div className="flex flex-wrap items-center gap-4 text-sm text-gray-500 dark:text-gray-400">
                   <span>📍 {job.location}</span>
                   <span>💼 {job.jobType.replace('-', ' ')}</span>
                   <span>📈 {job.experienceLevel}</span>
@@ -194,30 +194,30 @@ const JobDetail: React.FC = () => {
             </div>
 
             {/* Salary */}
-            <div className="bg-green-50 border border-green-200 rounded-lg p-4 mb-6">
-              <h3 className="text-lg font-semibold text-green-800 mb-2">Salary Range</h3>
-              <p className="text-2xl font-bold text-green-900">
+            <div className="bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-700/30 rounded-lg p-4 mb-6">
+              <h3 className="text-lg font-semibold text-green-800 dark:text-green-300 mb-2">Salary Range</h3>
+              <p className="text-2xl font-bold text-green-900 dark:text-green-200">
                 ${job.salaryRange.min.toLocaleString()} - ${job.salaryRange.max.toLocaleString()}
               </p>
-              <p className="text-sm text-green-700">per year</p>
+              <p className="text-sm text-green-700 dark:text-green-400">per year</p>
             </div>
 
             {/* AI Match Score */}
             {recommendation && (
-              <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6">
+              <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-700/30 rounded-lg p-4 mb-6">
                 <div className="flex items-center justify-between mb-3">
-                  <h3 className="text-lg font-semibold text-blue-800">AI Match Analysis</h3>
-                  <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-blue-100 text-blue-800">
+                  <h3 className="text-lg font-semibold text-blue-800 dark:text-blue-300">AI Match Analysis</h3>
+                  <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-blue-100 dark:bg-blue-800/50 text-blue-800 dark:text-blue-200">
                     {Math.round(recommendation.score * 100)}% Match
                   </span>
                 </div>
                 
                 <div className="space-y-3">
                   <div>
-                    <h4 className="font-medium text-blue-800 mb-1">Why this job fits you:</h4>
+                    <h4 className="font-medium text-blue-800 dark:text-blue-300 mb-1">Why this job fits you:</h4>
                     <ul className="space-y-1">
                       {recommendation.explanation.reasons.map((reason, index) => (
-                        <li key={index} className="text-sm text-blue-700 flex items-start">
+                        <li key={index} className="text-sm text-blue-700 dark:text-blue-300 flex items-start">
                           <span className="mr-2">•</span>
                           <span>{reason}</span>
                         </li>
@@ -226,12 +226,12 @@ const JobDetail: React.FC = () => {
                   </div>
                   
                   <div>
-                    <h4 className="font-medium text-blue-800 mb-1">Skills Match:</h4>
+                    <h4 className="font-medium text-blue-800 dark:text-blue-300 mb-1">Skills Match:</h4>
                     <div className="flex flex-wrap gap-2">
                       {recommendation.explanation.skillsMatch.matched.map((skill: string) => (
                         <span
                           key={skill}
-                          className="px-2 py-1 bg-blue-100 text-blue-800 rounded-md text-xs font-medium"
+                          className="px-2 py-1 bg-blue-100 dark:bg-blue-800/50 text-blue-800 dark:text-blue-200 rounded-md text-xs font-medium"
                         >
                           ✓ {skill}
                         </span>
@@ -241,12 +241,12 @@ const JobDetail: React.FC = () => {
 
                   {recommendation.explanation.skillsMatch.missing.length > 0 && (
                     <div>
-                      <h4 className="font-medium text-orange-800 mb-1">Skills to develop:</h4>
+                      <h4 className="font-medium text-orange-800 dark:text-orange-300 mb-1">Skills to develop:</h4>
                       <div className="flex flex-wrap gap-2">
                         {recommendation.explanation.skillsMatch.missing.map((skill: string) => (
                           <span
                             key={skill}
-                            className="px-2 py-1 bg-orange-100 text-orange-800 rounded-md text-xs font-medium"
+                            className="px-2 py-1 bg-orange-100 dark:bg-orange-900/30 text-orange-800 dark:text-orange-300 rounded-md text-xs font-medium"
                           >
                             → {skill}
                           </span>
@@ -260,18 +260,18 @@ const JobDetail: React.FC = () => {
 
             {/* Job Description */}
             <div className="mb-6">
-              <h3 className="text-lg font-semibold text-gray-900 mb-3">Job Description</h3>
-              <div className="prose max-w-none text-gray-700">
+              <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-3">Job Description</h3>
+              <div className="prose max-w-none text-gray-700 dark:text-gray-300">
                 <p className="whitespace-pre-line">{job.description}</p>
               </div>
             </div>
 
             {/* Requirements */}
             <div className="mb-6">
-              <h3 className="text-lg font-semibold text-gray-900 mb-3">Requirements</h3>
+              <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-3">Requirements</h3>
               <ul className="space-y-2">
                 {job.requirements.map((requirement, index) => (
-                  <li key={index} className="flex items-start text-gray-700">
+                  <li key={index} className="flex items-start text-gray-700 dark:text-gray-300">
                     <span className="mr-2 mt-1.5 w-1.5 h-1.5 bg-primary-500 rounded-full flex-shrink-0"></span>
                     <span>{requirement}</span>
                   </li>
@@ -281,10 +281,10 @@ const JobDetail: React.FC = () => {
 
             {/* Benefits */}
             <div className="mb-6">
-              <h3 className="text-lg font-semibold text-gray-900 mb-3">Benefits</h3>
+              <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-3">Benefits</h3>
               <ul className="space-y-2">
                 {job.benefits.map((benefit, index) => (
-                  <li key={index} className="flex items-start text-gray-700">
+                  <li key={index} className="flex items-start text-gray-700 dark:text-gray-300">
                     <span className="mr-2 mt-1.5 w-1.5 h-1.5 bg-green-500 rounded-full flex-shrink-0"></span>
                     <span>{benefit}</span>
                   </li>
@@ -294,12 +294,12 @@ const JobDetail: React.FC = () => {
 
             {/* Skills */}
             <div className="mb-6">
-              <h3 className="text-lg font-semibold text-gray-900 mb-3">Required Skills</h3>
+              <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-3">Required Skills</h3>
               <div className="flex flex-wrap gap-2">
                 {job.skills.map((skill) => (
                   <span
                     key={skill}
-                    className="px-3 py-1 bg-gray-100 text-gray-700 rounded-md text-sm"
+                    className="px-3 py-1 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-md text-sm"
                   >
                     {skill}
                   </span>
@@ -311,17 +311,17 @@ const JobDetail: React.FC = () => {
 
         {/* Sidebar */}
         <div className="lg:col-span-1">
-          <div className="bg-white rounded-lg shadow-lg p-6 sticky top-4">
+          <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 sticky top-4">
             {/* Application Status */}
             {hasApplied ? (
-              <div className="mb-6 p-4 bg-green-50 border border-green-200 rounded-lg">
+              <div className="mb-6 p-4 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-700/30 rounded-lg">
                 <div className="flex items-center">
                   <svg className="h-5 w-5 text-green-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                   </svg>
-                  <span className="text-green-800 font-medium">Application Submitted</span>
+                  <span className="text-green-800 dark:text-green-300 font-medium">Application Submitted</span>
                 </div>
-                <p className="text-sm text-green-700 mt-1">
+                <p className="text-sm text-green-700 dark:text-green-400 mt-1">
                   You've already applied for this position.
                 </p>
               </div>
@@ -339,8 +339,8 @@ const JobDetail: React.FC = () => {
               onClick={handleBookmark}
               className={`w-full px-4 py-2 rounded-lg font-medium mb-6 transition-colors ${
                 isBookmarked
-                  ? 'bg-yellow-100 text-yellow-800 hover:bg-yellow-200'
-                  : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                  ? 'bg-yellow-100 dark:bg-yellow-900/30 text-yellow-800 dark:text-yellow-300 hover:bg-yellow-200 dark:hover:bg-yellow-900/50'
+                  : 'bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'
               }`}
             >
               {isBookmarked ? '★ Bookmarked' : '☆ Save Job'}
@@ -349,22 +349,22 @@ const JobDetail: React.FC = () => {
             {/* Job Stats */}
             <div className="space-y-4 mb-6">
               <div className="flex justify-between items-center text-sm">
-                <span className="text-gray-600">Applications:</span>
-                <span className="font-medium">{job.applicationCount}</span>
+                <span className="text-gray-600 dark:text-gray-400">Applications:</span>
+                <span className="font-medium text-gray-900 dark:text-white">{job.applicationCount}</span>
               </div>
               <div className="flex justify-between items-center text-sm">
-                <span className="text-gray-600">Views:</span>
-                <span className="font-medium">{Math.floor(job.applicationCount * 5.2)}</span>
+                <span className="text-gray-600 dark:text-gray-400">Views:</span>
+                <span className="font-medium text-gray-900 dark:text-white">{Math.floor(job.applicationCount * 5.2)}</span>
               </div>
               <div className="flex justify-between items-center text-sm">
-                <span className="text-gray-600">Posted:</span>
-                <span className="font-medium">{new Date(job.postedDate).toLocaleDateString()}</span>
+                <span className="text-gray-600 dark:text-gray-400">Posted:</span>
+                <span className="font-medium text-gray-900 dark:text-white">{new Date(job.postedDate).toLocaleDateString()}</span>
               </div>
             </div>
 
             {/* Similar Jobs */}
             <div>
-              <h3 className="text-lg font-semibold text-gray-900 mb-3">Similar Jobs</h3>
+              <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-3">Similar Jobs</h3>
               <div className="space-y-3">
                 {mockJobs
                   .filter(j => j.id !== job.id && j.jobType === job.jobType)
@@ -373,11 +373,11 @@ const JobDetail: React.FC = () => {
                     <Link
                       key={similarJob.id}
                       to={`/jobs/${similarJob.id}`}
-                      className="block p-3 border border-gray-200 rounded-lg hover:border-primary-300 hover:bg-gray-50 transition-colors"
+                      className="block p-3 border border-gray-200 dark:border-gray-600 rounded-lg hover:border-primary-300 dark:hover:border-primary-500 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
                     >
-                      <h4 className="font-medium text-gray-900 text-sm mb-1">{similarJob.title}</h4>
-                      <p className="text-gray-600 text-xs">{similarJob.company}</p>
-                      <p className="text-gray-500 text-xs">{similarJob.location}</p>
+                      <h4 className="font-medium text-gray-900 dark:text-white text-sm mb-1">{similarJob.title}</h4>
+                      <p className="text-gray-600 dark:text-gray-300 text-xs">{similarJob.company}</p>
+                      <p className="text-gray-500 dark:text-gray-400 text-xs">{similarJob.location}</p>
                     </Link>
                   ))}
               </div>
@@ -389,15 +389,15 @@ const JobDetail: React.FC = () => {
       {/* Application Modal */}
       {showApplicationModal && (
         <div className="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50">
-          <div className="relative top-20 mx-auto p-5 border w-full max-w-2xl bg-white rounded-lg shadow-lg">
+          <div className="relative top-20 mx-auto p-5 border w-full max-w-2xl bg-white dark:bg-gray-800 rounded-lg shadow-lg">
             <div className="mb-4">
-              <h3 className="text-lg font-semibold text-gray-900">Apply for {job.title}</h3>
-              <p className="text-gray-600">at {job.company}</p>
+              <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Apply for {job.title}</h3>
+              <p className="text-gray-600 dark:text-gray-300">at {job.company}</p>
             </div>
 
             <div className="space-y-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                   Cover Letter *
                 </label>
                 <textarea
@@ -405,12 +405,12 @@ const JobDetail: React.FC = () => {
                   onChange={(e) => setApplicationData(prev => ({ ...prev, coverLetter: e.target.value }))}
                   placeholder="Explain why you're interested in this role and how your skills match the requirements..."
                   rows={6}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-primary-500 focus:border-primary-500"
+                  className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-primary-500 focus:border-primary-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400"
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                   Additional Information
                 </label>
                 <textarea
@@ -418,7 +418,7 @@ const JobDetail: React.FC = () => {
                   onChange={(e) => setApplicationData(prev => ({ ...prev, additionalInfo: e.target.value }))}
                   placeholder="Any additional information you'd like to share..."
                   rows={3}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-primary-500 focus:border-primary-500"
+                  className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-primary-500 focus:border-primary-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400"
                 />
               </div>
             </div>
@@ -426,7 +426,7 @@ const JobDetail: React.FC = () => {
             <div className="flex justify-end space-x-3 mt-6">
               <button
                 onClick={() => setShowApplicationModal(false)}
-                className="px-4 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50"
+                className="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700"
               >
                 Cancel
               </button>
@@ -444,4 +444,4 @@ const JobDetail: React.FC = () => {
   );
 };
 
-export default JobDetail; 
+export default JobDetail;

@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import { AppProvider } from './context/AppContext';
+import { AppProvider, useApp } from './context/AppContext';
 import Header from './components/shared/Header';
 import Modal from './components/shared/Modal';
 import Loading from './components/shared/Loading';
@@ -32,11 +32,12 @@ import AdminSettings from './pages/admin/Settings';
 // Landing Page
 import LandingPage from './pages/LandingPage';
 
-function App() {
+function AppContent() {
+  const { state } = useApp();
+  
   return (
-    <AppProvider>
-      <Router>
-        <div className="min-h-screen bg-gray-50">
+    <Router>
+      <div className={`min-h-screen ${state.theme === 'dark' ? 'dark bg-gray-900' : 'bg-gray-50'}`}>
           <Header />
           <main>
             <Routes>
@@ -177,8 +178,15 @@ function App() {
           {/* Global Components */}
           <Modal />
           <Loading />
-        </div>
-      </Router>
+      </div>
+    </Router>
+  );
+}
+
+function App() {
+  return (
+    <AppProvider>
+      <AppContent />
     </AppProvider>
   );
 }
