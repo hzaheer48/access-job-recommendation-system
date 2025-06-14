@@ -37,7 +37,7 @@ export const calculateJobMatch = (job: Job, userProfile: UserProfile): JobMatch 
   const skillGaps = job.requiredSkills.map(skill => {
     const userSkill = userProfile.skills.find(s => s.toLowerCase() === skill.toLowerCase());
     const requiredLevel = job.skillLevels?.[skill] || 3; // Default to intermediate level
-    const userLevel = userSkill?.proficiencyLevel || 0;
+    const userLevel = userSkill ? 3 : 0; // or another default if you want
     
     return {
       skill,

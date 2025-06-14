@@ -8,6 +8,31 @@ export interface User {
   isActive: boolean;
   createdAt: string;
   profile?: UserProfile;
+  // Backend fields (optional)
+  user_type?: string;
+  is_verified?: boolean;
+  phone?: string;
+  location?: string;
+  bio?: string;
+  resume?: string;
+  linkedin_url?: string;
+  github_url?: string;
+  portfolio_url?: string;
+  experience_level?: string;
+  profile_details?: Record<string, any>;
+  updated_at?: string;
+  last_login?: string;
+  profile_visibility?: string;
+  show_email?: boolean;
+  show_phone?: boolean;
+  show_location?: boolean;
+  show_resume?: boolean;
+  show_social_links?: boolean;
+  show_experience?: boolean;
+  show_education?: boolean;
+  show_skills?: boolean;
+  resumeVersions?: ResumeVersion[];
+  selectedTemplate?: ResumeTemplate;
 }
 
 export interface UserProfile {
@@ -95,6 +120,18 @@ export interface Job {
   isUrgent: boolean;
   tags: string[];
   metadata: Record<string, any>;
+  // Backend fields (optional)
+  salary_min?: number;
+  salary_max?: number;
+  job_type?: string;
+  experience_level?: string;
+  remote_option?: string;
+  posted_date?: string;
+  application_deadline?: string;
+  is_active?: boolean;
+  is_featured?: boolean;
+  view_count?: number;
+  posted_by?: string;
 }
 
 export type JobType = 'full-time' | 'part-time' | 'contract' | 'temporary' | 'internship';
@@ -112,6 +149,8 @@ export interface JobApplication {
   notes: string;
   interviewStages: InterviewStage[];
   job: Job;
+  // Backend fields (optional)
+  last_updated?: string;
 }
 
 export type ApplicationStatus = 
@@ -442,6 +481,11 @@ export interface ResumeTemplate {
   name: string;
   description: string;
   thumbnail: string;
+  templateFile?: string;
+  category?: string;
+  isActive?: boolean;
+  createdAt?: string;
+  updatedAt?: string;
 }
 
 export interface Document {
@@ -477,6 +521,16 @@ export interface DocumentVersion {
   }[];
 }
 
+export interface ResumeVersion {
+  id: string;
+  user?: string;
+  file: string;
+  version_number: number;
+  uploaded_at: string;
+  is_current: boolean;
+  parsed_data?: Record<string, any>;
+}
+
 export interface Assessment {
   id: string;
   userId: string;
@@ -488,6 +542,10 @@ export interface Assessment {
   startTime?: string;
   endTime?: string;
   questions: AssessmentQuestion[];
+  // Backend fields (optional)
+  template?: AssessmentTemplate;
+  created_at?: string;
+  updated_at?: string;
 }
 
 export interface AssessmentQuestion {
@@ -499,6 +557,9 @@ export interface AssessmentQuestion {
   category: string;
   options?: string[];
   correctAnswer?: string;
+  // Backend fields (optional)
+  created_at?: string;
+  updated_at?: string;
 }
 
 export interface AssessmentTemplate {
@@ -510,6 +571,9 @@ export interface AssessmentTemplate {
   duration: number;
   tags: string[];
   questions: AssessmentQuestion[];
+  // Backend fields (optional)
+  created_at?: string;
+  updated_at?: string;
 }
 
 export interface AssessmentResult {
@@ -527,6 +591,8 @@ export interface AssessmentResult {
     recommendations: string[];
   };
   completedAt: string;
+  // Backend fields (optional)
+  created_at?: string;
 }
 
 export interface AssessmentAnswer {
@@ -534,4 +600,7 @@ export interface AssessmentAnswer {
   answer: string;
   points: number;
   isCorrect: boolean;
+  // Backend fields (optional)
+  id?: string;
+  result?: string;
 } 

@@ -14,6 +14,7 @@ from rest_framework.views import APIView
 # Create your views here.
 
 class JobApplicationViewSet(viewsets.ModelViewSet):
+    queryset = JobApplication.objects.all()
     serializer_class = JobApplicationSerializer
     permission_classes = [permissions.IsAuthenticated]
 

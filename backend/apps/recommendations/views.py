@@ -9,6 +9,7 @@ from rest_framework.response import Response
 # Create your views here.
 
 class RecommendationViewSet(viewsets.ModelViewSet):
+    queryset = Recommendation.objects.all()
     serializer_class = RecommendationSerializer
     permission_classes = [IsAuthenticated]
     filter_backends = [filters.OrderingFilter]
