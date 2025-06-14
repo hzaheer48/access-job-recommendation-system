@@ -17,26 +17,43 @@ Including another URLconf
 
 from django.contrib import admin
 from django.urls import path, include
-from rest_framework.routers import DefaultRouter
-from jobs.views import JobViewSet, JobSkillViewSet
-from applications.views import ApplicationViewSet
-from users.views import UserViewSet, SkillViewSet, UserSkillViewSet
-from recommendations.views import RecommendationViewSet
-from alerts.views import AlertViewSet
-
-# Create a router and register our viewsets with it
-router = DefaultRouter()
-router.register(r'jobs', JobViewSet, basename='job')
-router.register(r'job-skills', JobSkillViewSet, basename='jobskill')
-router.register(r'applications', ApplicationViewSet, basename='application')
-router.register(r'users', UserViewSet, basename='user')
-router.register(r'skills', SkillViewSet, basename='skill')
-router.register(r'user-skills', UserSkillViewSet, basename='userskill')
-router.register(r'recommendations', RecommendationViewSet, basename='recommendation')
-router.register(r'alerts', AlertViewSet, basename='alert')
+from django.conf import settings
+from django.conf.urls.static import static
+from rest_framework_simplejwt.views import (
+    TokenObtainPairView,
+    TokenRefreshView,
+)
+from drf_spectacular.views import (
+    SpectacularAPIView,
+    SpectacularRedocView,
+    SpectacularSwaggerView,
+)
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path('api/', include(router.urls)),
+    
+    # API Documentation
+    path('api/schema/', SpectacularAPIView.as_view(), name='schema'),
+    path('api/docs/', SpectacularSwaggerView.as_view(url_name='schema'), name='swagger-ui'),
+    path('api/redoc/', SpectacularRedocView.as_view(url_name='schema'), name='redoc'),
+    
+    # JWT Authentication
+    path('api/v1/auth/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('api/v1/auth/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+    
+    # API v1 routes
+    path('api/v1/auth/', include('apps.authentication.urls')),
+    path('api/v1/jobs/', include('apps.jobs.urls')),
+    path('api/v1/applications/', include('apps.applications.urls')),
+    path('api/v1/recommendations/', include('apps.recommendations.urls')),
+    path('api/v1/alerts/', include('apps.alerts.urls')),
+    path('api/v1/analytics/', include('apps.analytics.urls')),
+    
+    # DRF Browsable API
     path('api-auth/', include('rest_framework.urls')),
 ]
+
+# Serve media files in development
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
