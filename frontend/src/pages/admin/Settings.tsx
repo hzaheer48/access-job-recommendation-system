@@ -212,11 +212,11 @@ const AdminSettings: React.FC = () => {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-primary-50">
+      <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-primary-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
         <div className="absolute inset-0 bg-grid-pattern opacity-5"></div>
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           <div className="flex items-center justify-center min-h-[60vh]">
-            <div className="card-glass backdrop-blur-sm border border-white/20 p-8 text-center">
+            <div className="card-glass backdrop-blur-sm border border-white/20 dark:border-gray-700/30 p-8 text-center">
               <div className="w-16 h-16 bg-gradient-to-br from-primary-500 to-primary-600 rounded-2xl flex items-center justify-center mx-auto mb-4">
                 <svg className="w-8 h-8 text-white animate-spin" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
@@ -231,24 +231,24 @@ const AdminSettings: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-primary-50">
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-primary-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
       <div className="absolute inset-0 bg-grid-pattern opacity-5"></div>
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Header */}
         <div className="mb-8">
-          <div className="card-glass backdrop-blur-sm border border-white/20 p-6">
+          <div className="card-glass backdrop-blur-sm border border-white/20 dark:border-gray-700/30 p-6">
             <div className="flex flex-col md:flex-row md:items-center justify-between">
               <div className="mb-4 md:mb-0">
-                <h1 className="text-3xl font-bold bg-gradient-to-r from-gray-900 to-primary-800 bg-clip-text text-transparent">
+                <h1 className="text-3xl font-bold bg-gradient-to-r from-gray-900 to-primary-800 dark:from-white dark:to-primary-400 bg-clip-text text-transparent">
                   System Settings ⚙️
                 </h1>
-                <p className="text-gray-600 mt-2">Configure system settings and preferences</p>
+                <p className="text-gray-600 dark:text-gray-400 mt-2">Configure system settings and preferences</p>
               </div>
               <div className="flex space-x-3">
                 {hasChanges && (
                   <button
                     onClick={handleResetSettings}
-                    className="px-4 py-2 bg-white/80 backdrop-blur-sm border border-white/20 text-gray-700 rounded-xl hover:bg-white/90 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transition-all duration-200"
+                    className="px-4 py-2 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm border border-white/20 dark:border-gray-700/30 text-gray-700 dark:text-gray-300 rounded-xl hover:bg-white/90 dark:hover:bg-gray-800/90 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transition-all duration-200"
                   >
                     Reset
                   </button>
@@ -259,7 +259,7 @@ const AdminSettings: React.FC = () => {
                   className={`px-4 py-2 rounded-xl focus:outline-none focus:ring-2 focus:ring-offset-2 transition-all duration-200 ${
                     hasChanges
                       ? 'bg-gradient-to-r from-primary-600 to-primary-700 text-white hover:from-primary-700 hover:to-primary-800 focus:ring-primary-500 shadow-lg'
-                      : 'bg-gray-300 text-gray-500 cursor-not-allowed'
+                      : 'bg-gray-300 dark:bg-gray-700 text-gray-500 dark:text-gray-400 cursor-not-allowed'
                   }`}
                 >
                   Save Changes
@@ -271,7 +271,7 @@ const AdminSettings: React.FC = () => {
 
         {/* Changes Indicator */}
         {hasChanges && (
-          <div className="mb-6 card-glass backdrop-blur-sm border border-yellow-200/50 bg-gradient-to-r from-yellow-50/80 to-orange-50/80 p-4">
+          <div className="mb-6 card-glass backdrop-blur-sm border border-yellow-200/50 dark:border-yellow-600/30 bg-gradient-to-r from-yellow-50/80 to-orange-50/80 dark:from-yellow-900/20 dark:to-orange-900/20 p-4">
             <div className="flex">
               <div className="flex-shrink-0">
                 <div className="w-8 h-8 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-lg flex items-center justify-center">
@@ -279,7 +279,7 @@ const AdminSettings: React.FC = () => {
                 </div>
               </div>
               <div className="ml-3">
-                <p className="text-sm text-yellow-800 font-medium">
+                <p className="text-sm text-yellow-800 dark:text-yellow-200 font-medium">
                   You have unsaved changes. Don't forget to save your settings.
                 </p>
               </div>
@@ -287,9 +287,9 @@ const AdminSettings: React.FC = () => {
           </div>
         )}
 
-      <div className="card-glass backdrop-blur-sm border border-white/20 overflow-hidden">
+      <div className="card-glass backdrop-blur-sm border border-white/20 dark:border-gray-700/30 overflow-hidden">
         {/* Tabs */}
-        <div className="border-b border-gray-200">
+        <div className="border-b border-gray-200 dark:border-gray-700">
           <nav className="-mb-px flex space-x-8 px-6">
             {tabs.map((tab) => (
               <button
@@ -297,8 +297,8 @@ const AdminSettings: React.FC = () => {
                 onClick={() => setActiveTab(tab.id as any)}
                 className={`py-4 px-1 border-b-2 font-medium text-sm ${
                   activeTab === tab.id
-                    ? 'border-blue-500 text-blue-600'
-                    : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+                    ? 'border-blue-500 text-blue-600 dark:text-blue-400'
+                    : 'border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:border-gray-300 dark:hover:border-gray-600'
                 }`}
               >
                 <span className="mr-2">{tab.icon}</span>
@@ -314,45 +314,45 @@ const AdminSettings: React.FC = () => {
           {activeTab === 'general' && (
             <div className="space-y-6">
               <div>
-                <h3 className="text-lg font-medium text-gray-900 mb-4">General Configuration</h3>
+                <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-4">Security Configuration</h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">Site Name</label>
+                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Site Name</label>
                     <input
                       type="text"
                       value={settings.general.siteName}
                       onChange={(e) => updateSetting('general', 'siteName', e.target.value)}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-primary-500 focus:border-primary-500"
+                      className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-primary-500 focus:border-primary-500 bg-white dark:bg-gray-800 dark:text-white"
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">Contact Email</label>
+                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Contact Email</label>
                     <input
                       type="email"
                       value={settings.general.contactEmail}
                       onChange={(e) => updateSetting('general', 'contactEmail', e.target.value)}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-primary-500 focus:border-primary-500"
+                      className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-primary-500 focus:border-primary-500 bg-white dark:bg-gray-800 dark:text-white"
                     />
                   </div>
                 </div>
                 <div className="mt-4">
-                  <label className="block text-sm font-medium text-gray-700 mb-2">Site Description</label>
+                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Site Description</label>
                   <textarea
                     value={settings.general.siteDescription}
                     onChange={(e) => updateSetting('general', 'siteDescription', e.target.value)}
                     rows={3}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-primary-500 focus:border-primary-500"
+                    className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-primary-500 focus:border-primary-500 bg-white dark:bg-gray-800 dark:text-white"
                   />
                 </div>
               </div>
 
               <div>
-                <h4 className="text-md font-medium text-gray-900 mb-4">System Options</h4>
+                <h4 className="text-md font-medium text-gray-900 dark:text-white mb-4">System Options</h4>
                 <div className="space-y-4">
                   <div className="flex items-center justify-between">
                     <div>
-                      <label className="text-sm font-medium text-gray-700">Maintenance Mode</label>
-                      <p className="text-sm text-gray-500">Temporarily disable the site for maintenance</p>
+                      <label className="text-sm font-medium text-gray-700 dark:text-gray-300">Maintenance Mode</label>
+                      <p className="text-sm text-gray-500 dark:text-gray-400">Temporarily disable the site for maintenance</p>
                     </div>
                     <label className="relative inline-flex items-center cursor-pointer">
                       <input
@@ -361,14 +361,14 @@ const AdminSettings: React.FC = () => {
                         onChange={(e) => updateSetting('general', 'maintenanceMode', e.target.checked)}
                         className="sr-only peer"
                       />
-                      <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+                      <div className="w-11 h-6 bg-gray-200 dark:bg-gray-700 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
                     </label>
                   </div>
 
                   <div className="flex items-center justify-between">
                     <div>
-                      <label className="text-sm font-medium text-gray-700">Allow Registration</label>
-                      <p className="text-sm text-gray-500">Allow new users to register accounts</p>
+                      <label className="text-sm font-medium text-gray-700 dark:text-gray-300">Allow Registration</label>
+                      <p className="text-sm text-gray-500 dark:text-gray-400">Allow new users to register accounts</p>
                     </div>
                     <label className="relative inline-flex items-center cursor-pointer">
                       <input
@@ -383,8 +383,8 @@ const AdminSettings: React.FC = () => {
 
                   <div className="flex items-center justify-between">
                     <div>
-                      <label className="text-sm font-medium text-gray-700">Require Email Verification</label>
-                      <p className="text-sm text-gray-500">Require users to verify their email address</p>
+                      <label className="text-sm font-medium text-gray-700 dark:text-gray-300">Require Email Verification</label>
+                      <p className="text-sm text-gray-500 dark:text-gray-400">Require users to verify their email address</p>
                     </div>
                     <label className="relative inline-flex items-center cursor-pointer">
                       <input
@@ -405,14 +405,14 @@ const AdminSettings: React.FC = () => {
           {activeTab === 'ml' && (
             <div className="space-y-6">
               <div>
-                <h3 className="text-lg font-medium text-gray-900 mb-4">Machine Learning Configuration</h3>
+                <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-4">Machine Learning Configuration</h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">Recommendation Engine</label>
+                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Recommendation Engine</label>
                     <select
                       value={settings.ml.recommendationEngine}
                       onChange={(e) => updateSetting('ml', 'recommendationEngine', e.target.value)}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-primary-500 focus:border-primary-500"
+                      className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-primary-500 focus:border-primary-500 bg-white dark:bg-gray-800 dark:text-white"
                     >
                       <option value="basic">Basic (Rule-based)</option>
                       <option value="advanced">Advanced (ML-based)</option>
@@ -420,11 +420,11 @@ const AdminSettings: React.FC = () => {
                     </select>
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">Update Frequency</label>
+                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Update Frequency</label>
                     <select
                       value={settings.ml.updateFrequency}
                       onChange={(e) => updateSetting('ml', 'updateFrequency', e.target.value)}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-primary-500 focus:border-primary-500"
+                      className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-primary-500 focus:border-primary-500 bg-white dark:bg-gray-800 dark:text-white"
                     >
                       <option value="realtime">Real-time</option>
                       <option value="hourly">Hourly</option>
@@ -432,29 +432,29 @@ const AdminSettings: React.FC = () => {
                     </select>
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">Min Recommendations</label>
+                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Min Recommendations</label>
                     <input
                       type="number"
                       min="1"
                       max="50"
                       value={settings.ml.minRecommendations}
                       onChange={(e) => updateSetting('ml', 'minRecommendations', parseInt(e.target.value))}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-primary-500 focus:border-primary-500"
+                      className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-primary-500 focus:border-primary-500 bg-white dark:bg-gray-800 dark:text-white"
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">Max Recommendations</label>
+                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Max Recommendations</label>
                     <input
                       type="number"
                       min="1"
                       max="100"
                       value={settings.ml.maxRecommendations}
                       onChange={(e) => updateSetting('ml', 'maxRecommendations', parseInt(e.target.value))}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-primary-500 focus:border-primary-500"
+                      className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-primary-500 focus:border-primary-500 bg-white dark:bg-gray-800 dark:text-white"
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">Confidence Threshold</label>
+                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Confidence Threshold</label>
                     <input
                       type="number"
                       min="0"
@@ -462,19 +462,19 @@ const AdminSettings: React.FC = () => {
                       step="0.1"
                       value={settings.ml.confidenceThreshold}
                       onChange={(e) => updateSetting('ml', 'confidenceThreshold', parseFloat(e.target.value))}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-primary-500 focus:border-primary-500"
+                      className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-primary-500 focus:border-primary-500 bg-white dark:bg-gray-800 dark:text-white"
                     />
                   </div>
                 </div>
               </div>
 
               <div>
-                <h4 className="text-md font-medium text-gray-900 mb-4">Learning Options</h4>
+                <h4 className="text-md font-medium text-gray-900 dark:text-white mb-4">Learning Options</h4>
                 <div className="flex items-center justify-between">
                   <div>
-                    <label className="text-sm font-medium text-gray-700">Enable Feedback Learning</label>
-                    <p className="text-sm text-gray-500">Allow the system to learn from user feedback</p>
-                  </div>
+                      <label className="text-sm font-medium text-gray-700 dark:text-gray-300">Enable Feedback Learning</label>
+                      <p className="text-sm text-gray-500 dark:text-gray-400">Allow the system to learn from user feedback</p>
+                    </div>
                   <label className="relative inline-flex items-center cursor-pointer">
                     <input
                       type="checkbox"
@@ -493,12 +493,12 @@ const AdminSettings: React.FC = () => {
           {activeTab === 'notifications' && (
             <div className="space-y-6">
               <div>
-                <h3 className="text-lg font-medium text-gray-900 mb-4">Notification Configuration</h3>
+                <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-4">Notification Configuration</h3>
                 <div className="space-y-4">
                   <div className="flex items-center justify-between">
                     <div>
-                      <label className="text-sm font-medium text-gray-700">Email Notifications</label>
-                      <p className="text-sm text-gray-500">Send notifications via email</p>
+                      <label className="text-sm font-medium text-gray-700 dark:text-gray-300">Email Notifications</label>
+                      <p className="text-sm text-gray-500 dark:text-gray-400">Send notifications via email</p>
                     </div>
                     <label className="relative inline-flex items-center cursor-pointer">
                       <input
@@ -513,8 +513,8 @@ const AdminSettings: React.FC = () => {
 
                   <div className="flex items-center justify-between">
                     <div>
-                      <label className="text-sm font-medium text-gray-700">Push Notifications</label>
-                      <p className="text-sm text-gray-500">Send browser push notifications</p>
+                      <label className="text-sm font-medium text-gray-700 dark:text-gray-300">Push Notifications</label>
+                      <p className="text-sm text-gray-500 dark:text-gray-400">Send browser push notifications</p>
                     </div>
                     <label className="relative inline-flex items-center cursor-pointer">
                       <input
@@ -529,8 +529,8 @@ const AdminSettings: React.FC = () => {
 
                   <div className="flex items-center justify-between">
                     <div>
-                      <label className="text-sm font-medium text-gray-700">SMS Notifications</label>
-                      <p className="text-sm text-gray-500">Send notifications via SMS</p>
+                      <label className="text-sm font-medium text-gray-700 dark:text-gray-300">SMS Notifications</label>
+                      <p className="text-sm text-gray-500 dark:text-gray-400">Send notifications via SMS</p>
                     </div>
                     <label className="relative inline-flex items-center cursor-pointer">
                       <input
@@ -545,8 +545,8 @@ const AdminSettings: React.FC = () => {
 
                   <div className="flex items-center justify-between">
                     <div>
-                      <label className="text-sm font-medium text-gray-700">Weekly Digest</label>
-                      <p className="text-sm text-gray-500">Send weekly summary emails</p>
+                      <label className="text-sm font-medium text-gray-700 dark:text-gray-300">Weekly Digest</label>
+                      <p className="text-sm text-gray-500 dark:text-gray-400">Send weekly summary emails</p>
                     </div>
                     <label className="relative inline-flex items-center cursor-pointer">
                       <input
@@ -561,8 +561,8 @@ const AdminSettings: React.FC = () => {
 
                   <div className="flex items-center justify-between">
                     <div>
-                      <label className="text-sm font-medium text-gray-700">Job Alerts</label>
-                      <p className="text-sm text-gray-500">Send notifications for new job matches</p>
+                      <label className="text-sm font-medium text-gray-700 dark:text-gray-300">Job Alerts</label>
+                      <p className="text-sm text-gray-500 dark:text-gray-400">Send notifications for new job matches</p>
                     </div>
                     <label className="relative inline-flex items-center cursor-pointer">
                       <input
@@ -577,8 +577,8 @@ const AdminSettings: React.FC = () => {
 
                   <div className="flex items-center justify-between">
                     <div>
-                      <label className="text-sm font-medium text-gray-700">Application Updates</label>
-                      <p className="text-sm text-gray-500">Send notifications for application status changes</p>
+                      <label className="text-sm font-medium text-gray-700 dark:text-gray-300">Application Updates</label>
+                      <p className="text-sm text-gray-500 dark:text-gray-400">Send notifications for application status changes</p>
                     </div>
                     <label className="relative inline-flex items-center cursor-pointer">
                       <input
@@ -599,51 +599,51 @@ const AdminSettings: React.FC = () => {
           {activeTab === 'security' && (
             <div className="space-y-6">
               <div>
-                <h3 className="text-lg font-medium text-gray-900 mb-4">Security Configuration</h3>
+                <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-4">General Configuration</h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">Password Min Length</label>
+                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Password Min Length</label>
                     <input
                       type="number"
                       min="6"
                       max="32"
                       value={settings.security.passwordMinLength}
                       onChange={(e) => updateSetting('security', 'passwordMinLength', parseInt(e.target.value))}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-primary-500 focus:border-primary-500"
+                      className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-primary-500 focus:border-primary-500 bg-white dark:bg-gray-800 dark:text-white"
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">Session Timeout (minutes)</label>
+                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Session Timeout (minutes)</label>
                     <input
                       type="number"
                       min="5"
                       max="480"
                       value={settings.security.sessionTimeout}
                       onChange={(e) => updateSetting('security', 'sessionTimeout', parseInt(e.target.value))}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-primary-500 focus:border-primary-500"
+                      className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-primary-500 focus:border-primary-500 bg-white dark:bg-gray-800 dark:text-white"
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">Max Login Attempts</label>
+                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Max Login Attempts</label>
                     <input
                       type="number"
                       min="3"
                       max="10"
                       value={settings.security.maxLoginAttempts}
                       onChange={(e) => updateSetting('security', 'maxLoginAttempts', parseInt(e.target.value))}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-primary-500 focus:border-primary-500"
+                      className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-primary-500 focus:border-primary-500 bg-white dark:bg-gray-800 dark:text-white"
                     />
                   </div>
                 </div>
               </div>
 
               <div>
-                <h4 className="text-md font-medium text-gray-900 mb-4">Security Options</h4>
+                <h4 className="text-md font-medium text-gray-900 dark:text-white mb-4">Security Options</h4>
                 <div className="space-y-4">
                   <div className="flex items-center justify-between">
                     <div>
-                      <label className="text-sm font-medium text-gray-700">Require Special Characters</label>
-                      <p className="text-sm text-gray-500">Require special characters in passwords</p>
+                      <label className="text-sm font-medium text-gray-700 dark:text-gray-300">Require Special Characters</label>
+                      <p className="text-sm text-gray-500 dark:text-gray-400">Require special characters in passwords</p>
                     </div>
                     <label className="relative inline-flex items-center cursor-pointer">
                       <input
@@ -658,8 +658,8 @@ const AdminSettings: React.FC = () => {
 
                   <div className="flex items-center justify-between">
                     <div>
-                      <label className="text-sm font-medium text-gray-700">Enable Two-Factor Authentication</label>
-                      <p className="text-sm text-gray-500">Require 2FA for admin accounts</p>
+                      <label className="text-sm font-medium text-gray-700 dark:text-gray-300">Enable Two-Factor Authentication</label>
+                      <p className="text-sm text-gray-500 dark:text-gray-400">Require 2FA for admin accounts</p>
                     </div>
                     <label className="relative inline-flex items-center cursor-pointer">
                       <input
@@ -674,8 +674,8 @@ const AdminSettings: React.FC = () => {
 
                   <div className="flex items-center justify-between">
                     <div>
-                      <label className="text-sm font-medium text-gray-700">Allow Password Reset</label>
-                      <p className="text-sm text-gray-500">Allow users to reset their passwords</p>
+                      <label className="text-sm font-medium text-gray-700 dark:text-gray-300">Allow Password Reset</label>
+                      <p className="text-sm text-gray-500 dark:text-gray-400">Allow users to reset their passwords</p>
                     </div>
                     <label className="relative inline-flex items-center cursor-pointer">
                       <input
@@ -696,34 +696,34 @@ const AdminSettings: React.FC = () => {
           {activeTab === 'api' && (
             <div className="space-y-6">
               <div>
-                <h3 className="text-lg font-medium text-gray-900 mb-4">API Configuration</h3>
+                <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-4">API Configuration</h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">Rate Limit (requests/hour)</label>
+                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Rate Limit (requests/hour)</label>
                     <input
                       type="number"
                       min="100"
                       max="10000"
                       value={settings.api.rateLimit}
                       onChange={(e) => updateSetting('api', 'rateLimit', parseInt(e.target.value))}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-primary-500 focus:border-primary-500"
+                      className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-primary-500 focus:border-primary-500 bg-white dark:bg-gray-800 dark:text-white"
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">API Version</label>
+                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">API Version</label>
                     <input
                       type="text"
                       value={settings.api.apiVersion}
                       onChange={(e) => updateSetting('api', 'apiVersion', e.target.value)}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-primary-500 focus:border-primary-500"
+                      className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-primary-500 focus:border-primary-500 bg-white dark:bg-gray-800 dark:text-white"
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">Log Level</label>
+                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Log Level</label>
                     <select
                       value={settings.api.logLevel}
                       onChange={(e) => updateSetting('api', 'logLevel', e.target.value)}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-primary-500 focus:border-primary-500"
+                      className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-primary-500 focus:border-primary-500 bg-white dark:bg-gray-800 dark:text-white"
                     >
                       <option value="error">Error</option>
                       <option value="warn">Warning</option>
@@ -735,12 +735,12 @@ const AdminSettings: React.FC = () => {
               </div>
 
               <div>
-                <h4 className="text-md font-medium text-gray-900 mb-4">API Options</h4>
+                <h4 className="text-md font-medium text-gray-900 dark:text-white mb-4">API Options</h4>
                 <div className="space-y-4">
                   <div className="flex items-center justify-between">
                     <div>
-                      <label className="text-sm font-medium text-gray-700">Enable CORS</label>
-                      <p className="text-sm text-gray-500">Allow cross-origin requests</p>
+                      <label className="text-sm font-medium text-gray-700 dark:text-gray-300">Enable CORS</label>
+                      <p className="text-sm text-gray-500 dark:text-gray-400">Allow cross-origin requests</p>
                     </div>
                     <label className="relative inline-flex items-center cursor-pointer">
                       <input
@@ -755,8 +755,8 @@ const AdminSettings: React.FC = () => {
 
                   <div className="flex items-center justify-between">
                     <div>
-                      <label className="text-sm font-medium text-gray-700">Enable Logging</label>
-                      <p className="text-sm text-gray-500">Log API requests and responses</p>
+                      <label className="text-sm font-medium text-gray-700 dark:text-gray-300">Enable Logging</label>
+                      <p className="text-sm text-gray-500 dark:text-gray-400">Log API requests and responses</p>
                     </div>
                     <label className="relative inline-flex items-center cursor-pointer">
                       <input
@@ -772,7 +772,7 @@ const AdminSettings: React.FC = () => {
               </div>
 
               <div>
-                <h4 className="text-md font-medium text-gray-900 mb-4">Allowed Origins</h4>
+                <h4 className="text-md font-medium text-gray-900 dark:text-white mb-4">Allowed Origins</h4>
                 <div className="space-y-2">
                   {settings.api.allowedOrigins.map((origin, index) => (
                     <div key={index} className="flex items-center space-x-2">
@@ -780,12 +780,12 @@ const AdminSettings: React.FC = () => {
                         type="text"
                         value={origin}
                         onChange={(e) => updateArraySetting('api', 'allowedOrigins', index, e.target.value)}
-                        className="flex-1 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-primary-500 focus:border-primary-500"
+                        className="flex-1 px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-primary-500 focus:border-primary-500 bg-white dark:bg-gray-800 dark:text-white"
                         placeholder="https://example.com"
                       />
                       <button
                         onClick={() => removeArrayItem('api', 'allowedOrigins', index)}
-                        className="px-2 py-2 text-red-600 hover:text-red-800"
+                        className="px-2 py-2 text-red-600 hover:text-red-800 dark:text-red-400 dark:hover:text-red-300"
                       >
                         ✕
                       </button>
@@ -793,7 +793,7 @@ const AdminSettings: React.FC = () => {
                   ))}
                   <button
                     onClick={() => addArrayItem('api', 'allowedOrigins')}
-                    className="text-blue-600 hover:text-blue-800 text-sm"
+                    className="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300 text-sm"
                   >
                     + Add Origin
                   </button>

@@ -256,7 +256,7 @@ const Dashboard: React.FC = () => {
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
         {/* Application Status Chart */}
-        <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
+        <div className="bg-white dark:bg-gray-800 rounded-lg shadow dark:shadow-gray-700/30 p-6">
           <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Application Status Distribution</h3>
           <div className="space-y-4">
             {Object.entries(metrics.applicationsByStatus).map(([status, count]) => {
@@ -287,7 +287,7 @@ const Dashboard: React.FC = () => {
                 <div key={status}>
                   <div className="flex justify-between text-sm mb-1">
                     <span className="text-gray-600 dark:text-gray-300">{statusLabels[status as keyof typeof statusLabels]}</span>
-                    <span className="font-medium">{count} ({percentage.toFixed(1)}%)</span>
+                    <span className="font-medium text-gray-900 dark:text-white">{count} ({percentage.toFixed(1)}%)</span>
                   </div>
                   <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
                     <div
@@ -302,7 +302,7 @@ const Dashboard: React.FC = () => {
         </div>
 
         {/* Top Job Categories */}
-        <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
+        <div className="bg-white dark:bg-gray-800 rounded-lg shadow dark:shadow-gray-700/30 p-6">
           <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Popular Job Categories</h3>
           <div className="space-y-4">
             {metrics.popularJobCategories.map((category, index) => (
@@ -332,10 +332,10 @@ const Dashboard: React.FC = () => {
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         {/* Recent Activity */}
-        <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
+        <div className="bg-white dark:bg-gray-800 rounded-lg shadow dark:shadow-gray-700/30 p-6">
           <div className="flex justify-between items-center mb-4">
             <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Recent Activity</h3>
-            <Link to="/admin/analytics" className="text-sm text-primary-600 hover:text-primary-700">
+            <Link to="/admin/analytics" className="text-sm text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300">
               View all
             </Link>
           </div>
@@ -355,13 +355,13 @@ const Dashboard: React.FC = () => {
         </div>
 
         {/* System Performance */}
-        <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
+        <div className="bg-white dark:bg-gray-800 rounded-lg shadow dark:shadow-gray-700/30 p-6">
           <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">System Performance</h3>
           <div className="space-y-6">
             <div>
               <div className="flex justify-between text-sm mb-2">
                 <span className="text-gray-600 dark:text-gray-300">Uptime</span>
-                <span className="font-medium">{metrics.systemPerformance.uptime}%</span>
+                <span className="font-medium text-gray-900 dark:text-white">{metrics.systemPerformance.uptime}%</span>
               </div>
               <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
                 <div
@@ -374,7 +374,7 @@ const Dashboard: React.FC = () => {
             <div>
               <div className="flex justify-between text-sm mb-2">
                 <span className="text-gray-600 dark:text-gray-300">Response Time</span>
-                <span className="font-medium">{metrics.systemPerformance.responseTime}ms</span>
+                <span className="font-medium text-gray-900 dark:text-white">{metrics.systemPerformance.responseTime}ms</span>
               </div>
               <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
                 <div
@@ -390,7 +390,7 @@ const Dashboard: React.FC = () => {
             <div>
               <div className="flex justify-between text-sm mb-2">
                 <span className="text-gray-600 dark:text-gray-300">Error Rate</span>
-                <span className="font-medium">{metrics.systemPerformance.errorRate}%</span>
+                <span className="font-medium text-gray-900 dark:text-white">{metrics.systemPerformance.errorRate}%</span>
               </div>
               <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
                 <div
@@ -406,7 +406,7 @@ const Dashboard: React.FC = () => {
             <div>
               <div className="flex justify-between text-sm mb-2">
                 <span className="text-gray-600 dark:text-gray-300">AI Recommendation Accuracy</span>
-                <span className="font-medium">{metrics.systemPerformance.recommendationAccuracy}%</span>
+                <span className="font-medium text-gray-900 dark:text-white">{metrics.systemPerformance.recommendationAccuracy}%</span>
               </div>
               <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
                 <div
