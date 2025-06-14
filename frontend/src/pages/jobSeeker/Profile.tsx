@@ -3,6 +3,7 @@ import { useApp } from '../../context/AppContext';
 import { simulateApiCall } from '../../services/mockData';
 import { UserProfile, Experience, Education, JobType, ExperienceLevel } from '../../types';
 import Loading from '../../components/shared/Loading';
+import ResumeParser from '../../components/shared/ResumeParser';
 
 const Profile: React.FC = () => {
   const { state, showModal, setLoading } = useApp();
@@ -185,6 +186,37 @@ const Profile: React.FC = () => {
     setExperiences(prev => prev.filter(exp => exp.id !== id));
   };
 
+  const handleResumeParseComplete = (parsedData: {
+    skills: string[];
+    experience: Experience[];
+    education: Education[];
+    summary: string;
+  }) => {
+    // Update personal info with parsed data
+    setPersonalInfo(prev => ({
+      ...prev,
+      skills: Array.from(new Set([...prev.skills, ...parsedData.skills])), // Merge and deduplicate skills
+      summary: parsedData.summary || prev.summary
+    }));
+
+    // Update experiences with parsed data
+    setExperiences(prev => {
+      const existingIds = new Set(prev.map(exp => exp.id));
+      const newExperiences = parsedData.experience.filter(exp => !existingIds.has(exp.id));
+      return [...prev, ...newExperiences];
+    });
+
+    // Update education with parsed data
+    setEducation(prev => {
+      const existingIds = new Set(prev.map(edu => edu.id));
+      const newEducation = parsedData.education.filter(edu => !existingIds.has(edu.id));
+      return [...prev, ...newEducation];
+    });
+
+    // Automatically switch to editing mode so user can review
+    setIsEditing(true);
+  };
+
   if (isLoading) {
     return (
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -246,6 +278,11 @@ const Profile: React.FC = () => {
           </div>
         </div>
       </div>
+
+      {/* Resume Parser - Only show when editing */}
+      {isEditing && (
+        <ResumeParser onParseComplete={handleResumeParseComplete} />
+      )}
 
       {/* Tabs */}
       <div className="mb-6">
@@ -653,4 +690,4 @@ const Profile: React.FC = () => {
   );
 };
 
-export default Profile; 
+export default Profile;
