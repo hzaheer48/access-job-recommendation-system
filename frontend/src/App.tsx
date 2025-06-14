@@ -18,6 +18,9 @@ import Applications from './pages/jobSeeker/Applications';
 import Bookmarks from './pages/jobSeeker/Bookmarks';
 import Profile from './pages/jobSeeker/Profile';
 import SkillsAnalysis from './pages/jobSeeker/SkillsAnalysis';
+import JobAlerts from './pages/jobSeeker/JobAlerts';
+import InterviewTracking from './pages/jobSeeker/InterviewTracking';
+import SkillAssessment from './pages/jobSeeker/SkillAssessment';
 
 // Admin Pages
 import AdminDashboard from './pages/admin/Dashboard';
@@ -96,6 +99,30 @@ function App() {
                 element={
                   <ProtectedRoute allowedRoles={['job_seeker']}>
                     <SkillsAnalysis />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/job-alerts"
+                element={
+                  <ProtectedRoute allowedRoles={['job_seeker']}>
+                    <JobAlerts />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/interview-tracking"
+                element={
+                  <ProtectedRoute allowedRoles={['job_seeker']}>
+                    <InterviewTracking />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/skill-assessment"
+                element={
+                  <ProtectedRoute allowedRoles={['job_seeker']}>
+                    <SkillAssessment />
                   </ProtectedRoute>
                 }
               />
