@@ -46,31 +46,53 @@ const Profile: React.FC = () => {
     try {
       await simulateApiCall(null, 600);
       
-      // Use centralized mock profile data
-      const mockProfile = {
-        ...mockUserProfile,
+      // Use the user's actual profile data if available, otherwise create empty profile for new users
+      const userProfile = user?.profile;
+      const profileData = userProfile ? {
+        ...userProfile,
         userId: user?.id || '1'
+      } : {
+        // Create empty profile template for new users
+        id: user?.id || '1',
+        userId: user?.id || '1',
+        skills: [],
+        education: [],
+        experience: [],
+        careerPreferences: {
+          desiredPositions: [],
+          preferredLocations: [],
+          salaryRange: {
+            min: 0,
+            max: 0
+          },
+          jobTypes: [],
+          industries: [],
+          workArrangement: 'any' as 'remote' | 'hybrid' | 'onsite' | 'any'
+        },
+        location: '',
+        summary: '',
+        updatedAt: new Date().toISOString()
       };
       
-      setProfile(mockProfile);
+      setProfile(profileData);
       setPersonalInfo({
         firstName: user?.firstName || '',
         lastName: user?.lastName || '',
         email: user?.email || '',
-        location: mockProfile.location,
-        summary: mockProfile.summary,
-        skills: mockProfile.skills
+        location: profileData.location,
+        summary: profileData.summary,
+        skills: profileData.skills
       });
-      setExperiences(mockProfile.experience);
-      setEducation(mockProfile.education);
+      setExperiences(profileData.experience);
+      setEducation(profileData.education);
       setPreferences({
-        desiredPositions: mockProfile.careerPreferences.desiredPositions,
-        preferredLocations: mockProfile.careerPreferences.preferredLocations,
-        salaryMin: mockProfile.careerPreferences.salaryRange.min,
-        salaryMax: mockProfile.careerPreferences.salaryRange.max,
-        jobTypes: mockProfile.careerPreferences.jobTypes,
-        industries: mockProfile.careerPreferences.industries,
-        workArrangement: mockProfile.careerPreferences.workArrangement
+        desiredPositions: profileData.careerPreferences.desiredPositions,
+        preferredLocations: profileData.careerPreferences.preferredLocations,
+        salaryMin: profileData.careerPreferences.salaryRange.min,
+        salaryMax: profileData.careerPreferences.salaryRange.max,
+        jobTypes: profileData.careerPreferences.jobTypes,
+        industries: profileData.careerPreferences.industries,
+        workArrangement: profileData.careerPreferences.workArrangement
       });
       
     } catch (error) {
