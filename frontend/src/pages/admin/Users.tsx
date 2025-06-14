@@ -151,11 +151,11 @@ const Users: React.FC = () => {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-primary-50">
+      <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-primary-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-700">
         <div className="absolute inset-0 bg-grid-pattern opacity-5"></div>
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           <div className="flex items-center justify-center min-h-[60vh]">
-            <div className="card-glass backdrop-blur-sm border border-white/20 p-8 text-center">
+            <div className="card-glass backdrop-blur-sm border border-white/20 dark:border-gray-700/30 p-8 text-center">
               <div className="w-16 h-16 bg-gradient-to-br from-primary-500 to-primary-600 rounded-2xl flex items-center justify-center mx-auto mb-4">
                 <svg className="w-8 h-8 text-white animate-spin" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
@@ -170,18 +170,18 @@ const Users: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-primary-50">
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-primary-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-700">
       <div className="absolute inset-0 bg-grid-pattern opacity-5"></div>
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Header */}
         <div className="mb-8">
-          <div className="card-glass backdrop-blur-sm border border-white/20 p-6">
+          <div className="card-glass backdrop-blur-sm border border-white/20 dark:border-gray-700/30 p-6">
             <div className="flex items-center justify-between">
               <div>
-                <h1 className="text-3xl font-bold bg-gradient-to-r from-gray-900 to-primary-800 bg-clip-text text-transparent">
+                <h1 className="text-3xl font-bold bg-gradient-to-r from-gray-900 to-primary-800 dark:from-white dark:to-primary-300 bg-clip-text text-transparent">
                   User Management 👥
                 </h1>
-                <p className="text-gray-600 mt-2">Manage system users and their access</p>
+                <p className="text-gray-600 dark:text-gray-300 mt-2">Manage system users and their access</p>
               </div>
               <div className="hidden md:flex items-center space-x-2">
                 <div className="w-12 h-12 bg-gradient-to-br from-primary-500 to-primary-600 rounded-xl flex items-center justify-center">
@@ -196,7 +196,7 @@ const Users: React.FC = () => {
 
         {/* Stats Cards */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-          <div className="card-glass backdrop-blur-sm border border-white/20 p-6 hover:shadow-lg transition-all duration-300 group">
+          <div className="card-glass backdrop-blur-sm border border-white/20 dark:border-gray-700/30 p-6 hover:shadow-lg transition-all duration-300 group">
             <div className="flex items-center">
               <div className="flex-shrink-0">
                 <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
@@ -204,13 +204,13 @@ const Users: React.FC = () => {
                 </div>
               </div>
               <div className="ml-4">
-                <p className="text-sm font-medium text-gray-500">Total Users</p>
-                <p className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-blue-700 bg-clip-text text-transparent">{users.length}</p>
+                <p className="text-sm font-medium text-gray-500 dark:text-gray-400">Total Users</p>
+                <p className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-blue-700 dark:from-blue-400 dark:to-blue-500 bg-clip-text text-transparent">{users.length}</p>
               </div>
             </div>
           </div>
 
-          <div className="card-glass backdrop-blur-sm border border-white/20 p-6 hover:shadow-lg transition-all duration-300 group">
+          <div className="card-glass backdrop-blur-sm border border-white/20 dark:border-gray-700/30 p-6 hover:shadow-lg transition-all duration-300 group">
             <div className="flex items-center">
               <div className="flex-shrink-0">
                 <div className="w-12 h-12 bg-gradient-to-br from-green-500 to-green-600 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
@@ -218,15 +218,15 @@ const Users: React.FC = () => {
                 </div>
               </div>
               <div className="ml-4">
-                <p className="text-sm font-medium text-gray-500">Active Users</p>
-                <p className="text-2xl font-bold bg-gradient-to-r from-green-600 to-green-700 bg-clip-text text-transparent">
+                <p className="text-sm font-medium text-gray-500 dark:text-gray-400">Active Users</p>
+                <p className="text-2xl font-bold bg-gradient-to-r from-green-600 to-green-700 dark:from-green-400 dark:to-green-500 bg-clip-text text-transparent">
                   {users.filter(u => u.isActive).length}
                 </p>
               </div>
             </div>
           </div>
 
-          <div className="card-glass backdrop-blur-sm border border-white/20 p-6 hover:shadow-lg transition-all duration-300 group">
+          <div className="card-glass backdrop-blur-sm border border-white/20 dark:border-gray-700/30 p-6 hover:shadow-lg transition-all duration-300 group">
             <div className="flex items-center">
               <div className="flex-shrink-0">
                 <div className="w-12 h-12 bg-gradient-to-br from-purple-500 to-purple-600 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
@@ -234,24 +234,24 @@ const Users: React.FC = () => {
                 </div>
               </div>
               <div className="ml-4">
-                <p className="text-sm font-medium text-gray-500">Job Seekers</p>
-              <p className="text-2xl font-semibold text-gray-900">
+                <p className="text-sm font-medium text-gray-500 dark:text-gray-400">Job Seekers</p>
+              <p className="text-2xl font-semibold text-gray-900 dark:text-white">
                 {users.filter(u => u.role === 'job_seeker').length}
               </p>
             </div>
           </div>
         </div>
 
-        <div className="bg-white rounded-lg shadow p-6">
+        <div className="card-glass backdrop-blur-sm border border-white/20 dark:border-gray-700/30 p-6 hover:shadow-lg transition-all duration-300 group">
           <div className="flex items-center">
             <div className="flex-shrink-0">
-              <div className="w-8 h-8 bg-yellow-100 rounded-md flex items-center justify-center">
-                <span className="text-yellow-600 font-semibold">⚙️</span>
+              <div className="w-12 h-12 bg-gradient-to-br from-yellow-500 to-yellow-600 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                <span className="text-white text-lg">⚙️</span>
               </div>
             </div>
             <div className="ml-4">
-              <p className="text-sm font-medium text-gray-500">Admins</p>
-              <p className="text-2xl font-semibold text-gray-900">
+              <p className="text-sm font-medium text-gray-500 dark:text-gray-400">Admins</p>
+              <p className="text-2xl font-semibold text-gray-900 dark:text-white">
                 {users.filter(u => u.role === 'admin').length}
               </p>
             </div>
@@ -260,11 +260,11 @@ const Users: React.FC = () => {
       </div>
 
       {/* Filters and Search */}
-      <div className="card-glass backdrop-blur-sm border border-white/20 p-6 mb-6">
+      <div className="card-glass backdrop-blur-sm border border-white/20 dark:border-gray-700/30 p-6 mb-6">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
           {/* Search */}
           <div className="lg:col-span-2">
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
               Search Users
             </label>
             <input
@@ -272,19 +272,19 @@ const Users: React.FC = () => {
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Search by name or email..."
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-primary-500 focus:border-primary-500"
+              className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-primary-500 focus:border-primary-500"
             />
           </div>
 
           {/* Role Filter */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
               Role
             </label>
             <select
               value={roleFilter}
               onChange={(e) => setRoleFilter(e.target.value as 'all' | 'job_seeker' | 'admin')}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-primary-500 focus:border-primary-500"
+              className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-primary-500 focus:border-primary-500"
             >
               <option value="all">All Roles</option>
               <option value="job_seeker">Job Seekers</option>
@@ -294,13 +294,13 @@ const Users: React.FC = () => {
 
           {/* Status Filter */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
               Status
             </label>
             <select
               value={statusFilter}
               onChange={(e) => setStatusFilter(e.target.value as 'all' | 'active' | 'inactive')}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-primary-500 focus:border-primary-500"
+              className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-primary-500 focus:border-primary-500"
             >
               <option value="all">All Statuses</option>
               <option value="active">Active</option>
@@ -310,7 +310,7 @@ const Users: React.FC = () => {
 
           {/* Sort */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
               Sort By
             </label>
             <select
@@ -320,7 +320,7 @@ const Users: React.FC = () => {
                 setSortBy(field as 'name' | 'email' | 'created' | 'role');
                 setSortOrder(order as 'asc' | 'desc');
               }}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-primary-500 focus:border-primary-500"
+              className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-primary-500 focus:border-primary-500"
             >
               <option value="created-desc">Newest First</option>
               <option value="created-asc">Oldest First</option>
@@ -335,7 +335,7 @@ const Users: React.FC = () => {
 
       {/* Results Summary */}
       <div className="mb-6">
-        <p className="text-sm text-gray-600">
+        <p className="text-sm text-gray-600 dark:text-gray-400">
           Showing {filteredUsers.length} of {users.length} users
           {searchQuery && (
             <span> matching "{searchQuery}"</span>
@@ -345,52 +345,52 @@ const Users: React.FC = () => {
 
       {/* Users Table */}
       {filteredUsers.length > 0 ? (
-        <div className="card-glass backdrop-blur-sm border border-white/20 overflow-hidden">
-          <table className="min-w-full divide-y divide-gray-200">
-            <thead className="bg-gray-50">
+        <div className="card-glass backdrop-blur-sm border border-white/20 dark:border-gray-700/30 overflow-hidden">
+          <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+            <thead className="bg-gray-50 dark:bg-gray-800">
               <tr>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
                   User
                 </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
                   Role
                 </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
                   Status
                 </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
                   Joined
                 </th>
-                <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
                   Actions
                 </th>
               </tr>
             </thead>
-            <tbody className="bg-white divide-y divide-gray-200">
+            <tbody className="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
               {filteredUsers.map((user) => (
-                <tr key={user.id} className="hover:bg-gray-50">
+                <tr key={user.id} className="hover:bg-gray-50 dark:hover:bg-gray-700">
                   <td className="px-6 py-4 whitespace-nowrap">
                     <div className="flex items-center">
                       <div className="flex-shrink-0 h-10 w-10">
-                        <div className="h-10 w-10 rounded-full bg-primary-100 flex items-center justify-center">
-                          <span className="text-sm font-medium text-primary-600">
+                        <div className="h-10 w-10 rounded-full bg-primary-100 dark:bg-primary-800 flex items-center justify-center">
+                          <span className="text-sm font-medium text-primary-600 dark:text-primary-300">
                             {user.firstName.charAt(0)}{user.lastName.charAt(0)}
                           </span>
                         </div>
                       </div>
                       <div className="ml-4">
-                        <div className="text-sm font-medium text-gray-900">
+                        <div className="text-sm font-medium text-gray-900 dark:text-white">
                           {user.firstName} {user.lastName}
                         </div>
-                        <div className="text-sm text-gray-500">{user.email}</div>
+                        <div className="text-sm text-gray-500 dark:text-gray-400">{user.email}</div>
                       </div>
                     </div>
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
                     <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${
                       user.role === 'admin' 
-                        ? 'bg-purple-100 text-purple-800' 
-                        : 'bg-blue-100 text-blue-800'
+                        ? 'bg-purple-100 dark:bg-purple-800 text-purple-800 dark:text-purple-200' 
+                        : 'bg-blue-100 dark:bg-blue-800 text-blue-800 dark:text-blue-200'
                     }`}>
                       {user.role === 'job_seeker' ? 'Job Seeker' : 'Admin'}
                     </span>
@@ -398,13 +398,13 @@ const Users: React.FC = () => {
                   <td className="px-6 py-4 whitespace-nowrap">
                     <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${
                       user.isActive 
-                        ? 'bg-green-100 text-green-800' 
-                        : 'bg-red-100 text-red-800'
+                        ? 'bg-green-100 dark:bg-green-800 text-green-800 dark:text-green-200' 
+                        : 'bg-red-100 dark:bg-red-800 text-red-800 dark:text-red-200'
                     }`}>
                       {user.isActive ? 'Active' : 'Inactive'}
                     </span>
                   </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
                     {new Date(user.createdAt).toLocaleDateString()}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
@@ -413,15 +413,15 @@ const Users: React.FC = () => {
                         onClick={() => handleToggleUserStatus(user.id, user.isActive)}
                         className={`px-3 py-1 text-xs font-medium rounded-md ${
                           user.isActive
-                            ? 'text-orange-700 bg-orange-100 hover:bg-orange-200'
-                            : 'text-green-700 bg-green-100 hover:bg-green-200'
+                            ? 'text-orange-700 dark:text-orange-300 bg-orange-100 dark:bg-orange-800 hover:bg-orange-200 dark:hover:bg-orange-700'
+                            : 'text-green-700 dark:text-green-300 bg-green-100 dark:bg-green-800 hover:bg-green-200 dark:hover:bg-green-700'
                         }`}
                       >
                         {user.isActive ? 'Deactivate' : 'Activate'}
                       </button>
                       <button
                         onClick={() => handleDeleteUser(user.id)}
-                        className="px-3 py-1 text-xs font-medium text-red-700 bg-red-100 rounded-md hover:bg-red-200"
+                        className="px-3 py-1 text-xs font-medium text-red-700 dark:text-red-300 bg-red-100 dark:bg-red-800 rounded-md hover:bg-red-200 dark:hover:bg-red-700"
                       >
                         Delete
                       </button>
@@ -434,11 +434,11 @@ const Users: React.FC = () => {
         </div>
       ) : (
         <div className="text-center py-12">
-          <svg className="mx-auto h-12 w-12 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <svg className="mx-auto h-12 w-12 text-gray-400 dark:text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0z" />
           </svg>
-          <h3 className="mt-2 text-sm font-medium text-gray-900">No users found</h3>
-          <p className="mt-1 text-sm text-gray-500">
+          <h3 className="mt-2 text-sm font-medium text-gray-900 dark:text-white">No users found</h3>
+          <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
             No users match your current search criteria.
           </p>
           <div className="mt-6">
@@ -448,7 +448,7 @@ const Users: React.FC = () => {
                 setRoleFilter('all');
                 setStatusFilter('all');
               }}
-              className="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-primary-600 hover:bg-primary-700"
+              className="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-primary-600 hover:bg-primary-700 dark:bg-primary-500 dark:hover:bg-primary-600"
             >
               Clear filters
             </button>

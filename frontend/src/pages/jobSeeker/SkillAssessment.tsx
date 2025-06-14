@@ -258,11 +258,11 @@ const SkillAssessment: React.FC = () => {
 
   if (loading.isLoading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-primary-50">
+      <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-primary-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
         <div className="absolute inset-0 bg-grid-pattern opacity-5"></div>
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           <div className="flex items-center justify-center min-h-[60vh]">
-            <div className="card-glass backdrop-blur-sm border border-white/20 p-8 text-center">
+            <div className="card-glass backdrop-blur-sm border border-white/20 dark:border-gray-700/50 p-8 text-center bg-white/10 dark:bg-gray-800/10">
               <div className="w-16 h-16 bg-gradient-to-br from-primary-500 to-primary-600 rounded-2xl flex items-center justify-center mx-auto mb-4">
                 <svg className="w-8 h-8 text-white animate-spin" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
@@ -277,7 +277,7 @@ const SkillAssessment: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-primary-50">
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-primary-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
       {/* Background Pattern */}
       <div className="absolute inset-0 bg-grid-pattern opacity-5"></div>
       
@@ -291,17 +291,17 @@ const SkillAssessment: React.FC = () => {
               </svg>
             </div>
             <div>
-              <h1 className="text-3xl font-bold bg-gradient-to-r from-gray-900 to-primary-800 bg-clip-text text-transparent">
+              <h1 className="text-3xl font-bold bg-gradient-to-r from-gray-900 to-primary-800 dark:from-white dark:to-primary-300 bg-clip-text text-transparent">
                 Skill Assessment
               </h1>
-              <p className="text-lg text-gray-600 mt-1">Evaluate your skills and identify areas for improvement</p>
+              <p className="text-lg text-gray-600 dark:text-gray-300 mt-1">Evaluate your skills and identify areas for improvement</p>
             </div>
           </div>
         </div>
 
         {/* Tabs */}
         <div className="mb-8">
-          <div className="card-glass backdrop-blur-sm border border-white/20 p-2">
+          <div className="card-glass backdrop-blur-sm border border-white/20 dark:border-gray-700/50 p-2">
             <nav className="flex space-x-2">
               {[
                 { key: 'overview', label: 'Overview', icon: 'M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z' },
@@ -315,7 +315,7 @@ const SkillAssessment: React.FC = () => {
                   className={`flex items-center px-4 py-3 rounded-xl font-medium text-sm transition-all duration-200 ${
                     activeTab === tab.key
                       ? 'bg-gradient-to-r from-primary-500 to-primary-600 text-white shadow-lg transform scale-105'
-                      : 'text-gray-600 hover:text-primary-600 hover:bg-white/50'
+                      : 'text-gray-600 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 hover:bg-white/50 dark:hover:bg-gray-700/50'
                   }`}
                 >
                   <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -333,16 +333,16 @@ const SkillAssessment: React.FC = () => {
         <div className="space-y-6">
           {/* Skill Gap Analysis */}
           {skillGapAnalysis && (
-            <div className="bg-white rounded-lg shadow p-6">
-              <h2 className="text-lg font-semibold mb-4">Skill Gap Analysis</h2>
+            <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
+              <h2 className="text-lg font-semibold mb-4 text-gray-900 dark:text-white">Skill Gap Analysis</h2>
               <div className="mb-4">
                 <div className="flex items-center justify-between mb-2">
-                  <span className="text-sm font-medium">Skill Gaps for {skillGapAnalysis.targetRole}</span>
-                  <span className="text-lg font-bold text-blue-600">
+                  <span className="text-sm font-medium text-gray-700 dark:text-gray-300">Skill Gaps for {skillGapAnalysis.targetRole}</span>
+                  <span className="text-lg font-bold text-blue-600 dark:text-blue-400">
                     {skillGapAnalysis.skillGaps.length} gaps identified
                   </span>
                 </div>
-                <div className="w-full bg-gray-200 rounded-full h-2">
+                <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
                   <div 
                     className="bg-primary-600 h-2 rounded-full transition-all duration-300"
                     style={{ width: `${Math.max(0, 100 - (skillGapAnalysis.skillGaps.length * 20))}%` }}
@@ -352,14 +352,14 @@ const SkillAssessment: React.FC = () => {
               
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {skillGapAnalysis.skillGaps && Array.isArray(skillGapAnalysis.skillGaps) && skillGapAnalysis.skillGaps.map((gap, index) => (
-                  <div key={index} className="border rounded-lg p-4">
+                  <div key={index} className="border border-gray-200 dark:border-gray-700 rounded-lg p-4">
                     <div className="flex items-center justify-between mb-2">
-                      <h3 className="font-medium">{gap.skill}</h3>
-                      <span className={`px-2 py-1 rounded-full text-xs font-medium ${gap.importance === 'critical' ? 'bg-red-100 text-red-800' : 'bg-yellow-100 text-yellow-800'}`}>
+                      <h3 className="font-medium text-gray-900 dark:text-white">{gap.skill}</h3>
+                      <span className={`px-2 py-1 rounded-full text-xs font-medium ${gap.importance === 'critical' ? 'bg-red-100 dark:bg-red-900/30 text-red-800 dark:text-red-300' : 'bg-yellow-100 dark:bg-yellow-900/30 text-yellow-800 dark:text-yellow-300'}`}>
                         {gap.importance}
                       </span>
                     </div>
-                    <div className="text-sm text-gray-600 space-y-1">
+                    <div className="text-sm text-gray-600 dark:text-gray-300 space-y-1">
                       <p>Learning Time: <span className="font-medium">{gap.estimatedLearningTime}</span></p>
                     </div>
                   </div>
@@ -371,17 +371,17 @@ const SkillAssessment: React.FC = () => {
           )}
 
           {/* Recent Assessment Results */}
-          <div className="bg-white rounded-lg shadow p-6">
-            <h2 className="text-lg font-semibold mb-4">Recent Assessment Results</h2>
+          <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
+            <h2 className="text-lg font-semibold mb-4 text-gray-900 dark:text-white">Recent Assessment Results</h2>
             {assessmentResults.length === 0 ? (
-              <p className="text-gray-500">No assessments completed yet. Take your first assessment to get started!</p>
+              <p className="text-gray-500 dark:text-gray-400">No assessments completed yet. Take your first assessment to get started!</p>
             ) : (
               <div className="space-y-4">
                 {assessmentResults.slice(0, 3).map((result) => (
-                  <div key={result.id} className="flex items-center justify-between p-4 border rounded-lg">
+                  <div key={result.id} className="flex items-center justify-between p-4 border border-gray-200 dark:border-gray-700 rounded-lg">
                     <div>
-                      <h3 className="font-medium">{result.skill}</h3>
-                      <p className="text-sm text-gray-600">
+                      <h3 className="font-medium text-gray-900 dark:text-white">{result.skill}</h3>
+                      <p className="text-sm text-gray-600 dark:text-gray-300">
                         Completed {new Date(result.completedAt).toLocaleDateString()}
                       </p>
                     </div>
@@ -405,41 +405,41 @@ const SkillAssessment: React.FC = () => {
       {activeTab === 'assessment' && (
         <div className="space-y-6">
           {!assessment.isActive ? (
-            <div className="bg-white rounded-lg shadow p-6">
-              <h2 className="text-lg font-semibold mb-4">Choose a Skill to Assess</h2>
+            <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
+              <h2 className="text-lg font-semibold mb-4 text-gray-900 dark:text-white">Choose a Skill to Assess</h2>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                 {availableSkills && Array.isArray(availableSkills) && availableSkills.map((skill) => (
                   <button
                     key={skill}
                     onClick={() => startAssessment(skill)}
-                    className="p-4 border border-gray-300 rounded-lg hover:border-primary-500 hover:bg-primary-50 transition-colors text-left"
+                    className="p-4 border border-gray-300 dark:border-gray-600 rounded-lg hover:border-primary-500 hover:bg-primary-50 dark:hover:bg-primary-900/20 transition-colors text-left"
                   >
-                    <h3 className="font-medium mb-2">{skill}</h3>
-                    <p className="text-sm text-gray-600">~15-20 questions • 30-45 minutes</p>
+                    <h3 className="font-medium mb-2 text-gray-900 dark:text-white">{skill}</h3>
+                    <p className="text-sm text-gray-600 dark:text-gray-300">~15-20 questions • 30-45 minutes</p>
                   </button>
                 ))}
               </div>
             </div>
           ) : (
-            <div className="bg-white rounded-lg shadow p-6">
+            <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
               {/* Assessment Header */}
               <div className="flex justify-between items-center mb-6">
                 <div>
-                  <h2 className="text-lg font-semibold">{assessment.selectedSkill} Assessment</h2>
-                  <p className="text-sm text-gray-600">
+                  <h2 className="text-lg font-semibold text-gray-900 dark:text-white">{assessment.selectedSkill} Assessment</h2>
+                  <p className="text-sm text-gray-600 dark:text-gray-300">
                     Question {assessment.currentQuestionIndex + 1} of {assessment.currentAssessment?.length}
                   </p>
                 </div>
                 <div className="text-right">
-                  <div className="text-lg font-bold text-primary-600">
+                  <div className="text-lg font-bold text-primary-600 dark:text-primary-400">
                     {formatTime(assessment.timeRemaining)}
                   </div>
-                  <p className="text-sm text-gray-600">Time remaining</p>
+                  <p className="text-sm text-gray-600 dark:text-gray-300">Time remaining</p>
                 </div>
               </div>
 
               {/* Progress Bar */}
-              <div className="w-full bg-gray-200 rounded-full h-2 mb-6">
+              <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2 mb-6">
                 <div 
                   className="bg-primary-600 h-2 rounded-full transition-all duration-300"
                   style={{ 
@@ -456,18 +456,18 @@ const SkillAssessment: React.FC = () => {
                       <div className="flex items-center gap-2 mb-4">
                         <span className={`px-2 py-1 rounded-full text-xs font-medium ${
                           assessment.currentAssessment[assessment.currentQuestionIndex]?.difficulty === 'advanced' 
-                            ? 'bg-red-100 text-red-800'
+                            ? 'bg-red-100 dark:bg-red-900/30 text-red-800 dark:text-red-300'
                             : assessment.currentAssessment[assessment.currentQuestionIndex]?.difficulty === 'intermediate'
-                            ? 'bg-yellow-100 text-yellow-800'
-                            : 'bg-green-100 text-green-800'
+                            ? 'bg-yellow-100 dark:bg-yellow-900/30 text-yellow-800 dark:text-yellow-300'
+                            : 'bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-300'
                         }`}>
                           {assessment.currentAssessment[assessment.currentQuestionIndex]?.difficulty}
                         </span>
-                        <span className="text-sm text-gray-600">
+                        <span className="text-sm text-gray-600 dark:text-gray-300">
                           Time Limit: {assessment.currentAssessment[assessment.currentQuestionIndex]?.timeLimit} min
                         </span>
                       </div>
-                      <h3 className="text-lg font-semibold mb-4">
+                      <h3 className="text-lg font-semibold mb-4 text-gray-900 dark:text-white">
                         {assessment.currentAssessment[assessment.currentQuestionIndex]?.question}
                       </h3>
                     </div>
@@ -480,10 +480,10 @@ const SkillAssessment: React.FC = () => {
                         <button
                           key={index}
                           onClick={() => answerQuestion(option)}
-                          className={`w-full p-4 text-left border rounded-lg transition-colors ${
+                          className={`w-full p-4 text-left border rounded-lg transition-colors text-gray-900 dark:text-white ${
                             assessment.answers[assessment.currentAssessment![assessment.currentQuestionIndex]?.id || ''] === option
-                              ? 'border-primary-500 bg-primary-50'
-                              : 'border-gray-300 hover:border-gray-400'
+                              ? 'border-primary-500 bg-primary-50 dark:bg-primary-900/20'
+                              : 'border-gray-300 dark:border-gray-600 hover:border-gray-400 dark:hover:border-gray-500'
                           }`}
                         >
                           {option}
@@ -499,7 +499,7 @@ const SkillAssessment: React.FC = () => {
                         onChange={(e) => answerQuestion(e.target.value)}
                         placeholder="Describe your approach to this scenario..."
                         rows={6}
-                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500"
+                        className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400"
                       />
                     </div>
                   )}
@@ -511,7 +511,7 @@ const SkillAssessment: React.FC = () => {
                         onChange={(e) => answerQuestion(e.target.value)}
                         placeholder="Write your code here..."
                         rows={10}
-                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500 font-mono text-sm"
+                        className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500 font-mono text-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400"
                       />
                     </div>
                   )}
@@ -524,7 +524,7 @@ const SkillAssessment: React.FC = () => {
                         currentQuestionIndex: Math.max(0, prev.currentQuestionIndex - 1)
                       }))}
                       disabled={assessment.currentQuestionIndex === 0}
-                      className="px-4 py-2 bg-gray-300 text-gray-700 rounded-md hover:bg-gray-400 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                      className="px-4 py-2 bg-gray-300 dark:bg-gray-600 text-gray-700 dark:text-gray-300 rounded-md hover:bg-gray-400 dark:hover:bg-gray-500 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                     >
                       Previous
                     </button>
@@ -546,14 +546,14 @@ const SkillAssessment: React.FC = () => {
       {activeTab === 'results' && (
         <div className="space-y-6">
           {assessmentResults.length === 0 ? (
-            <div className="bg-white rounded-lg shadow p-8 text-center">
-              <div className="mx-auto w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center mb-4">
+            <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-8 text-center">
+              <div className="mx-auto w-12 h-12 bg-gray-100 dark:bg-gray-700 rounded-full flex items-center justify-center mb-4">
                 <svg className="w-6 h-6 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
               </div>
-              <h3 className="text-lg font-medium text-gray-900 mb-2">No Assessment Results</h3>
-              <p className="text-gray-500 mb-4">Take your first assessment to see your results here</p>
+              <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-2">No Assessment Results</h3>
+              <p className="text-gray-500 dark:text-gray-400 mb-4">Take your first assessment to see your results here</p>
               <button
                 onClick={() => setActiveTab('assessment')}
                 className="bg-primary-600 hover:bg-primary-700 text-white px-4 py-2 rounded-md font-medium transition-colors"
@@ -564,11 +564,11 @@ const SkillAssessment: React.FC = () => {
           ) : (
             <div className="space-y-6">
                 {assessmentResults && Array.isArray(assessmentResults) && assessmentResults.map((result) => (
-                <div key={result.id} className="bg-white rounded-lg shadow p-6">
+                <div key={result.id} className="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
                   <div className="flex justify-between items-start mb-4">
                     <div>
-                      <h3 className="text-lg font-semibold">{result.skill} Assessment</h3>
-                      <p className="text-sm text-gray-600">
+                      <h3 className="text-lg font-semibold text-gray-900 dark:text-white">{result.skill} Assessment</h3>
+                      <p className="text-sm text-gray-600 dark:text-gray-300">
                         Completed on {new Date(result.completedAt).toLocaleDateString()}
                       </p>
                     </div>
@@ -583,34 +583,34 @@ const SkillAssessment: React.FC = () => {
                   </div>
 
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
-                    <div className="text-center p-3 bg-gray-50 rounded-lg">
-                      <div className="text-lg font-semibold">{result.timeSpent}</div>
-                      <div className="text-sm text-gray-600">Minutes</div>
+                    <div className="text-center p-3 bg-gray-50 dark:bg-gray-700 rounded-lg">
+                      <div className="text-lg font-semibold text-gray-900 dark:text-white">{result.timeSpent}</div>
+                      <div className="text-sm text-gray-600 dark:text-gray-300">Minutes</div>
                     </div>
-                    <div className="text-center p-3 bg-gray-50 rounded-lg">
-                      <div className="text-lg font-semibold">{result.questionsAnswered}/{result.totalQuestions}</div>
-                      <div className="text-sm text-gray-600">Questions</div>
+                    <div className="text-center p-3 bg-gray-50 dark:bg-gray-700 rounded-lg">
+                      <div className="text-lg font-semibold text-gray-900 dark:text-white">{result.questionsAnswered}/{result.totalQuestions}</div>
+                      <div className="text-sm text-gray-600 dark:text-gray-300">Questions</div>
                     </div>
-                    <div className="text-center p-3 bg-gray-50 rounded-lg">
-                      <div className="text-lg font-semibold">{Math.round((result.questionsAnswered / result.totalQuestions) * 100)}%</div>
-                      <div className="text-sm text-gray-600">Completion</div>
+                    <div className="text-center p-3 bg-gray-50 dark:bg-gray-700 rounded-lg">
+                      <div className="text-lg font-semibold text-gray-900 dark:text-white">{Math.round((result.questionsAnswered / result.totalQuestions) * 100)}%</div>
+                      <div className="text-sm text-gray-600 dark:text-gray-300">Completion</div>
                     </div>
                   </div>
 
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
-                      <h4 className="font-medium text-green-700 mb-2">Strengths</h4>
+                      <h4 className="font-medium text-green-700 dark:text-green-400 mb-2">Strengths</h4>
                       <ul className="space-y-1">
                         {result.strengths && Array.isArray(result.strengths) && result.strengths.map((strength, index) => (
-                          <li key={index} className="text-sm text-gray-600">• {strength}</li>
+                          <li key={index} className="text-sm text-gray-600 dark:text-gray-300">• {strength}</li>
                         ))}
                       </ul>
                     </div>
                     <div>
-                      <h4 className="font-medium text-red-700 mb-2">Areas for Improvement</h4>
+                      <h4 className="font-medium text-red-700 dark:text-red-400 mb-2">Areas for Improvement</h4>
                       <ul className="space-y-1">
                         {result.weaknesses && Array.isArray(result.weaknesses) && result.weaknesses.map((weakness, index) => (
-                          <li key={index} className="text-sm text-gray-600">• {weakness}</li>
+                          <li key={index} className="text-sm text-gray-600 dark:text-gray-300">• {weakness}</li>
                         ))}
                       </ul>
                     </div>
@@ -626,23 +626,23 @@ const SkillAssessment: React.FC = () => {
       {activeTab === 'learning' && (
         <div className="space-y-6">
           {learningPaths.length === 0 ? (
-            <div className="bg-white rounded-lg shadow p-8 text-center">
-              <div className="mx-auto w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center mb-4">
+            <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-8 text-center">
+              <div className="mx-auto w-12 h-12 bg-gray-100 dark:bg-gray-700 rounded-full flex items-center justify-center mb-4">
                 <svg className="w-6 h-6 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
                 </svg>
               </div>
-              <h3 className="text-lg font-medium text-gray-900 mb-2">No Learning Paths Available</h3>
-              <p className="text-gray-500">Complete skill assessments to get personalized learning recommendations</p>
+              <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-2">No Learning Paths Available</h3>
+              <p className="text-gray-500 dark:text-gray-400">Complete skill assessments to get personalized learning recommendations</p>
             </div>
           ) : (
             <div className="space-y-6">
               {learningPaths && Array.isArray(learningPaths) && learningPaths.map((path, pathIndex) => (
-                <div key={pathIndex} className="bg-white rounded-lg shadow p-6">
+                <div key={pathIndex} className="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
                   <div className="flex justify-between items-start mb-4">
                     <div>
-                      <h3 className="text-lg font-semibold">{path.skill} Learning Path</h3>
-                      <div className="flex items-center gap-4 text-sm text-gray-600">
+                      <h3 className="text-lg font-semibold text-gray-900 dark:text-white">{path.skill} Learning Path</h3>
+                      <div className="flex items-center gap-4 text-sm text-gray-600 dark:text-gray-300">
                         <span>Skill: <strong>{path.skill}</strong></span>
                       </div>
                     </div>
@@ -651,13 +651,13 @@ const SkillAssessment: React.FC = () => {
 
 
                   <div>
-                    <h4 className="font-medium mb-3">Learning Resources</h4>
+                    <h4 className="font-medium mb-3 text-gray-900 dark:text-white">Learning Resources</h4>
                     <div className="space-y-3">
                       {path.resources && Array.isArray(path.resources) && path.resources.map((resource, resourceIndex) => (
-                        <div key={resourceIndex} className="flex items-center justify-between p-3 border rounded-lg">
+                        <div key={resourceIndex} className="flex items-center justify-between p-3 border border-gray-200 dark:border-gray-700 rounded-lg">
                           <div>
-                            <h5 className="font-medium">{resource.title}</h5>
-                            <div className="flex items-center gap-2 text-sm text-gray-600">
+                            <h5 className="font-medium text-gray-900 dark:text-white">{resource.title}</h5>
+                            <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-300">
                               <span className="capitalize">{resource.type}</span>
                               <span>•</span>
                               <span>{resource.duration} hours</span>

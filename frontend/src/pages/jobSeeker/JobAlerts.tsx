@@ -228,8 +228,8 @@ const JobAlerts: React.FC = () => {
       {/* Header */}
       <div className="flex justify-between items-center mb-8">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Job Alerts</h1>
-          <p className="text-gray-600">Get notified when new jobs match your criteria</p>
+          <h1 className="text-2xl font-bold text-gray-900 dark:text-white">Job Alerts</h1>
+          <p className="text-gray-600 dark:text-gray-300">Get notified when new jobs match your criteria</p>
         </div>
         <button
           onClick={() => setShowCreateAlert(true)}
@@ -242,14 +242,14 @@ const JobAlerts: React.FC = () => {
       {/* Alerts List */}
       <div className="space-y-6">
         {alerts.length === 0 ? (
-          <div className="bg-white rounded-lg shadow p-8 text-center">
-            <div className="mx-auto w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center mb-4">
-              <svg className="w-6 h-6 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <div className="bg-white dark:bg-gray-800 rounded-lg shadow dark:shadow-gray-900/20 p-8 text-center">
+            <div className="mx-auto w-12 h-12 bg-gray-100 dark:bg-gray-700 rounded-full flex items-center justify-center mb-4">
+              <svg className="w-6 h-6 text-gray-400 dark:text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 17h5l-5 5-5-5h5v-12" />
               </svg>
             </div>
-            <h3 className="text-lg font-medium text-gray-900 mb-2">No job alerts yet</h3>
-            <p className="text-gray-500 mb-4">Create your first job alert to get notified about relevant opportunities</p>
+            <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-2">No job alerts yet</h3>
+            <p className="text-gray-500 dark:text-gray-400 mb-4">Create your first job alert to get notified about relevant opportunities</p>
             <button
               onClick={() => setShowCreateAlert(true)}
               className="bg-primary-600 hover:bg-primary-700 text-white px-4 py-2 rounded-md font-medium transition-colors"
@@ -259,11 +259,11 @@ const JobAlerts: React.FC = () => {
           </div>
         ) : (
           alerts.map((alert) => (
-            <div key={alert.id} className="bg-white rounded-lg shadow p-6">
+            <div key={alert.id} className="bg-white dark:bg-gray-800 rounded-lg shadow dark:shadow-gray-900/20 p-6">
               <div className="flex justify-between items-start mb-4">
                 <div className="flex-1">
                   <div className="flex items-center gap-3 mb-2">
-                    <h3 className="text-lg font-semibold text-gray-900">{alert.name}</h3>
+                    <h3 className="text-lg font-semibold text-gray-900 dark:text-white">{alert.name}</h3>
                     <span className={`px-2 py-1 rounded-full text-xs font-medium ${
                       alert.isActive 
                         ? 'bg-green-100 text-green-800' 
@@ -272,7 +272,7 @@ const JobAlerts: React.FC = () => {
                       {alert.isActive ? 'Active' : 'Inactive'}
                     </span>
                   </div>
-                  <div className="text-sm text-gray-600 space-y-1">
+                  <div className="text-sm text-gray-600 dark:text-gray-300 space-y-1">
                     <p><strong>Frequency:</strong> {alert.frequency}</p>
                     <p><strong>Created:</strong> {new Date(alert.createdAt).toLocaleDateString()}</p>
                     {alert.lastTriggered && (
@@ -302,11 +302,11 @@ const JobAlerts: React.FC = () => {
 
               {/* Alert Criteria */}
               <div className="border-t pt-4">
-                <h4 className="text-sm font-medium text-gray-900 mb-3">Alert Criteria</h4>
+                <h4 className="text-sm font-medium text-gray-900 dark:text-white mb-3">Alert Criteria</h4>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
                   {alert.criteria.keywords && alert.criteria.keywords.length > 0 && (
                     <div>
-                      <span className="font-medium text-gray-700">Keywords:</span>
+                      <span className="font-medium text-gray-700 dark:text-gray-300">Keywords:</span>
                       <div className="flex flex-wrap gap-1 mt-1">
                         {alert.criteria.keywords.map((keyword) => (
                           <span key={keyword} className="px-2 py-1 bg-blue-100 text-blue-800 rounded text-xs">
@@ -319,17 +319,17 @@ const JobAlerts: React.FC = () => {
                   
                   {alert.criteria.location && (
                     <div>
-                      <span className="font-medium text-gray-700">Location:</span>
-                      <span className="ml-2 text-gray-600">{alert.criteria.location}</span>
+                      <span className="font-medium text-gray-700 dark:text-gray-300">Location:</span>
+                      <span className="ml-2 text-gray-600 dark:text-gray-400">{alert.criteria.location}</span>
                     </div>
                   )}
                   
                   {alert.criteria.jobTypes && alert.criteria.jobTypes.length > 0 && (
                     <div>
-                      <span className="font-medium text-gray-700">Job Types:</span>
+                      <span className="font-medium text-gray-700 dark:text-gray-300">Job Types:</span>
                       <div className="flex flex-wrap gap-1 mt-1">
                         {alert.criteria.jobTypes.map((type) => (
-                          <span key={type} className="px-2 py-1 bg-gray-100 text-gray-800 rounded text-xs">
+                          <span key={type} className="px-2 py-1 bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200 rounded text-xs">
                             {type.replace('-', ' ')}
                           </span>
                         ))}
@@ -339,15 +339,15 @@ const JobAlerts: React.FC = () => {
                   
                   {alert.criteria.experienceLevel && (
                     <div>
-                      <span className="font-medium text-gray-700">Experience:</span>
-                      <span className="ml-2 text-gray-600">{alert.criteria.experienceLevel}</span>
+                      <span className="font-medium text-gray-700 dark:text-gray-300">Experience:</span>
+                      <span className="ml-2 text-gray-600 dark:text-gray-400">{alert.criteria.experienceLevel}</span>
                     </div>
                   )}
                   
                   {alert.criteria.salaryRange && (alert.criteria.salaryRange.min > 0 || alert.criteria.salaryRange.max > 0) && (
                     <div>
-                      <span className="font-medium text-gray-700">Salary:</span>
-                      <span className="ml-2 text-gray-600">
+                      <span className="font-medium text-gray-700 dark:text-gray-300">Salary:</span>
+                      <span className="ml-2 text-gray-600 dark:text-gray-400">
                         ${alert.criteria.salaryRange.min.toLocaleString()} - ${alert.criteria.salaryRange.max.toLocaleString()}
                       </span>
                     </div>
@@ -362,14 +362,14 @@ const JobAlerts: React.FC = () => {
       {/* Create Alert Modal */}
       {showCreateAlert && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-lg w-full max-w-2xl max-h-[90vh] overflow-y-auto">
+          <div className="bg-white dark:bg-gray-800 rounded-lg w-full max-w-2xl max-h-[90vh] overflow-y-auto">
             <div className="p-6">
-              <h3 className="text-lg font-semibold mb-4">Create Job Alert</h3>
+              <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Create Job Alert</h3>
               
               <div className="space-y-4">
                 {/* Alert Name */}
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                     Alert Name *
                   </label>
                   <input
@@ -377,13 +377,13 @@ const JobAlerts: React.FC = () => {
                     value={newAlert.name || ''}
                     onChange={(e) => setNewAlert(prev => ({ ...prev, name: e.target.value }))}
                     placeholder="e.g., Frontend Developer Jobs"
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500"
+                    className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500"
                   />
                 </div>
 
                 {/* Keywords */}
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                     Keywords
                   </label>
                   <div className="flex gap-2 mb-2">
@@ -393,7 +393,7 @@ const JobAlerts: React.FC = () => {
                       onChange={(e) => setKeywordInput(e.target.value)}
                       onKeyPress={(e) => e.key === 'Enter' && addKeyword()}
                       placeholder="Add keyword and press Enter"
-                      className="flex-1 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500"
+                      className="flex-1 px-3 py-2 border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500"
                     />
                     <button
                       onClick={addKeyword}
@@ -405,11 +405,11 @@ const JobAlerts: React.FC = () => {
                   {newAlert.criteria?.keywords && newAlert.criteria.keywords.length > 0 && (
                     <div className="flex flex-wrap gap-2">
                       {newAlert.criteria.keywords.map((keyword) => (
-                        <span key={keyword} className="flex items-center gap-1 px-2 py-1 bg-blue-100 text-blue-800 rounded text-sm">
+                        <span key={keyword} className="flex items-center gap-1 px-2 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 rounded text-sm">
                           {keyword}
                           <button
                             onClick={() => removeKeyword(keyword)}
-                            className="text-blue-600 hover:text-blue-800"
+                            className="text-blue-600 hover:text-blue-800 dark:text-blue-300 dark:hover:text-blue-100"
                           >
                             ×
                           </button>
@@ -421,7 +421,7 @@ const JobAlerts: React.FC = () => {
 
                 {/* Location */}
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                     Location
                   </label>
                   <input
@@ -432,13 +432,13 @@ const JobAlerts: React.FC = () => {
                       criteria: { ...prev.criteria!, location: e.target.value }
                     }))}
                     placeholder="City, state, or remote"
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500"
+                    className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500"
                   />
                 </div>
 
                 {/* Job Types */}
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                     Job Types
                   </label>
                   <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
@@ -456,7 +456,7 @@ const JobAlerts: React.FC = () => {
                           }}
                           className="mr-2"
                         />
-                        <span className="text-sm">{type.replace('-', ' ')}</span>
+                        <span className="text-sm text-gray-900 dark:text-white">{type.replace('-', ' ')}</span>
                       </label>
                     ))}
                   </div>
@@ -464,7 +464,7 @@ const JobAlerts: React.FC = () => {
 
                 {/* Experience Level */}
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                     Experience Level
                   </label>
                   <select
@@ -473,7 +473,7 @@ const JobAlerts: React.FC = () => {
                       ...prev,
                       criteria: { ...prev.criteria!, experienceLevel: e.target.value as ExperienceLevel }
                     }))}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500"
+                    className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500"
                   >
                     <option value="">Any Level</option>
                     <option value="entry">Entry Level</option>
@@ -487,7 +487,7 @@ const JobAlerts: React.FC = () => {
 
                 {/* Salary Range */}
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                     Salary Range
                   </label>
                   <div className="grid grid-cols-2 gap-2">
@@ -505,7 +505,7 @@ const JobAlerts: React.FC = () => {
                         }
                       }))}
                       placeholder="Min salary"
-                      className="px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500"
+                      className="px-3 py-2 border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500"
                     />
                     <input
                       type="number"
@@ -521,20 +521,20 @@ const JobAlerts: React.FC = () => {
                         }
                       }))}
                       placeholder="Max salary"
-                      className="px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500"
+                      className="px-3 py-2 border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500"
                     />
                   </div>
                 </div>
 
                 {/* Frequency */}
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                     Notification Frequency
                   </label>
                   <select
                     value={newAlert.frequency || 'daily'}
                     onChange={(e) => setNewAlert(prev => ({ ...prev, frequency: e.target.value as any }))}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500"
+                    className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500"
                   >
                     <option value="daily">Daily</option>
                     <option value="weekly">Weekly</option>
@@ -551,19 +551,19 @@ const JobAlerts: React.FC = () => {
                     onChange={(e) => setNewAlert(prev => ({ ...prev, isActive: e.target.checked }))}
                     className="mr-2"
                   />
-                  <label htmlFor="isActive" className="text-sm font-medium text-gray-700">
+                  <label htmlFor="isActive" className="text-sm font-medium text-gray-700 dark:text-gray-300">
                     Activate alert immediately
                   </label>
                 </div>
               </div>
 
-              <div className="flex justify-end gap-2 mt-6 pt-4 border-t">
+              <div className="flex justify-end gap-2 mt-6 pt-4 border-t border-gray-200 dark:border-gray-600">
                 <button
                   onClick={() => {
                     setShowCreateAlert(false);
                     resetNewAlert();
                   }}
-                  className="px-4 py-2 bg-gray-300 text-gray-700 rounded-md hover:bg-gray-400 transition-colors"
+                  className="px-4 py-2 bg-gray-300 dark:bg-gray-600 text-gray-700 dark:text-gray-300 rounded-md hover:bg-gray-400 dark:hover:bg-gray-500 transition-colors"
                 >
                   Cancel
                 </button>
