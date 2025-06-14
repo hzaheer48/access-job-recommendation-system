@@ -1,11 +1,10 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { AppProvider } from './context/AppContext';
-import { AuthProvider } from './context/AuthContext';
-import { ProtectedRoute } from './components/ProtectedRoute';
 import Header from './components/shared/Header';
 import Modal from './components/shared/Modal';
 import Loading from './components/shared/Loading';
+import ProtectedRoute from './components/shared/ProtectedRoute';
 
 // Auth Pages
 import Login from './pages/auth/Login';
@@ -35,154 +34,152 @@ import LandingPage from './pages/LandingPage';
 
 function App() {
   return (
-    <AuthProvider>
-      <AppProvider>
-        <Router>
-          <div className="min-h-screen bg-gray-50">
-            <Header />
-            <main>
-              <Routes>
-                {/* Public Routes */}
-                <Route path="/" element={<LandingPage />} />
-                <Route path="/login" element={<Login />} />
-                <Route path="/register" element={<Register />} />
+    <AppProvider>
+      <Router>
+        <div className="min-h-screen bg-gray-50">
+          <Header />
+          <main>
+            <Routes>
+              {/* Public Routes */}
+              <Route path="/" element={<LandingPage />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/register" element={<Register />} />
 
-                {/* Job Seeker Protected Routes */}
-                <Route
-                  path="/dashboard"
-                  element={
-                    <ProtectedRoute>
-                      <Dashboard />
-                    </ProtectedRoute>
-                  }
-                />
-                <Route
-                  path="/jobs"
-                  element={
-                    <ProtectedRoute>
-                      <Jobs />
-                    </ProtectedRoute>
-                  }
-                />
-                <Route
-                  path="/jobs/:id"
-                  element={
-                    <ProtectedRoute>
-                      <JobDetail />
-                    </ProtectedRoute>
-                  }
-                />
-                <Route
-                  path="/applications"
-                  element={
-                    <ProtectedRoute>
-                      <Applications />
-                    </ProtectedRoute>
-                  }
-                />
-                <Route
-                  path="/bookmarks"
-                  element={
-                    <ProtectedRoute>
-                      <Bookmarks />
-                    </ProtectedRoute>
-                  }
-                />
-                <Route
-                  path="/profile"
-                  element={
-                    <ProtectedRoute>
-                      <Profile />
-                    </ProtectedRoute>
-                  }
-                />
-                <Route
-                  path="/skills-analysis"
-                  element={
-                    <ProtectedRoute>
-                      <SkillsAnalysis />
-                    </ProtectedRoute>
-                  }
-                />
-                <Route
-                  path="/job-alerts"
-                  element={
-                    <ProtectedRoute>
-                      <JobAlerts />
-                    </ProtectedRoute>
-                  }
-                />
-                <Route
-                  path="/interview-tracking"
-                  element={
-                    <ProtectedRoute>
-                      <InterviewTracking />
-                    </ProtectedRoute>
-                  }
-                />
-                <Route
-                  path="/skill-assessment"
-                  element={
-                    <ProtectedRoute>
-                      <SkillAssessment />
-                    </ProtectedRoute>
-                  }
-                />
+              {/* Job Seeker Protected Routes */}
+              <Route
+                path="/dashboard"
+                element={
+                  <ProtectedRoute allowedRoles={['job_seeker']}>
+                    <Dashboard />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/jobs"
+                element={
+                  <ProtectedRoute allowedRoles={['job_seeker']}>
+                    <Jobs />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/jobs/:id"
+                element={
+                  <ProtectedRoute allowedRoles={['job_seeker']}>
+                    <JobDetail />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/applications"
+                element={
+                  <ProtectedRoute allowedRoles={['job_seeker']}>
+                    <Applications />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/bookmarks"
+                element={
+                  <ProtectedRoute allowedRoles={['job_seeker']}>
+                    <Bookmarks />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/profile"
+                element={
+                  <ProtectedRoute allowedRoles={['job_seeker']}>
+                    <Profile />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/skills-analysis"
+                element={
+                  <ProtectedRoute allowedRoles={['job_seeker']}>
+                    <SkillsAnalysis />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/job-alerts"
+                element={
+                  <ProtectedRoute allowedRoles={['job_seeker']}>
+                    <JobAlerts />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/interview-tracking"
+                element={
+                  <ProtectedRoute allowedRoles={['job_seeker']}>
+                    <InterviewTracking />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/skill-assessment"
+                element={
+                  <ProtectedRoute allowedRoles={['job_seeker']}>
+                    <SkillAssessment />
+                  </ProtectedRoute>
+                }
+              />
 
-                {/* Admin Protected Routes */}
-                <Route
-                  path="/admin/dashboard"
-                  element={
-                    <ProtectedRoute requireAdmin>
-                      <AdminDashboard />
-                    </ProtectedRoute>
-                  }
-                />
-                <Route
-                  path="/admin/users"
-                  element={
-                    <ProtectedRoute requireAdmin>
-                      <AdminUsers />
-                    </ProtectedRoute>
-                  }
-                />
-                <Route
-                  path="/admin/jobs"
-                  element={
-                    <ProtectedRoute requireAdmin>
-                      <AdminJobs />
-                    </ProtectedRoute>
-                  }
-                />
-                <Route
-                  path="/admin/analytics"
-                  element={
-                    <ProtectedRoute requireAdmin>
-                      <AdminAnalytics />
-                    </ProtectedRoute>
-                  }
-                />
-                <Route
-                  path="/admin/settings"
-                  element={
-                    <ProtectedRoute requireAdmin>
-                      <AdminSettings />
-                    </ProtectedRoute>
-                  }
-                />
+              {/* Admin Protected Routes */}
+              <Route
+                path="/admin/dashboard"
+                element={
+                  <ProtectedRoute allowedRoles={['admin']}>
+                    <AdminDashboard />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/admin/users"
+                element={
+                  <ProtectedRoute allowedRoles={['admin']}>
+                    <AdminUsers />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/admin/jobs"
+                element={
+                  <ProtectedRoute allowedRoles={['admin']}>
+                    <AdminJobs />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/admin/analytics"
+                element={
+                  <ProtectedRoute allowedRoles={['admin']}>
+                    <AdminAnalytics />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/admin/settings"
+                element={
+                  <ProtectedRoute allowedRoles={['admin']}>
+                    <AdminSettings />
+                  </ProtectedRoute>
+                }
+              />
 
-                {/* Catch-all route */}
-                <Route path="*" element={<Navigate to="/" replace />} />
-              </Routes>
-            </main>
-            
-            {/* Global Components */}
-            <Modal />
-            <Loading />
-          </div>
-        </Router>
-      </AppProvider>
-    </AuthProvider>
+              {/* Catch-all route */}
+              <Route path="*" element={<Navigate to="/" replace />} />
+            </Routes>
+          </main>
+          
+          {/* Global Components */}
+          <Modal />
+          <Loading />
+        </div>
+      </Router>
+    </AppProvider>
   );
 }
 
