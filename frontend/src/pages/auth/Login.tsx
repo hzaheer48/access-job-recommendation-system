@@ -1,112 +1,32 @@
-import React, { useState, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { useApp } from '../../context/AppContext';
-import { mockUsers, simulateApiCall } from '../../services/mockData';
-import { LoginFormData } from '../../types';
-import Loading from '../../components/shared/Loading';
+import React, { useState } from 'react';
+import { useNavigate, useLocation, Link } from 'react-router-dom';
+import { useAuth } from '../../context/AuthContext';
 
 const Login: React.FC = () => {
-  const { state, login, showModal, setLoading } = useApp();
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
+  
   const navigate = useNavigate();
-  const [formData, setFormData] = useState<LoginFormData>({
-    email: '',
-    password: '',
-  });
-  const [errors, setErrors] = useState<Partial<LoginFormData>>({});
+  const location = useLocation();
+  const { login } = useAuth();
 
-  useEffect(() => {
-    if (state.isAuthenticated) {
-      const redirectPath = state.user?.role === 'admin' ? '/admin/dashboard' : '/dashboard';
-      navigate(redirectPath);
-    }
-  }, [state.isAuthenticated, state.user, navigate]);
-
-  const validateForm = (): boolean => {
-    const newErrors: Partial<LoginFormData> = {};
-
-    if (!formData.email.trim()) {
-      newErrors.email = 'Email is required';
-    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
-      newErrors.email = 'Email is invalid';
-    }
-
-    if (!formData.password.trim()) {
-      newErrors.password = 'Password is required';
-    } else if (formData.password.length < 6) {
-      newErrors.password = 'Password must be at least 6 characters';
-    }
-
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
-  };
+  // Get the redirect path from location state or default to dashboard
+  const from = (location.state as any)?.from?.pathname || '/dashboard';
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
-    if (!validateForm()) {
-      return;
-    }
-
-    setLoading({ isLoading: true, message: 'Signing in...' });
+    setError('');
+    setLoading(true);
 
     try {
-      // Simulate API call
-      await simulateApiCall(null, 1000);
-
-      // Find user in mock data
-      const user = mockUsers.find(
-        u => u.email.toLowerCase() === formData.email.toLowerCase() && u.isActive
-      );
-
-      if (!user) {
-        throw new Error('Invalid email or password');
-      }
-
-      // In a real app, password would be verified on the backend
-      if (formData.password !== 'password123') {
-        throw new Error('Invalid email or password');
-      }
-
-      login(user);
-      
-      showModal({
-        type: 'success',
-        title: 'Login Successful',
-        message: `Welcome back, ${user.firstName}!`,
-      });
-
-      // Navigate based on user role
-      const redirectPath = user.role === 'admin' ? '/admin/dashboard' : '/dashboard';
-      navigate(redirectPath);
-
-    } catch (error) {
-      showModal({
-        type: 'error',
-        title: 'Login Failed',
-        message: error instanceof Error ? error.message : 'An error occurred during login',
-      });
+      await login(email, password);
+      navigate(from, { replace: true });
+    } catch (err: any) {
+      setError(err.response?.data?.detail || 'Failed to login');
     } finally {
-      setLoading({ isLoading: false });
-    }
-  };
-
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
-    
-    // Clear error when user starts typing
-    if (errors[name as keyof LoginFormData]) {
-      setErrors(prev => ({ ...prev, [name]: undefined }));
-    }
-  };
-
-  const fillDemoCredentials = (role: 'job_seeker' | 'admin') => {
-    const demoUser = mockUsers.find(u => u.role === role);
-    if (demoUser) {
-      setFormData({
-        email: demoUser.email,
-        password: 'password123',
-      });
+      setLoading(false);
     }
   };
 
@@ -119,63 +39,36 @@ const Login: React.FC = () => {
           </h2>
           <p className="mt-2 text-center text-sm text-gray-600">
             Or{' '}
-            <Link
-              to="/register"
-              className="font-medium text-primary-600 hover:text-primary-500"
-            >
+            <Link to="/register" className="font-medium text-indigo-600 hover:text-indigo-500">
               create a new account
             </Link>
           </p>
         </div>
-        
-        {/* Demo Credentials */}
-        <div className="bg-blue-50 border border-blue-200 rounded-md p-4">
-          <h3 className="text-sm font-medium text-blue-800 mb-2">Demo Credentials</h3>
-          <div className="space-y-2">
-            <button
-              type="button"
-              onClick={() => fillDemoCredentials('job_seeker')}
-              className="block w-full text-left text-xs text-blue-700 hover:text-blue-900 bg-blue-100 hover:bg-blue-200 px-2 py-1 rounded transition-colors"
-            >
-              Job Seeker: {mockUsers.find(u => u.role === 'job_seeker')?.email}
-            </button>
-            <button
-              type="button"
-              onClick={() => fillDemoCredentials('admin')}
-              className="block w-full text-left text-xs text-blue-700 hover:text-blue-900 bg-blue-100 hover:bg-blue-200 px-2 py-1 rounded transition-colors"
-            >
-              Admin: {mockUsers.find(u => u.role === 'admin')?.email}
-            </button>
-            <p className="text-xs text-blue-600">Password for all demo accounts: password123</p>
-          </div>
-        </div>
-
         <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
-          <div className="space-y-4">
+          {error && (
+            <div className="rounded-md bg-red-50 p-4">
+              <div className="text-sm text-red-700">{error}</div>
+            </div>
+          )}
+          <div className="rounded-md shadow-sm -space-y-px">
             <div>
-              <label htmlFor="email" className="block text-sm font-medium text-gray-700">
+              <label htmlFor="email-address" className="sr-only">
                 Email address
               </label>
               <input
-                id="email"
+                id="email-address"
                 name="email"
                 type="email"
                 autoComplete="email"
                 required
-                value={formData.email}
-                onChange={handleInputChange}
-                className={`mt-1 block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-primary-500 focus:border-primary-500 sm:text-sm ${
-                  errors.email ? 'border-red-300' : 'border-gray-300'
-                }`}
-                placeholder="Enter your email"
+                className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                placeholder="Email address"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
               />
-              {errors.email && (
-                <p className="mt-1 text-sm text-red-600">{errors.email}</p>
-              )}
             </div>
-
             <div>
-              <label htmlFor="password" className="block text-sm font-medium text-gray-700">
+              <label htmlFor="password" className="sr-only">
                 Password
               </label>
               <input
@@ -184,41 +77,41 @@ const Login: React.FC = () => {
                 type="password"
                 autoComplete="current-password"
                 required
-                value={formData.password}
-                onChange={handleInputChange}
-                className={`mt-1 block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-primary-500 focus:border-primary-500 sm:text-sm ${
-                  errors.password ? 'border-red-300' : 'border-gray-300'
-                }`}
-                placeholder="Enter your password"
+                className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                placeholder="Password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
               />
-              {errors.password && (
-                <p className="mt-1 text-sm text-red-600">{errors.password}</p>
-              )}
             </div>
           </div>
 
           <div className="flex items-center justify-between">
+            <div className="flex items-center">
+              <input
+                id="remember-me"
+                name="remember-me"
+                type="checkbox"
+                className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
+              />
+              <label htmlFor="remember-me" className="ml-2 block text-sm text-gray-900">
+                Remember me
+              </label>
+            </div>
+
             <div className="text-sm">
-              <Link
-                to="/forgot-password"
-                className="font-medium text-primary-600 hover:text-primary-500"
-              >
+              <a href="#" className="font-medium text-indigo-600 hover:text-indigo-500">
                 Forgot your password?
-              </Link>
+              </a>
             </div>
           </div>
 
           <div>
             <button
               type="submit"
-              disabled={state.loading.isLoading}
-              className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 disabled:opacity-50 disabled:cursor-not-allowed"
+              disabled={loading}
+              className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
             >
-              {state.loading.isLoading ? (
-                <Loading inline size="small" />
-              ) : (
-                'Sign in'
-              )}
+              {loading ? 'Signing in...' : 'Sign in'}
             </button>
           </div>
         </form>

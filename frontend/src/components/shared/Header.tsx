@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useApp } from '../../context/AppContext';
+import { useAuth } from '../../context/AuthContext';
 
 const Header: React.FC = () => {
   const { state, logout, showModal } = useApp();
@@ -8,18 +9,15 @@ const Header: React.FC = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { logout: authLogout } = useAuth();
 
-  const handleLogout = () => {
-    showModal({
-      type: 'confirm',
-      title: 'Confirm Logout',
-      message: 'Are you sure you want to log out?',
-      confirmText: 'Logout',
-      onConfirm: () => {
-        logout();
-        navigate('/login');
-      },
-    });
+  const handleLogout = async () => {
+    try {
+      await authLogout();
+      navigate('/login');
+    } catch (error) {
+      console.error('Logout failed:', error);
+    }
   };
 
   const isActive = (path: string) => {
