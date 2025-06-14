@@ -68,7 +68,7 @@ The integration consists of three main functions:
 - Currently supports basic text extraction
 - Can be enhanced with specialized libraries for better PDF/DOC parsing
 
-#### `parseResumeFile(file: File)`
+#### `parseResumeWithNovitaAI(file: File)`
 - Complete workflow combining text extraction and AI parsing
 - Handles the entire process from file upload to structured data
 
@@ -87,7 +87,7 @@ The ResumeParser component has been updated to:
 ```typescript
 // When REACT_APP_NOVITA_API_KEY is set
 // The component will use real AI parsing
-const resumeData = await parseResumeFile(uploadedFile);
+const resumeData = await parseResumeWithNovitaAI(uploadedFile);
 // Returns: { skills, experience, education, summary }
 ```
 

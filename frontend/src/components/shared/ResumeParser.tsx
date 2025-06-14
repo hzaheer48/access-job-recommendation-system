@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useApp } from '../../context/AppContext';
 import { simulateApiCall } from '../../services/mockData';
+import { parseResumeWithNovitaAI } from '../../services/novitaAI';
 import { ResumeData, Experience, Education } from '../../types';
 
 interface ResumeParserProps {
@@ -140,61 +141,103 @@ const ResumeParser: React.FC<ResumeParserProps> = ({ onParseComplete }) => {
     setLoading({ isLoading: true, message: 'Parsing resume and extracting information...' });
 
     try {
-      // Simulate API call for resume parsing
-      await simulateApiCall(null, 2500);
-
-      // Get mock data based on filename or use default
-      const fileName = file.name.toLowerCase();
-      let resumeData;
+      // Check if Novita AI API key is available
+      const hasApiKey = process.env.REACT_APP_NOVITA_API_KEY;
       
-      if (fileName.includes('john') || fileName.includes('doe')) {
-        resumeData = mockResumeData['john_doe_resume.pdf'];
-      } else if (fileName.includes('jane') || fileName.includes('smith')) {
-        resumeData = mockResumeData['jane_smith_resume.pdf'];
+      if (hasApiKey) {
+        // Use real AI parsing with Novita AI
+        const resumeData = await parseResumeWithNovitaAI(file);
+        onParseComplete(resumeData);
+        
+        showModal({
+          type: 'success',
+          title: 'Resume Parsed Successfully',
+          message: `Successfully extracted information from ${file.name} using AI. Please review and edit the auto-populated fields as needed.`,
+        });
+        
+        // Log if text was truncated (for debugging)
+        if (resumeData && file.size > 50000) { // Rough estimate for large files
+          console.log('Note: Large resume file may have been truncated to fit AI model limits');
+        }
       } else {
-        // Default mock data for unknown files
-        resumeData = {
-          skills: ['JavaScript', 'React', 'CSS', 'HTML', 'Git'],
-          experience: [
-            {
-              id: 'exp_default_1',
-              company: 'Tech Company',
-              position: 'Software Developer',
-              description: 'Developed web applications and collaborated with team members.',
-              startDate: '2022-01-01',
-              endDate: '2023-12-31',
-              location: 'City, State',
-              skills: ['JavaScript', 'React', 'CSS']
-            }
-          ],
-          education: [
-            {
-              id: 'edu_default_1',
-              institution: 'University',
-              degree: 'Bachelor of Science',
-              fieldOfStudy: 'Computer Science',
-              startDate: '2018-09-01',
-              endDate: '2022-05-15'
-            }
-          ],
-          summary: 'Motivated software developer with experience in web technologies and a passion for creating innovative solutions.'
-        };
+        // Fallback to mock data system when API key is not configured
+        console.warn('Novita AI API key not configured, falling back to mock data');
+        
+        // Simulate API call for resume parsing
+        await simulateApiCall(null, 2500);
+
+        // Get mock data based on filename or use default
+        const fileName = file.name.toLowerCase();
+        let resumeData;
+        
+        if (fileName.includes('john') || fileName.includes('doe')) {
+          resumeData = mockResumeData['john_doe_resume.pdf'];
+        } else if (fileName.includes('jane') || fileName.includes('smith')) {
+          resumeData = mockResumeData['jane_smith_resume.pdf'];
+        } else {
+          // Default mock data for unknown files
+          resumeData = {
+            skills: ['JavaScript', 'React', 'CSS', 'HTML', 'Git'],
+            experience: [
+              {
+                id: 'exp_default_1',
+                company: 'Tech Company',
+                position: 'Software Developer',
+                description: 'Developed web applications and collaborated with team members.',
+                startDate: '2022-01-01',
+                endDate: '2023-12-31',
+                location: 'City, State',
+                skills: ['JavaScript', 'React', 'CSS']
+              }
+            ],
+            education: [
+              {
+                id: 'edu_default_1',
+                institution: 'University',
+                degree: 'Bachelor of Science',
+                fieldOfStudy: 'Computer Science',
+                startDate: '2018-09-01',
+                endDate: '2022-05-15'
+              }
+            ],
+            summary: 'Motivated software developer with experience in web technologies and a passion for creating innovative solutions.'
+          };
+        }
+
+        // Call the callback with parsed data
+        onParseComplete(resumeData);
+
+        showModal({
+          type: 'success',
+          title: 'Resume Parsed Successfully (Demo Mode)',
+          message: `Successfully extracted information from ${file.name} using mock data. To enable AI parsing, configure your Novita AI API key.`,
+        });
       }
 
-      // Call the callback with parsed data
-      onParseComplete(resumeData);
-
-      showModal({
-        type: 'success',
-        title: 'Resume Parsed Successfully',
-        message: `Successfully extracted information from ${file.name}. Please review and edit the auto-populated fields as needed.`,
-      });
-
     } catch (error) {
+      console.error('Resume parsing error:', error);
+      
+      // Provide more specific error messages
+      let errorMessage = 'Failed to parse resume. Please try again or enter information manually.';
+      
+      if (error instanceof Error) {
+        if (error.message.includes('API key')) {
+          errorMessage = 'AI parsing is not configured. Please set up your Novita AI API key or use manual entry.';
+        } else if (error.message.includes('extract sufficient text')) {
+          errorMessage = 'Unable to extract text from this file. This may happen with scanned PDFs or image-based documents. Please try a text-based PDF or enter information manually.';
+        } else if (error.message.includes('Failed to extract text from PDF')) {
+          errorMessage = 'PDF parsing failed. This file may be password-protected, corrupted, or contain only images. Please try a different PDF or enter information manually.';
+        } else if (error.message.includes('Unsupported file type')) {
+          errorMessage = 'This file type is not supported for automatic parsing. Please upload a PDF, DOC, DOCX, or TXT file.';
+        } else if (error.message.includes('Novita AI API error')) {
+          errorMessage = 'AI service is temporarily unavailable. Please try again later or enter information manually.';
+        }
+      }
+      
       showModal({
         type: 'error',
         title: 'Parsing Failed',
-        message: 'Failed to parse resume. Please try again or enter information manually.',
+        message: errorMessage,
       });
     } finally {
       setIsProcessing(false);
@@ -211,6 +254,11 @@ const ResumeParser: React.FC<ResumeParserProps> = ({ onParseComplete }) => {
       <h3 className="text-lg font-semibold text-gray-900 mb-4">Resume Parser</h3>
       <p className="text-gray-600 mb-4">
         Upload your resume to automatically populate your profile with extracted information.
+        {!process.env.REACT_APP_NOVITA_API_KEY && (
+          <span className="block mt-2 text-sm text-amber-600">
+            ⚠️ AI parsing not configured - using demo mode. Configure your Novita AI API key for real parsing.
+          </span>
+        )}
       </p>
 
       {!uploadedFile ? (

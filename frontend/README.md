@@ -53,17 +53,29 @@ A modern React TypeScript application for AI-powered job recommendations with co
    npm install
    ```
 
-2. **Start the development server**:
+2. **Configure AI Resume Parsing (Optional)**:
+   - Copy the environment template:
+     ```bash
+     cp .env.example .env.local
+     ```
+   - Get your Novita AI API key from [https://novita.ai/settings/key-management](https://novita.ai/settings/key-management)
+   - Add your API key to `.env.local`:
+     ```
+     REACT_APP_NOVITA_API_KEY=your_actual_api_key_here
+     ```
+   - **Note**: Without the API key, the resume parser will use mock data for demonstration
+
+3. **Start the development server**:
    ```bash
    npm start
    ```
 
-3. **Build for production**:
+4. **Build for production**:
    ```bash
    npm run build
    ```
 
-4. **Run linting**:
+5. **Run linting**:
    ```bash
    npm run lint
    ```
@@ -116,6 +128,14 @@ src/
 - Explainable AI with match reasons
 - User feedback collection for ML improvement
 - Recommendation scoring system
+
+### AI-Powered Resume Parsing
+- **Novita AI Integration**: Uses Novita AI's LLM API for intelligent resume parsing
+- **Automatic Data Extraction**: Extracts skills, experience, education, and professional summary
+- **Smart Fallback**: Falls back to mock data when API key is not configured
+- **Multiple File Formats**: Supports PDF, DOC, DOCX, and TXT files
+- **Error Handling**: Comprehensive validation and user-friendly error messages
+- **Real-time Processing**: Processes resumes with visual feedback and loading states
 
 ### Admin Dashboard
 - System metrics and analytics
