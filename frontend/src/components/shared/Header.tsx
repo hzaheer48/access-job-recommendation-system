@@ -33,16 +33,8 @@ const Header: React.FC = () => {
   }, [isMenuOpen, activeDropdown]);
 
   const handleLogout = () => {
-    showModal({
-      type: 'confirm',
-      title: 'Confirm Logout',
-      message: 'Are you sure you want to log out?',
-      confirmText: 'Logout',
-      onConfirm: () => {
-        logout();
-        navigate('/login');
-      },
-    });
+    logout();
+    navigate('/login');
   };
 
   const isActive = (path: string) => {

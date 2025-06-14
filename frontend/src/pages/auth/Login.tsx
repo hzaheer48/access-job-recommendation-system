@@ -68,12 +68,6 @@ const Login: React.FC = () => {
       }
 
       login(user);
-      
-      showModal({
-        type: 'success',
-        title: 'Login Successful',
-        message: `Welcome back, ${user.firstName}!`,
-      });
 
       // Navigate based on user role
       const redirectPath = user.role === 'admin' ? '/admin/dashboard' : '/dashboard';
