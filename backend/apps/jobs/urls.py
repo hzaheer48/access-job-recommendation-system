@@ -1,15 +1,14 @@
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
-from . import views
+from .views import JobListingViewSet, CompanyViewSet, JobSkillRequirementViewSet, BookmarkViewSet, SavedSearchViewSet
 
 router = DefaultRouter()
-router.register(r'', views.JobViewSet, basename='job')
-router.register(r'companies', views.CompanyViewSet, basename='company')
+router.register(r'jobs', JobListingViewSet)
+router.register(r'companies', CompanyViewSet)
+router.register(r'skill-requirements', JobSkillRequirementViewSet)
+router.register(r'bookmarks', BookmarkViewSet, basename='bookmark')
+router.register(r'saved-searches', SavedSearchViewSet, basename='saved-search')
 
 urlpatterns = [
-    # Job search endpoints
-    path('search/', views.JobSearchView.as_view(), name='job-search'),
-    
-    # Include router URLs
     path('', include(router.urls)),
 ]

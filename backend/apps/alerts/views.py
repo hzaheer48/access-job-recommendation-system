@@ -1,8 +1,8 @@
 from django.shortcuts import render
-from rest_framework import viewsets, filters
+from rest_framework import viewsets, filters, permissions
 from rest_framework.permissions import IsAuthenticated
-from .models import Alert
-from .serializers import AlertSerializer
+from .models import Alert, JobAlert, JobAlertMatch, JobAlertStats
+from .serializers import AlertSerializer, JobAlertSerializer, JobAlertMatchSerializer, JobAlertStatsSerializer
 from rest_framework.views import APIView
 from rest_framework.response import Response
 
@@ -31,3 +31,18 @@ class MarkNotificationReadView(APIView):
     permission_classes = [IsAuthenticated]
     def post(self, request, pk):
         return Response({'message': f'Notification {pk} marked as read.'})
+
+class JobAlertViewSet(viewsets.ModelViewSet):
+    queryset = JobAlert.objects.all()
+    serializer_class = JobAlertSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+class JobAlertMatchViewSet(viewsets.ModelViewSet):
+    queryset = JobAlertMatch.objects.all()
+    serializer_class = JobAlertMatchSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+class JobAlertStatsViewSet(viewsets.ModelViewSet):
+    queryset = JobAlertStats.objects.all()
+    serializer_class = JobAlertStatsSerializer
+    permission_classes = [permissions.IsAuthenticated]

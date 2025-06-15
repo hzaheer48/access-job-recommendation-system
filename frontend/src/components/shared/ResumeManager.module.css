@@ -1,0 +1,14 @@
+.resumeManager {
+  padding: 20px;
+}
+
+.resumeManagerHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.resumeCard {
+  margin-bottom: 16px;
+} 

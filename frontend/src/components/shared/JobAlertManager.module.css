@@ -1,0 +1,18 @@
+.jobAlertManager {
+  padding: 20px;
+}
+
+.jobAlertManagerHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.statsRow {
+  margin-bottom: 24px;
+}
+
+.alertCard {
+  margin-bottom: 16px;
+} 

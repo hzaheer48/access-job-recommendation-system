@@ -5,6 +5,9 @@ from . import views
 router = DefaultRouter()
 router.register(r'', views.AlertViewSet, basename='alert')
 router.register(r'notifications', views.AlertNotificationViewSet, basename='notification')
+router.register(r'job-alerts', views.JobAlertViewSet, basename='jobalert')
+router.register(r'job-alert-matches', views.JobAlertMatchViewSet, basename='jobalertmatch')
+router.register(r'job-alert-stats', views.JobAlertStatsViewSet, basename='jobalertstats')
 
 urlpatterns = [
     # Mark notification as read

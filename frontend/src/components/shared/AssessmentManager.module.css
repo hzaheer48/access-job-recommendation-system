@@ -1,0 +1,30 @@
+.assessmentManager {
+  padding: 20px;
+}
+
+.assessmentManagerHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.assessmentCard {
+  margin-bottom: 16px;
+}
+
+.questionsContainer {
+  margin: 24px 0;
+  max-height: 600px;
+  overflow-y: auto;
+}
+
+.questionCard {
+  margin-bottom: 16px;
+}
+
+.questionMeta {
+  display: flex;
+  gap: 8px;
+  margin-top: 8px;
+} 

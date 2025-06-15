@@ -8,6 +8,31 @@ export interface User {
   isActive: boolean;
   createdAt: string;
   profile?: UserProfile;
+  // Backend fields (optional)
+  user_type?: string;
+  is_verified?: boolean;
+  phone?: string;
+  location?: string;
+  bio?: string;
+  resume?: string;
+  linkedin_url?: string;
+  github_url?: string;
+  portfolio_url?: string;
+  experience_level?: string;
+  profile_details?: Record<string, any>;
+  updated_at?: string;
+  last_login?: string;
+  profile_visibility?: string;
+  show_email?: boolean;
+  show_phone?: boolean;
+  show_location?: boolean;
+  show_resume?: boolean;
+  show_social_links?: boolean;
+  show_experience?: boolean;
+  show_education?: boolean;
+  show_skills?: boolean;
+  resumeVersions?: ResumeVersion[];
+  selectedTemplate?: ResumeTemplate;
 }
 
 export interface UserProfile {
@@ -71,23 +96,42 @@ export interface Job {
   id: string;
   title: string;
   company: string;
+  location: string;
+  type: JobType;
   description: string;
   requirements: string[];
-  benefits: string[];
-  location: string;
-  salaryRange: {
+  requiredSkills: string[];
+  skillLevels: Record<string, number>;
+  salary: {
     min: number;
     max: number;
+    currency: string;
   };
-  jobType: JobType;
-  experienceLevel: ExperienceLevel;
-  industry: string;
   postedDate: string;
-  applicationDeadline?: string;
-  isActive: boolean;
-  companyLogo?: string;
-  skills: string[];
+  deadline: string;
+  status: 'active' | 'closed' | 'draft';
+  experienceLevel: ExperienceLevel;
+  education: string;
+  benefits: string[];
   applicationCount: number;
+  viewCount: number;
+  isRemote: boolean;
+  isFeatured: boolean;
+  isUrgent: boolean;
+  tags: string[];
+  metadata: Record<string, any>;
+  // Backend fields (optional)
+  salary_min?: number;
+  salary_max?: number;
+  job_type?: string;
+  experience_level?: string;
+  remote_option?: string;
+  posted_date?: string;
+  application_deadline?: string;
+  is_active?: boolean;
+  is_featured?: boolean;
+  view_count?: number;
+  posted_by?: string;
 }
 
 export type JobType = 'full-time' | 'part-time' | 'contract' | 'temporary' | 'internship';
@@ -105,6 +149,8 @@ export interface JobApplication {
   notes: string;
   interviewStages: InterviewStage[];
   job: Job;
+  // Backend fields (optional)
+  last_updated?: string;
 }
 
 export type ApplicationStatus = 
@@ -162,11 +208,55 @@ export interface JobAlert {
   id: string;
   userId: string;
   name: string;
-  criteria: SearchCriteria;
-  isActive: boolean;
-  frequency: 'immediate' | 'daily' | 'weekly';
-  lastTriggered?: string;
+  criteria: {
+    keywords: string[];
+    locations: string[];
+    jobTypes: string[];
+    industries: string[];
+    experienceLevel: 'entry' | 'mid' | 'senior' | 'executive';
+    salaryRange?: {
+      min: number;
+      max: number;
+    };
+    skills: string[];
+    companies?: string[];
+    remote?: boolean;
+  };
+  frequency: 'daily' | 'weekly' | 'monthly' | 'realtime';
+  status: 'active' | 'paused' | 'deleted';
+  lastSent?: string;
+  nextScheduled?: string;
   createdAt: string;
+  updatedAt: string;
+}
+
+export interface JobAlertMatch {
+  id: string;
+  alertId: string;
+  jobId: string;
+  matchScore: number;
+  matchReasons: string[];
+  createdAt: string;
+  status: 'new' | 'viewed' | 'applied' | 'dismissed';
+}
+
+export interface JobAlertStats {
+  totalAlerts: number;
+  activeAlerts: number;
+  totalMatches: number;
+  matchesByFrequency: {
+    daily: number;
+    weekly: number;
+    monthly: number;
+    realtime: number;
+  };
+  matchesByStatus: {
+    new: number;
+    viewed: number;
+    applied: number;
+    dismissed: number;
+  };
+  lastUpdated: string;
 }
 
 export interface SearchCriteria {
@@ -338,4 +428,179 @@ export interface JobFormData {
   industry: string;
   applicationDeadline?: string;
   skills: string[];
+}
+
+export interface Skill {
+  name: string;
+  proficiencyLevel: number;
+  yearsOfExperience?: number;
+  verified: boolean;
+  verifiedBy?: string;
+  lastUsed?: string;
+  category: 'technical' | 'soft' | 'language' | 'other';
+  aliases?: string[];
+  popularityScore?: number;
+}
+
+export interface Interview {
+  id: string;
+  applicationId: string;
+  type: 'technical' | 'behavioral' | 'system_design' | 'culture_fit';
+  status: 'scheduled' | 'completed' | 'cancelled' | 'rescheduled';
+  date: string;
+  duration: number;
+  interviewers: string[];
+  notes: string;
+  feedback?: {
+    technicalScore: number;
+    communicationScore: number;
+    problemSolvingScore: number;
+    cultureFitScore: number;
+    strengths: string[];
+    areasForImprovement: string[];
+    notes: string;
+  };
+  preparation?: {
+    resources: {
+      type: 'article' | 'video' | 'practice' | 'document';
+      title: string;
+      url: string;
+      description: string;
+    }[];
+    practiceQuestions: {
+      question: string;
+      category: string;
+      difficulty: 'easy' | 'medium' | 'hard';
+      answer?: string;
+    }[];
+  };
+}
+
+export interface ResumeTemplate {
+  id: string;
+  name: string;
+  description: string;
+  thumbnail: string;
+  templateFile?: string;
+  category?: string;
+  isActive?: boolean;
+  createdAt?: string;
+  updatedAt?: string;
+}
+
+export interface Document {
+  id: string;
+  userId: string;
+  name: string;
+  type: 'resume' | 'cover_letter' | 'certificate' | 'portfolio' | 'other';
+  fileUrl: string;
+  fileSize: number;
+  mimeType: string;
+  version: number;
+  isCurrent: boolean;
+  metadata: {
+    uploadedAt: string;
+    lastModified: string;
+    tags: string[];
+    description?: string;
+    visibility: 'private' | 'public' | 'shared';
+    sharedWith?: string[];
+  };
+}
+
+export interface DocumentVersion {
+  id: string;
+  documentId: string;
+  version: number;
+  fileUrl: string;
+  fileSize: number;
+  uploadedAt: string;
+  changes: {
+    type: 'content' | 'format' | 'metadata';
+    description: string;
+  }[];
+}
+
+export interface ResumeVersion {
+  id: string;
+  user?: string;
+  file: string;
+  version_number: number;
+  uploaded_at: string;
+  is_current: boolean;
+  parsed_data?: Record<string, any>;
+}
+
+export interface Assessment {
+  id: string;
+  userId: string;
+  type: string;
+  status: 'pending' | 'in_progress' | 'completed';
+  score?: number;
+  maxScore: number;
+  duration: number;
+  startTime?: string;
+  endTime?: string;
+  questions: AssessmentQuestion[];
+  // Backend fields (optional)
+  template?: AssessmentTemplate;
+  created_at?: string;
+  updated_at?: string;
+}
+
+export interface AssessmentQuestion {
+  id: string;
+  question: string;
+  type: 'multiple_choice' | 'text' | 'code';
+  points: number;
+  difficulty: 'easy' | 'medium' | 'hard';
+  category: string;
+  options?: string[];
+  correctAnswer?: string;
+  // Backend fields (optional)
+  created_at?: string;
+  updated_at?: string;
+}
+
+export interface AssessmentTemplate {
+  id: string;
+  name: string;
+  description: string;
+  type: string;
+  difficulty: 'easy' | 'medium' | 'hard';
+  duration: number;
+  tags: string[];
+  questions: AssessmentQuestion[];
+  // Backend fields (optional)
+  created_at?: string;
+  updated_at?: string;
+}
+
+export interface AssessmentResult {
+  id: string;
+  assessmentId: string;
+  userId: string;
+  score: number;
+  maxScore: number;
+  percentage: number;
+  timeTaken: number;
+  answers: AssessmentAnswer[];
+  feedback: {
+    strengths: string[];
+    weaknesses: string[];
+    recommendations: string[];
+  };
+  completedAt: string;
+  // Backend fields (optional)
+  created_at?: string;
+}
+
+export interface AssessmentAnswer {
+  questionId: string;
+  answer: string;
+  points: number;
+  isCorrect: boolean;
+  // Backend fields (optional)
+  id?: string;
+  result?: string;
 } 
